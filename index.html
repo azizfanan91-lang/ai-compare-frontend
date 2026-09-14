@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قارن بين النماذج</title>
+<style>
+  :root {
+    --bg: #101314;
+    --panel: #171b1d;
+    --border: #262b2e;
+    --text: #e8e6e1;
+    --muted: #8a9296;
+    --accent: #5ec8b8;
+    --accent-dim: #2f4644;
+    --danger: #e07a7a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header {
+    padding: 20px 20px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header h1 { margin: 0 0 4px; font-size: 20px; font-weight: 600; }
+  header p { margin: 0; color: var(--muted); font-size: 13px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  /* Auth */
+  .auth-box {
+    max-width: 380px;
+    margin: 40px auto;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .auth-box h2 { margin-top: 0; font-size: 18px; }
+  input[type="password"], input[type="text"], input[type="email"], textarea {
+    background: #0d1011;
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 11px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  textarea { min-height: 80px; resize: vertical; }
+  button {
+    background: var(--accent);
+    color: #08211d;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+  }
+  button:disabled { opacity: .5; cursor: default; }
+  button.secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    margin-top: 8px;
+  }
+  .error { color: var(--danger); font-size: 13px; margin: 8px 0; min-height: 16px; }
+  .switch-link { text-align: center; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .switch-link a { color: var(--accent); cursor: pointer; text-decoration: underline; }
+
+  /* Top bar user info */
+  .user-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .user-bar button { width: auto; padding: 6px 14px; font-size: 12px; }
+  .usage-pill {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+
+  /* Chat UI */
+  .hidden { display: none; }
+  .models { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .chip {
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--muted);
+    background: transparent;
+    user-select: none;
+    width: auto;
+  }
+  .chip.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+  .results { display: grid; gap: 14px; margin-top: 22px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .card h3 { margin: 0 0 8px; font-size: 14px; color: var(--accent); }
+  .card .body { font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .limit-banner {
+    background: #2a1f1f;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>قارن بين نماذج الذكاء الاصطناعي</h1>
+    <p>سؤال واحد، عدة نماذج، جوابات جنب بعض</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Auth screens -->
+  <div id="authSection">
+    <div class="auth-box">
+      <h2 id="authTitle">تسجيل الدخول</h2>
+      <input type="email" id="authEmail" placeholder="الإيميل ديالك">
+      <input type="password" id="authPassword" placeholder="كلمة السر">
+      <div class="error" id="authError"></div>
+      <button id="authSubmitBtn">دخول</button>
+      <div class="switch-link">
+        <span id="switchText">ما عندكش حساب؟</span>
+        <a id="switchLink">صاوب واحد</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main app (hidden until logged in) -->
+  <div id="appSection" class="hidden">
+    <div class="user-bar">
+      <span id="userEmailLabel"></span>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <span class="usage-pill" id="usagePill">...</span>
+        <button id="logoutBtn">خروج</button>
+      </div>
+    </div>
+
+    <div id="limitBanner" class="limit-banner hidden"></div>
+
+    <textarea id="prompt" placeholder="كتب السؤال ديالك هنا..."></textarea>
+
+    <div class="models" id="modelChips"></div>
+
+    <button class="run" id="runBtn">قارن الجوابات</button>
+
+    <div class="results" id="results"></div>
+  </div>
+
+</div>
+
+<script>
+const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
+
+const MODELS = [
+  { id: "anthropic/claude-sonnet-4.5", label: "Claude Sonnet" },
+  { id: "openai/gpt-4o", label: "GPT-4o" },
+  { id: "google/gemini-2.0-flash-001", label: "Gemini Flash" },
+  { id: "meta-llama/llama-3.3-70b-instruct", label: "Llama 3.3" }
+];
+
+let token = null;
+let userEmail = null;
+let isSignupMode = false;
+const selectedModels = new Set(MODELS.map(m => m.id));
+
+// ---------- Auth UI ----------
+const authTitle = document.getElementById("authTitle");
+const authSubmitBtn = document.getElementById("authSubmitBtn");
+const switchText = document.getElementById("switchText");
+const switchLink = document.getElementById("switchLink");
+const authError = document.getElementById("authError");
+
+function renderAuthMode() {
+  if (isSignupMode) {
+    authTitle.textContent = "صاوب حساب جديد";
+    authSubmitBtn.textContent = "تسجيل";
+    switchText.textContent = "عندك حساب من قبل؟";
+    switchLink.textContent = "دخول";
+  } else {
+    authTitle.textContent = "تسجيل الدخول";
+    authSubmitBtn.textContent = "دخول";
+    switchText.textContent = "ما عندكش حساب؟";
+    switchLink.textContent = "صاوب واحد";
+  }
+  authError.textContent = "";
+}
+
+switchLink.onclick = () => {
+  isSignupMode = !isSignupMode;
+  renderAuthMode();
+};
+
+authSubmitBtn.onclick = async () => {
+  const email = document.getElementById("authEmail").value.trim();
+  const password = document.getElementById("authPassword").value;
+  authError.textContent = "";
+
+  if (!email || !password) {
+    authError.textContent = "عمر الإيميل وكلمة السر";
+    return;
+  }
+
+  authSubmitBtn.disabled = true;
+  authSubmitBtn.textContent = "كيخدم...";
+
+  try {
+    const endpoint = isSignupMode ? "/api/auth/signup" : "/api/auth/login";
+    const res = await fetch(BACKEND_URL + endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      authError.textContent = data.error || "وقع مشكل";
+      authSubmitBtn.disabled = false;
+      renderAuthMode();
+      return;
+    }
+
+    token = data.token;
+    userEmail = data.email;
+    localStorage_token_fallback();
+    showApp();
+  } catch (err) {
+    authError.textContent = "خطأ فـ الاتصال بالسيرفر. يمكن السيرفر كيبدا (جرب مرة أخرى بعد 30 ثانية).";
+  }
+
+  authSubmitBtn.disabled = false;
+  renderAuthMode();
+};
+
+// Since artifacts can't use localStorage, we keep token in memory only (session-based)
+function localStorage_token_fallback() {
+  // no-op: token kept in JS memory for this session only
+}
+
+// ---------- Main App ----------
+const modelChips = document.getElementById("modelChips");
+MODELS.forEach(m => {
+  const chip = document.createElement("div");
+  chip.className = "chip active";
+  chip.textContent = m.label;
+  chip.onclick = () => {
+    if (selectedModels.has(m.id)) {
+      selectedModels.delete(m.id);
+      chip.classList.remove("active");
+    } else {
+      selectedModels.add(m.id);
+      chip.classList.add("active");
+    }
+  };
+  modelChips.appendChild(chip);
+});
+
+function showApp() {
+  document.getElementById("authSection").classList.add("hidden");
+  document.getElementById("appSection").classList.remove("hidden");
+  document.getElementById("userEmailLabel").textContent = userEmail;
+  refreshUsage();
+}
+
+document.getElementById("logoutBtn").onclick = () => {
+  token = null;
+  userEmail = null;
+  document.getElementById("appSection").classList.add("hidden");
+  document.getElementById("authSection").classList.remove("hidden");
+  document.getElementById("authEmail").value = "";
+  document.getElementById("authPassword").value = "";
+};
+
+async function refreshUsage() {
+  try {
+    const res = await fetch(BACKEND_URL + "/api/usage", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    const data = await res.json();
+    const pill = document.getElementById("usagePill");
+    if (data.is_premium) {
+      pill.textContent = "مشترك — بلا حدود";
+    } else {
+      pill.textContent = `${data.remaining} / ${data.daily_limit} أسئلة باقية اليوم`;
+    }
+  } catch (err) {
+    // silent fail
+  }
+}
+
+document.getElementById("runBtn").onclick = async () => {
+  const prompt = document.getElementById("prompt").value.trim();
+  const resultsEl = document.getElementById("results");
+  const btn = document.getElementById("runBtn");
+  const limitBanner = document.getElementById("limitBanner");
+  limitBanner.classList.add("hidden");
+
+  if (!prompt) { alert("كتب سؤال ولا"); return; }
+  if (selectedModels.size === 0) { alert("ختار على الأقل نموذج واحد"); return; }
+
+  resultsEl.innerHTML = "";
+  btn.disabled = true;
+  btn.textContent = "كيخدم...";
+
+  const activeModels = MODELS.filter(m => selectedModels.has(m.id));
+
+  activeModels.forEach(m => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.id = "card-" + m.id.replace(/[^a-z0-9]/gi, "-");
+    card.innerHTML = `<h3>${m.label}</h3><div class="body muted">كيخدم...</div>`;
+    resultsEl.appendChild(card);
+  });
+
+  let hitLimit = false;
+
+  for (const m of activeModels) {
+    const card = document.getElementById("card-" + m.id.replace(/[^a-z0-9]/gi, "-"));
+    try {
+      const res = await fetch(BACKEND_URL + "/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ model: m.id, prompt })
+      });
+      const data = await res.json();
+
+      if (res.status === 429) {
+        card.querySelector(".body").textContent = "وصلتي للحد اليومي";
+        hitLimit = true;
+        limitBanner.textContent = data.error;
+        limitBanner.classList.remove("hidden");
+        continue;
+      }
+
+      if (data.error) {
+        card.querySelector(".body").textContent = "خطأ: " + data.error;
+      } else {
+        card.querySelector(".body").textContent = data.text;
+        card.querySelector(".body").classList.remove("muted");
+      }
+    } catch (err) {
+      card.querySelector(".body").textContent = "خطأ فـ الاتصال: " + err.message;
+    }
+  }
+
+  btn.disabled = false;
+  btn.textContent = "قارن الجوابات";
+  refreshUsage();
+};
+
+renderAuthMode();
+</script>
+
+</body>
+</html>
