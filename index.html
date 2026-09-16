@@ -552,22 +552,31 @@ async function loadFreeModels() {
   try {
     const res = await fetch("https://openrouter.ai/api/v1/models");
     const data = await res.json();
+const EXCLUDE_KEYWORDS = ["lyria", "whisper", "tts", "embed", "moderation", "dall-e", "musicgen"];
 
-    const free = (data.data || []).filter(m => {
-      const p = m.pricing || {};
-      const isFree = parseFloat(p.prompt || "0") === 0 && parseFloat(p.completion || "0") === 0;
-      const outputs = (m.architecture && m.architecture.output_modalities) || ["text"];
-      const isChatText = outputs.includes("text");
-      const isFamous = FAMOUS_PREFIXES.some(pfx => m.id.startsWith(pfx));
-      return isFree && isChatText && isFamous;
-    });
+const free = (data.data || []).filter(m => {
+  const p = m.pricing || {};
+  const isFree = parseFloat(p.prompt || "0") === 0 && parseFloat(p.completion || "0") === 0;
+  const arch = m.architecture || {};
+  const outputs = Array.isArray(arch.output_modalities) ? arch.output_modalities : ["text"];
+  const isChatText = outputs.includes("text");
+  const isFamous = FAMOUS_PREFIXES.some(pfx => m.id.startsWith(pfx));
+  const isExcluded = EXCLUDE_KEYWORDS.some(k => m.id.toLowerCase().includes(k));
+  return isFree && isChatText && isFamous && !isExcluded;
+});
 
-    if (free.length === 0) throw new Error("no free models returned");
+if (free.length === 0) throw new Error("no free models returned");
 
-    MODELS = free
-      .map(m => ({ id: m.id, label: (m.name || m.id).replace(/\s*\(free\)\s*$/i, "") }))
-      .sort((a, b) => a.label.localeCompare(b.label))
-      .slice(0, 8); // نبقاو فـ حدود 8 نماذج باش الواجهة تبقى مرتبة
+MODELS = free
+  .map(m => ({ id: m.id, label: (m.name || m.id).replace(/\s*\(free\)\s*$/i, "") }))
+  .sort((a, b) => {
+    const aTop = a.id.startsWith("deepseek/") ? 0 : 1;
+    const bTop = b.id.startsWith("deepseek/") ? 0 : 1;
+    if (aTop !== bTop) return aTop - bTop;
+    return a.label.localeCompare(b.label);
+  })
+  .slice(0, 8);
+     // نبقاو فـ حدود 8 نماذج باش الواجهة تبقى مرتبة
   } catch (err) {
     MODELS = FALLBACK_MODELS;
   }
