@@ -1,816 +1,290 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="htmlRoot">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="hT2FDh9OExjZR-fDaO2KDz0Flq1Nl5_4GmiH-NgwvW0" />
-<title id="pageTitle">قارن بين النماذج</title>
-<style>
-  :root {
-    --bg: #101314;
-    --panel: #171b1d;
-    --border: #262b2e;
-    --text: #e8e6e1;
-    --muted: #8a9296;
-    --accent: #5ec8b8;
-    --accent-dim: #2f4644;
-    --danger: #e07a7a;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-  }
-  header {
-    padding: 20px 20px 14px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  header h1 { margin: 0 0 4px; font-size: 20px; font-weight: 600; }
-  header p { margin: 0; color: var(--muted); font-size: 13px; }
-  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-
-  /* Language switcher */
-  .lang-switch {
-    display: flex;
-    gap: 4px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 3px;
-    flex-shrink: 0;
-  }
-  .lang-btn {
-    width: auto;
-    padding: 5px 10px;
-    font-size: 12px;
-    font-weight: 600;
-    background: transparent;
-    color: var(--muted);
-    border-radius: 16px;
-  }
-  .lang-btn.active { background: var(--accent); color: #08211d; }
-
-  /* Auth */
-  .auth-box {
-    max-width: 380px;
-    margin: 40px auto;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-  }
-  .auth-box h2 { margin-top: 0; font-size: 18px; }
-  input[type="password"], input[type="text"], input[type="email"], textarea {
-    background: #0d1011;
-    border: 1px solid var(--border);
-    color: var(--text);
-    border-radius: 8px;
-    padding: 11px 12px;
-    font-size: 14px;
-    font-family: inherit;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  textarea { min-height: 80px; resize: vertical; }
-  button {
-    background: var(--accent);
-    color: #08211d;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-  }
-  button:disabled { opacity: .5; cursor: default; }
-  button.secondary {
-    background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--border);
-    margin-top: 8px;
-  }
-  .error { color: var(--danger); font-size: 13px; margin: 8px 0; min-height: 16px; }
-  .switch-link { text-align: center; margin-top: 14px; font-size: 13px; color: var(--muted); }
-  .switch-link a { color: var(--accent); cursor: pointer; text-decoration: underline; }
-
-  /* Top bar user info */
-  .user-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 16px;
-  }
-  .user-bar button { width: auto; padding: 6px 14px; font-size: 12px; }
-  .usage-pill {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 12px;
-  }
-
-  /* Chat UI */
-  .hidden { display: none; }
-  .models { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-  .chip {
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 7px 14px;
-    font-size: 13px;
-    cursor: pointer;
-    color: var(--muted);
-    background: transparent;
-    user-select: none;
-    width: auto;
-  }
-  .chip.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
-  .results { display: grid; gap: 14px; margin-top: 22px; }
-  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
-  .card h3 { margin: 0 0 8px; font-size: 14px; color: var(--accent); }
-  .card .body { font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
-  .muted { color: var(--muted); font-size: 13px; }
-  .limit-banner {
-    background: #2a1f1f;
-    border: 1px solid var(--danger);
-    color: var(--danger);
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    margin-bottom: 16px;
-  }
-
-  /* Subscribe box */
-  .subscribe-box {
-    background: var(--panel);
-    border: 1px solid var(--accent-dim);
-    border-radius: 12px;
-    padding: 18px;
-    margin-bottom: 18px;
-    text-align: center;
-  }
-  .subscribe-box h3 { margin: 0 0 6px; font-size: 16px; color: var(--accent); }
-  .subscribe-box p { margin: 0 0 14px; color: var(--muted); font-size: 13px; }
-  #paypal-button-container { max-width: 320px; margin: 0 auto; }
-  .subscribe-status {
-    font-size: 13px;
-    margin-top: 10px;
-    min-height: 16px;
-  }
-  .subscribe-status.success { color: var(--accent); }
-  .subscribe-status.error { color: var(--danger); }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>قارن بين نماذج الذكاء الاصطناعي - QueryMix</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --border: #334155;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(30, 41, 59, 0.8);
+    }
+    .auth-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .prompt-box {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+      background-color: var(--card-bg);
+      color: var(--text);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 0.75rem;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid var(--border);
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; }
+    .form-group input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      box-sizing: border-box;
+    }
+    .premium-card {
+      background: linear-gradient(135deg, #1e1b4b, #311042);
+      border: 1px solid #6366f1;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      margin-top: 2rem;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div>
-    <h1 id="mainTitle">قارن بين نماذج الذكاء الاصطناعي</h1>
-    <p id="subTitle">سؤال واحد، عدة نماذج، جوابات جنب بعض</p>
-  </div>
-  <div class="lang-switch">
-    <button class="lang-btn" data-lang="ar">ع</button>
-    <button class="lang-btn" data-lang="fr">FR</button>
-    <button class="lang-btn" data-lang="en">EN</button>
-  </div>
-</header>
+  <header>
+    <h2>QueryMix AI</h2>
+    <div id="user-status">
+      <button class="auth-btn" onclick="openAuthModal()">تسجيل الدخول / حساب جديد</button>
+    </div>
+  </header>
 
-<div class="container">
+  <main>
+    <div class="prompt-box">
+      <input type="text" id="prompt-input" placeholder="اطرح سؤالك لمقارنة النماذج..." />
+      <button class="auth-btn" onclick="sendQuery()">إرسال</button>
+    </div>
 
-  <!-- Auth screens -->
-  <div id="authSection">
-    <div class="auth-box">
-      <h2 id="authTitle">تسجيل الدخول</h2>
-      <input type="email" id="authEmail" placeholder="الإيميل ديالك">
-      <input type="password" id="authPassword" placeholder="كلمة السر">
-      <div class="error" id="authError"></div>
-      <button id="authSubmitBtn">دخول</button>
-      <div class="switch-link">
-        <span id="switchText">ما عندكش حساب؟</span>
-        <a id="switchLink">صاوب واحد</a>
+    <div id="results" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+      <!-- الأجوبة من النماذج تظهر هنا -->
+    </div>
+
+    <div class="premium-card" id="paypal-container-card" style="display: none;">
+      <h3>اشترك في Premium ($10/شهرياً)</h3>
+      <p>أسئلة بلا حدود مع جميع النماذج</p>
+      <div id="paypal-button-container" style="max-width: 300px; margin: 0 auto;"></div>
+    </div>
+  </main>
+
+  <!-- Modal الدخول والتسجيل -->
+  <div class="modal" id="auth-modal">
+    <div class="modal-content">
+      <h3 id="modal-title">تسجيل الدخول</h3>
+      <div class="form-group">
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="auth-email" />
       </div>
-    </div>
-  </div>
-
-  <!-- Main app (hidden until logged in) -->
-  <div id="appSection" class="hidden">
-    <div class="user-bar">
-      <span id="userEmailLabel"></span>
-      <div style="display:flex; gap:10px; align-items:center;">
-        <span class="usage-pill" id="usagePill">...</span>
-        <button id="logoutBtn">خروج</button>
+      <div class="form-group">
+        <label>كلمة السر</label>
+        <input type="password" id="auth-password" />
       </div>
+      <button class="auth-btn" style="width: 100%;" onclick="submitAuth()">متابعة</button>
+      <p style="margin-top: 1rem; font-size: 0.875rem; text-align: center; cursor: pointer; color: #60a5fa;" onclick="toggleAuthMode()">
+        <span id="toggle-auth-text">ما عندكش حساب؟ صاوب واحد</span>
+      </p>
+      <button onclick="closeAuthModal()" style="background: none; border: none; color: #94a3b8; width: 100%; margin-top: 0.5rem; cursor: pointer;">إلغاء</button>
     </div>
-
-    <div id="limitBanner" class="limit-banner hidden"></div>
-
-    <!-- Subscribe box (يبان غير إلى المستخدم ماشي مشترك) -->
-    <!-- PayPal button itself (icon, shape, color) is rendered by the PayPal SDK below and is never touched by translation logic -->
-    <div id="subscribeBox" class="subscribe-box hidden">
-      <h3 id="subscribeTitle">اشترك فـ Premium</h3>
-      <p id="subscribeDesc">10$ فالشهر — أسئلة بلا حدود مع كل النماذج</p>
-      <div id="paypal-button-container"></div>
-      <div class="subscribe-status" id="subscribeStatus"></div>
-    </div>
-
-    <textarea id="prompt" placeholder="كتب السؤال ديالك هنا..."></textarea>
-
-    <div class="models" id="modelChips"></div>
-
-    <button class="run" id="runBtn">قارن الجوابات</button>
-
-    <div class="results" id="results"></div>
   </div>
 
-</div>
+  <script>
+    // غير هاد الرابط برابط الـ Backend ديالك فـ Render
+    const BACKEND_URL = 'https://ai-compare-backend.onrender.com';
+    let isSignup = false;
 
-<script>
-const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
-
-// Used only if the free-models fetch below fails, so the app still works.
-const FALLBACK_MODELS = [
-  { id: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3" },
-  { id: "qwen/qwen3-coder:free", label: "Qwen3" },
-  { id: "google/gemma-2-9b-it:free", label: "Gemma 2" },
-  { id: "openrouter/free", label: "Auto (Free)" }
-];
-
-// Populated dynamically from OpenRouter's public models list (free models only).
-let MODELS = [];
-
-// ---------- Translations ----------
-// Every UI string lives here. The PayPal button itself (icon, shape,
-// color, subscribe flow) is controlled entirely by the PayPal SDK further
-// below and is never referenced by this object — adding/editing a
-// language can never break or move the payment button.
-const I18N = {
-  ar: {
-    pageTitle: "قارن بين النماذج",
-    mainTitle: "قارن بين نماذج الذكاء الاصطناعي",
-    subTitle: "سؤال واحد، عدة نماذج، جوابات جنب بعض",
-    loginTitle: "تسجيل الدخول",
-    signupTitle: "صاوب حساب جديد",
-    emailPlaceholder: "الإيميل ديالك",
-    passwordPlaceholder: "كلمة السر",
-    loginBtn: "دخول",
-    signupBtn: "تسجيل",
-    switchToSignupText: "ما عندكش حساب؟",
-    switchToSignupLink: "صاوب واحد",
-    switchToLoginText: "عندك حساب من قبل؟",
-    switchToLoginLink: "دخول",
-    fillFields: "عمر الإيميل وكلمة السر",
-    working: "كيخدم...",
-    genericError: "وقع مشكل",
-    connError: "خطأ فـ الاتصال بالسيرفر. يمكن السيرفر كيبدا (جرب مرة أخرى بعد 30 ثانية).",
-    logoutBtn: "خروج",
-    premiumLabel: "مشترك — بلا حدود",
-    trialLabel: (d) => d === 1 ? "باقي يوم واحد فـ التجربة المجانية" : `باقي ${d} أيام فـ التجربة المجانية`,
-    trialEndedLabel: "خلصات التجربة المجانية — اشترك باش تكمل",
-    promptPlaceholder: "كتب السؤال ديالك هنا...",
-    runBtn: "قارن الجوابات",
-    runningBtn: "كيخدم...",
-    emptyPromptAlert: "كتب سؤال ولا",
-    noModelAlert: "ختار على الأقل نموذج واحد",
-    limitReachedShort: "وصلتي للحد اليومي",
-    errorPrefix: "خطأ: ",
-    connErrorPrefix: "خطأ فـ الاتصال: ",
-    loadingModels: "كنحملو النماذج المجانية...",
-    subscribeTitle: "اشترك فـ Premium",
-    subscribeDesc: "10$ فالشهر — أسئلة بلا حدود مع كل النماذج",
-    paymentNotReady: "الدفع ماشي معمر مزيان دابا، عاود جرب من بعد",
-    paypalLoadError: "تعذر تحميل PayPal، تأكد من الاتصال بالإنترنت",
-    paypalServerError: "خطأ فـ الاتصال بالسيرفر",
-    checkingSub: "كنتحققو من الاشتراك...",
-    subSuccess: "تفعل الاشتراك بنجاح! 🎉",
-    subActivateError: "وقع مشكل فالتفعيل",
-    subPostPayError: "خطأ فـ الاتصال بالسيرفر بعد الدفع",
-    paypalError: "وقع مشكل مع PayPal، عاود جرب"
-  },
-  fr: {
-    pageTitle: "Comparer les modèles",
-    mainTitle: "Comparez les modèles d'IA",
-    subTitle: "Une question, plusieurs modèles, réponses côte à côte",
-    loginTitle: "Connexion",
-    signupTitle: "Créer un compte",
-    emailPlaceholder: "Votre email",
-    passwordPlaceholder: "Mot de passe",
-    loginBtn: "Connexion",
-    signupBtn: "S'inscrire",
-    switchToSignupText: "Pas de compte ?",
-    switchToSignupLink: "Créer un compte",
-    switchToLoginText: "Déjà un compte ?",
-    switchToLoginLink: "Connexion",
-    fillFields: "Remplissez l'email et le mot de passe",
-    working: "Chargement...",
-    genericError: "Une erreur est survenue",
-    connError: "Erreur de connexion au serveur. Le serveur démarre peut-être (réessayez dans 30 secondes).",
-    logoutBtn: "Déconnexion",
-    premiumLabel: "Abonné — illimité",
-    trialLabel: (d) => d === 1 ? "1 jour restant dans l'essai gratuit" : `${d} jours restants dans l'essai gratuit`,
-    trialEndedLabel: "Essai gratuit terminé — abonnez-vous pour continuer",
-    promptPlaceholder: "Écrivez votre question ici...",
-    runBtn: "Comparer les réponses",
-    runningBtn: "Chargement...",
-    emptyPromptAlert: "Écrivez une question",
-    noModelAlert: "Sélectionnez au moins un modèle",
-    limitReachedShort: "Limite quotidienne atteinte",
-    errorPrefix: "Erreur : ",
-    connErrorPrefix: "Erreur de connexion : ",
-    loadingModels: "Chargement des modèles gratuits...",
-    subscribeTitle: "Abonnez-vous à Premium",
-    subscribeDesc: "10$/mois — questions illimitées avec tous les modèles",
-    paymentNotReady: "Le paiement n'est pas encore configuré, réessayez plus tard",
-    paypalLoadError: "Impossible de charger PayPal, vérifiez votre connexion internet",
-    paypalServerError: "Erreur de connexion au serveur",
-    checkingSub: "Vérification de l'abonnement...",
-    subSuccess: "Abonnement activé avec succès ! 🎉",
-    subActivateError: "Un problème est survenu lors de l'activation",
-    subPostPayError: "Erreur de connexion au serveur après le paiement",
-    paypalError: "Un problème est survenu avec PayPal, réessayez"
-  },
-  en: {
-    pageTitle: "Compare AI Models",
-    mainTitle: "Compare AI Models",
-    subTitle: "One question, several models, side-by-side answers",
-    loginTitle: "Log In",
-    signupTitle: "Create Account",
-    emailPlaceholder: "Your email",
-    passwordPlaceholder: "Password",
-    loginBtn: "Log In",
-    signupBtn: "Sign Up",
-    switchToSignupText: "No account?",
-    switchToSignupLink: "Sign up",
-    switchToLoginText: "Already have an account?",
-    switchToLoginLink: "Log in",
-    fillFields: "Fill in email and password",
-    working: "Working...",
-    genericError: "Something went wrong",
-    connError: "Server connection error. The server may be waking up (try again in 30 seconds).",
-    logoutBtn: "Log out",
-    premiumLabel: "Subscribed — unlimited",
-    trialLabel: (d) => d === 1 ? "1 day left in your free trial" : `${d} days left in your free trial`,
-    trialEndedLabel: "Free trial ended — subscribe to continue",
-    promptPlaceholder: "Type your question here...",
-    runBtn: "Compare Answers",
-    runningBtn: "Working...",
-    emptyPromptAlert: "Type a question",
-    noModelAlert: "Select at least one model",
-    limitReachedShort: "Daily limit reached",
-    errorPrefix: "Error: ",
-    connErrorPrefix: "Connection error: ",
-    loadingModels: "Loading free models...",
-    subscribeTitle: "Subscribe to Premium",
-    subscribeDesc: "$10/month — unlimited questions with every model",
-    paymentNotReady: "Payments aren't set up yet, try again later",
-    paypalLoadError: "Couldn't load PayPal, check your internet connection",
-    paypalServerError: "Server connection error",
-    checkingSub: "Checking your subscription...",
-    subSuccess: "Subscription activated! 🎉",
-    subActivateError: "Something went wrong activating it",
-    subPostPayError: "Server connection error after payment",
-    paypalError: "Something went wrong with PayPal, try again"
-  }
-};
-
-let currentLang = "ar";
-let token = null;
-let userEmail = null;
-let isSignupMode = false;
-let selectedModels = new Set();
-
-function t(key, ...args) {
-  const val = I18N[currentLang][key];
-  return typeof val === "function" ? val(...args) : val;
-}
-
-function setLanguage(lang) {
-  if (!I18N[lang]) return;
-  currentLang = lang;
-  document.getElementById("htmlRoot").lang = lang;
-  document.getElementById("htmlRoot").dir = lang === "ar" ? "rtl" : "ltr";
-
-  document.getElementById("pageTitle").textContent = t("pageTitle");
-  document.getElementById("mainTitle").textContent = t("mainTitle");
-  document.getElementById("subTitle").textContent = t("subTitle");
-  document.getElementById("authEmail").placeholder = t("emailPlaceholder");
-  document.getElementById("authPassword").placeholder = t("passwordPlaceholder");
-  document.getElementById("prompt").placeholder = t("promptPlaceholder");
-  document.getElementById("runBtn").textContent = t("runBtn");
-  document.getElementById("logoutBtn").textContent = t("logoutBtn");
-  document.getElementById("subscribeTitle").textContent = t("subscribeTitle");
-  document.getElementById("subscribeDesc").textContent = t("subscribeDesc");
-
-  document.querySelectorAll(".lang-btn").forEach(b => {
-    b.classList.toggle("active", b.dataset.lang === lang);
-  });
-
-  renderAuthMode();
-  if (token) refreshUsage();
-}
-
-document.querySelectorAll(".lang-btn").forEach(btn => {
-  btn.onclick = () => setLanguage(btn.dataset.lang);
-});
-
-// ---------- Auth UI ----------
-const authTitle = document.getElementById("authTitle");
-const authSubmitBtn = document.getElementById("authSubmitBtn");
-const switchText = document.getElementById("switchText");
-const switchLink = document.getElementById("switchLink");
-const authError = document.getElementById("authError");
-
-function renderAuthMode() {
-  if (isSignupMode) {
-    authTitle.textContent = t("signupTitle");
-    authSubmitBtn.textContent = t("signupBtn");
-    switchText.textContent = t("switchToLoginText");
-    switchLink.textContent = t("switchToLoginLink");
-  } else {
-    authTitle.textContent = t("loginTitle");
-    authSubmitBtn.textContent = t("loginBtn");
-    switchText.textContent = t("switchToSignupText");
-    switchLink.textContent = t("switchToSignupLink");
-  }
-  authError.textContent = "";
-}
-
-switchLink.onclick = () => {
-  isSignupMode = !isSignupMode;
-  renderAuthMode();
-};
-
-authSubmitBtn.onclick = async () => {
-  const email = document.getElementById("authEmail").value.trim();
-  const password = document.getElementById("authPassword").value;
-  authError.textContent = "";
-
-  if (!email || !password) {
-    authError.textContent = t("fillFields");
-    return;
-  }
-
-  authSubmitBtn.disabled = true;
-  authSubmitBtn.textContent = t("working");
-
-  try {
-    const endpoint = isSignupMode ? "/api/auth/signup" : "/api/auth/login";
-    const res = await fetch(BACKEND_URL + endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
-    });
-    const data = await res.json();
-
-    if (!res.ok) {
-      authError.textContent = data.error || t("genericError");
-      authSubmitBtn.disabled = false;
-      renderAuthMode();
-      return;
+    function openAuthModal() { document.getElementById('auth-modal').classList.add('active'); }
+    function closeAuthModal() { document.getElementById('auth-modal').classList.remove('active'); }
+    
+    function toggleAuthMode() {
+      isSignup = !isSignup;
+      document.getElementById('modal-title').innerText = isSignup ? 'حساب جديد' : 'تسجيل الدخول';
+      document.getElementById('toggle-auth-text').innerText = isSignup ? 'عندك حساب؟ دخل من هنا' : 'ما عندكش حساب؟ صاوب واحد';
     }
 
-    token = data.token;
-    userEmail = data.email;
-    saveSession(token, userEmail);
-    showApp();
-  } catch (err) {
-    authError.textContent = t("connError");
-  }
+    async function submitAuth() {
+      const email = document.getElementById('auth-email').value;
+      const password = document.getElementById('auth-password').value;
+      const endpoint = isSignup ? '/api/auth/signup' : '/api/auth/login';
 
-  authSubmitBtn.disabled = false;
-  renderAuthMode();
-};
-
-// حفظ الجلسة فـ localStorage باش المستخدم يبقى مسجل حتى بعد ما يسد الصفحة أو يعاود يفتحها
-function saveSession(tok, email) {
-  try {
-    localStorage.setItem("azizart_token", tok);
-    localStorage.setItem("azizart_email", email);
-  } catch (e) {
-    // localStorage ماشي متاح (نادر جدا)، التطبيق غيخدم بلا حفظ دائم
-  }
-}
-
-function clearSession() {
-  try {
-    localStorage.removeItem("azizart_token");
-    localStorage.removeItem("azizart_email");
-  } catch (e) {}
-}
-
-function loadSession() {
-  try {
-    return {
-      token: localStorage.getItem("azizart_token"),
-      email: localStorage.getItem("azizart_email")
-    };
-  } catch (e) {
-    return { token: null, email: null };
-  }
-}
-
-// ---------- Main App ----------
-const modelChips = document.getElementById("modelChips");
-
-function renderModelChips() {
-  modelChips.innerHTML = "";
-  MODELS.forEach(m => {
-    const chip = document.createElement("div");
-    chip.className = "chip active";
-    chip.textContent = m.label;
-    chip.onclick = () => {
-      if (selectedModels.has(m.id)) {
-        selectedModels.delete(m.id);
-        chip.classList.remove("active");
-      } else {
-        selectedModels.add(m.id);
-        chip.classList.add("active");
-      }
-    };
-    modelChips.appendChild(chip);
-  });
-}
-
-// Fetches OpenRouter's public model catalog and keeps only the free ones
-// (prompt + completion price = 0), limited to well-known chat-capable
-// families so the comparison stays meaningful (no OCR/coder-only niche models).
-const FAMOUS_PREFIXES = [
-  "meta-llama/", "google/", "qwen/", "nvidia/", "mistralai/",
-  "moonshotai/", "deepseek/", "microsoft/", "openrouter/"
-];
-
-async function loadFreeModels() {
-  modelChips.innerHTML = `<span class="muted" id="modelsLoadingMsg">${t("loadingModels")}</span>`;
-  try {
-    const res = await fetch("https://openrouter.ai/api/v1/models");
-    const data = await res.json();
-const EXCLUDE_KEYWORDS = ["lyria", "whisper", "tts", "embed", "moderation", "dall-e", "musicgen"];
-
-const free = (data.data || []).filter(m => {
-  const p = m.pricing || {};
-  const isFree = parseFloat(p.prompt || "0") === 0 && parseFloat(p.completion || "0") === 0;
-  const arch = m.architecture || {};
-  const outputs = Array.isArray(arch.output_modalities) ? arch.output_modalities : ["text"];
-  const isChatText = outputs.includes("text");
-  const isFamous = FAMOUS_PREFIXES.some(pfx => m.id.startsWith(pfx));
-  const isExcluded = EXCLUDE_KEYWORDS.some(k => m.id.toLowerCase().includes(k));
-  return isFree && isChatText && isFamous && !isExcluded;
-});
-
-if (free.length === 0) throw new Error("no free models returned");
-
-MODELS = free
-  .map(m => ({ id: m.id, label: (m.name || m.id).replace(/\s*\(free\)\s*$/i, "") }))
-  .sort((a, b) => {
-    const aTop = a.id.startsWith("deepseek/") ? 0 : 1;
-    const bTop = b.id.startsWith("deepseek/") ? 0 : 1;
-    if (aTop !== bTop) return aTop - bTop;
-    return a.label.localeCompare(b.label);
-  })
-  .slice(0, 8);
-     // نبقاو فـ حدود 8 نماذج باش الواجهة تبقى مرتبة
-  } catch (err) {
-    MODELS = FALLBACK_MODELS;
-  }
-
-  selectedModels = new Set(MODELS.map(m => m.id));
-  renderModelChips();
-}
-
-loadFreeModels();
-
-function showApp() {
-  document.getElementById("authSection").classList.add("hidden");
-  document.getElementById("appSection").classList.remove("hidden");
-  document.getElementById("userEmailLabel").textContent = userEmail;
-  refreshUsage();
-}
-
-document.getElementById("logoutBtn").onclick = () => {
-  token = null;
-  userEmail = null;
-  clearSession();
-  paypalButtonRendered = false;
-  document.getElementById("paypal-button-container").innerHTML = "";
-  document.getElementById("appSection").classList.add("hidden");
-  document.getElementById("authSection").classList.remove("hidden");
-  document.getElementById("authEmail").value = "";
-  document.getElementById("authPassword").value = "";
-};
-
-// عند فتح الصفحة، نتحققو واش كاين جلسة محفوظة من قبل ونعاودو تسجيل الدخول أوتوماتيكيا
-(function restoreSession() {
-  const saved = loadSession();
-  if (saved.token && saved.email) {
-    token = saved.token;
-    userEmail = saved.email;
-    showApp();
-  }
-})();
-
-async function refreshUsage() {
-  try {
-    const res = await fetch(BACKEND_URL + "/api/usage", {
-      headers: { "Authorization": "Bearer " + token }
-    });
-    if (res.status === 401) {
-      // التوكن ماشي صالح ولا خلصات صلاحيته، نرجعو للمستخدم صفحة الدخول
-      token = null;
-      userEmail = null;
-      clearSession();
-      document.getElementById("appSection").classList.add("hidden");
-      document.getElementById("authSection").classList.remove("hidden");
-      return;
-    }
-    const data = await res.json();
-    const pill = document.getElementById("usagePill");
-    const subscribeBox = document.getElementById("subscribeBox");
-    const promptBox = document.getElementById("prompt");
-    const runBtn = document.getElementById("runBtn");
-
-    if (data.is_premium) {
-      pill.textContent = t("premiumLabel");
-      subscribeBox.classList.add("hidden");
-      promptBox.disabled = false;
-      runBtn.disabled = false;
-    } else if (data.in_trial) {
-      pill.textContent = t("trialLabel", data.trial_days_left);
-      subscribeBox.classList.remove("hidden");
-      loadPayPalButton();
-      promptBox.disabled = false;
-      runBtn.disabled = false;
-    } else {
-      // خلصات التجربة المجانية، خاص يشترك باش يكمل
-      pill.textContent = t("trialEndedLabel");
-      subscribeBox.classList.remove("hidden");
-      loadPayPalButton();
-      promptBox.disabled = true;
-      runBtn.disabled = true;
-    }
-  } catch (err) {
-    // silent fail
-  }
-}
-
-// ---------- PayPal Subscription ----------
-let paypalButtonRendered = false;
-
-async function loadPayPalButton() {
-  if (paypalButtonRendered) return; // ما نعاودوش نرندريو الزر مرتين
-
-  const statusEl = document.getElementById("subscribeStatus");
-  statusEl.textContent = "";
-  statusEl.className = "subscribe-status";
-
-  try {
-    // 1. نجيبو clientId و planId من السيرفر (آمن، Client ID عمومي)
-    const configRes = await fetch(BACKEND_URL + "/api/payment/config");
-    const config = await configRes.json();
-
-    if (!config.clientId || !config.planId) {
-      statusEl.textContent = t("paymentNotReady");
-      statusEl.className = "subscribe-status error";
-      return;
-    }
-
-    // 2. نزيدو سكريبت PayPal SDK ديال subscriptions
-    // (client-id, vault, intent، والـ plan_id فـ renderPayPalButtons - ماشي مرتبطين باللغة أبدا)
-    const script = document.createElement("script");
-    script.src = `https://www.paypal.com/sdk/js?client-id=${config.clientId}&vault=true&intent=subscription`;
-    script.onload = () => renderPayPalButtons(config.planId);
-    script.onerror = () => {
-      statusEl.textContent = t("paypalLoadError");
-      statusEl.className = "subscribe-status error";
-    };
-    document.body.appendChild(script);
-  } catch (err) {
-    statusEl.textContent = t("paypalServerError");
-    statusEl.className = "subscribe-status error";
-  }
-}
-
-function renderPayPalButtons(planId) {
-  const statusEl = document.getElementById("subscribeStatus");
-  paypalButtonRendered = true;
-
-  window.paypal.Buttons({
-    style: {
-      shape: "pill",
-      color: "gold",
-      layout: "vertical",
-      label: "subscribe"
-    },
-    createSubscription: function (data, actions) {
-      return actions.subscription.create({
-        plan_id: planId
-      });
-    },
-    onApprove: async function (data) {
-      statusEl.textContent = t("checkingSub");
-      statusEl.className = "subscribe-status";
       try {
-        const res = await fetch(BACKEND_URL + "/api/payment/activate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-          },
-          body: JSON.stringify({ subscriptionID: data.subscriptionID })
+        const res = await fetch(BACKEND_URL + endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
         });
-        const result = await res.json();
-        if (res.ok && result.success) {
-          statusEl.textContent = t("subSuccess");
-          statusEl.className = "subscribe-status success";
-          refreshUsage();
+        const data = await res.json();
+        
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userEmail', data.email);
+          closeAuthModal();
+          updateUI();
+          initPayPal();
         } else {
-          statusEl.textContent = result.error || t("subActivateError");
-          statusEl.className = "subscribe-status error";
+          alert(data.error || 'وقع خطأ');
         }
-      } catch (err) {
-        statusEl.textContent = t("subPostPayError");
-        statusEl.className = "subscribe-status error";
+      } catch (e) {
+        alert('مشكل في الاتصال بالسيرفر');
       }
-    },
-    onError: function (err) {
-      statusEl.textContent = t("paypalError");
-      statusEl.className = "subscribe-status error";
     }
-  }).render("#paypal-button-container");
-}
 
-document.getElementById("runBtn").onclick = async () => {
-  const prompt = document.getElementById("prompt").value.trim();
-  const resultsEl = document.getElementById("results");
-  const btn = document.getElementById("runBtn");
-  const limitBanner = document.getElementById("limitBanner");
-  limitBanner.classList.add("hidden");
-
-  if (!prompt) { alert(t("emptyPromptAlert")); return; }
-  if (selectedModels.size === 0) { alert(t("noModelAlert")); return; }
-
-  resultsEl.innerHTML = "";
-  btn.disabled = true;
-  btn.textContent = t("runningBtn");
-
-  const activeModels = MODELS.filter(m => selectedModels.has(m.id));
-
-  activeModels.forEach(m => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.id = "card-" + m.id.replace(/[^a-z0-9]/gi, "-");
-    card.innerHTML = `<h3>${m.label}</h3><div class="body muted">${t("working")}</div>`;
-    resultsEl.appendChild(card);
-  });
-
-  let hitLimit = false;
-
-  for (const m of activeModels) {
-    const card = document.getElementById("card-" + m.id.replace(/[^a-z0-9]/gi, "-"));
-    try {
-      const res = await fetch(BACKEND_URL + "/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify({ model: m.id, prompt })
-      });
-      const data = await res.json();
-
-      if (res.status === 429) {
-        card.querySelector(".body").textContent = t("limitReachedShort");
-        hitLimit = true;
-        limitBanner.textContent = data.error;
-        limitBanner.classList.remove("hidden");
-        continue;
-      }
-
-      if (data.error) {
-        card.querySelector(".body").textContent = t("errorPrefix") + data.error;
+    function updateUI() {
+      const token = localStorage.getItem('token');
+      const email = localStorage.getItem('userEmail');
+      const statusDiv = document.getElementById('user-status');
+      
+      if (token && email) {
+        statusDiv.innerHTML = `<span>${email}</span> <button class="auth-btn" style="background:#ef4444; margin-right:0.5rem;" onclick="logout()">خروج</button>`;
+        document.getElementById('paypal-container-card').style.display = 'block';
       } else {
-        card.querySelector(".body").textContent = data.text;
-        card.querySelector(".body").classList.remove("muted");
+        statusDiv.innerHTML = `<button class="auth-btn" onclick="openAuthModal()">تسجيل الدخول / حساب جديد</button>`;
+        document.getElementById('paypal-container-card').style.display = 'none';
       }
-    } catch (err) {
-      card.querySelector(".body").textContent = t("connErrorPrefix") + err.message;
     }
-  }
 
-  btn.disabled = false;
-  btn.textContent = t("runBtn");
-  refreshUsage();
-};
+    function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userEmail');
+      updateUI();
+    }
 
-setLanguage("ar");
-</script>
+    async function sendQuery() {
+      const prompt = document.getElementById('prompt-input').value;
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        openAuthModal();
+        return;
+      }
+      if (!prompt) return;
 
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '<p>جاري جلب الإجابات...</p>';
+
+      try {
+        const res = await fetch(BACKEND_URL + '/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({ model: 'openai/gpt-4o', prompt })
+        });
+        const data = await res.json();
+        
+        if (res.status === 429) {
+          alert(data.error);
+          document.getElementById('paypal-container-card').scrollIntoView();
+          return;
+        }
+
+        resultsDiv.innerHTML = `
+          <div style="background: var(--card-bg); padding: 1rem; border-radius: 0.5rem; border: 1px solid var(--border);">
+            <h4>GPT-4o</h4>
+            <p>${data.text || data.error}</p>
+          </div>
+        `;
+      } catch (e) {
+        alert('خطأ في الاتصال بالسيرفر');
+      }
+    }
+
+    async function initPayPal() {
+      try {
+        const res = await fetch(BACKEND_URL + '/api/payment/config');
+        const config = await res.json();
+        
+        if (!config.clientId || !config.planId) return;
+
+        const script = document.createElement('script');
+        script.src = `https://www.paypal.com/sdk/js?client-id=${config.clientId}&vault=true&intent=subscription`;
+        script.onload = () => {
+          paypal.Buttons({
+            createSubscription: function(data, actions) {
+              return actions.subscription.create({ 'plan_id': config.planId });
+            },
+            onApprove: async function(data, actions) {
+              const token = localStorage.getItem('token');
+              const res = await fetch(BACKEND_URL + '/api/payment/activate', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({ subscriptionID: data.subscriptionID })
+              });
+              const result = await res.json();
+              if (result.success) {
+                alert('مبروك! تم تفعيل حساب Premium بنجاح.');
+              }
+            }
+          }).render('#paypal-button-container');
+        };
+        document.body.appendChild(script);
+      } catch (e) {
+        console.error('فشل في تحضير PayPal:', e);
+      }
+    }
+
+    // تشغيل عند تحميل الصفحة
+    updateUI();
+    if (localStorage.getItem('token')) initPayPal();
+  </script>
 </body>
 </html>
