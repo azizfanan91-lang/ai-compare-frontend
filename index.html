@@ -160,7 +160,12 @@
   }
   .subscribe-box h3 { margin: 0 0 6px; font-size: 16px; color: var(--accent); }
   .subscribe-box p { margin: 0 0 14px; color: var(--muted); font-size: 13px; }
-  #paypal-button-container { max-width: 320px; margin: 0 auto; }
+  .subscribe-actions { max-width: 320px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+  #subscribeLinkBtn {
+    display: inline-block;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
   .subscribe-status {
     font-size: 13px;
     margin-top: 10px;
@@ -214,11 +219,17 @@
     <div id="limitBanner" class="limit-banner hidden"></div>
 
     <!-- Subscribe box (يبان غير إلى المستخدم ماشي مشترك) -->
-    <!-- PayPal button itself (icon, shape, color) is rendered by the PayPal SDK below and is never touched by translation logic -->
+    <!-- Gumroad: subscription link + a manual "check status" button, since the
+         webhook updates the DB in the background after checkout on Gumroad's site -->
     <div id="subscribeBox" class="subscribe-box hidden">
       <h3 id="subscribeTitle">اشترك فـ Premium</h3>
       <p id="subscribeDesc">10$ فالشهر — أسئلة بلا حدود مع كل النماذج</p>
-      <div id="paypal-button-container"></div>
+      <div class="subscribe-actions">
+        <a id="subscribeLinkBtn" target="_blank" rel="noopener">
+          <button type="button" id="subscribeLinkBtnInner"></button>
+        </a>
+        <button type="button" class="secondary" id="checkSubBtn"></button>
+      </div>
       <div class="subscribe-status" id="subscribeStatus"></div>
     </div>
 
@@ -248,10 +259,6 @@ const FALLBACK_MODELS = [
 let MODELS = [];
 
 // ---------- Translations ----------
-// Every UI string lives here. The PayPal button itself (icon, shape,
-// color, subscribe flow) is controlled entirely by the PayPal SDK further
-// below and is never referenced by this object — adding/editing a
-// language can never break or move the payment button.
 const I18N = {
   ar: {
     pageTitle: "قارن بين النماذج",
@@ -287,13 +294,12 @@ const I18N = {
     subscribeTitle: "اشترك فـ Premium",
     subscribeDesc: "10$ فالشهر — أسئلة بلا حدود مع كل النماذج",
     paymentNotReady: "الدفع ماشي معمر مزيان دابا، عاود جرب من بعد",
-    paypalLoadError: "تعذر تحميل PayPal، تأكد من الاتصال بالإنترنت",
-    paypalServerError: "خطأ فـ الاتصال بالسيرفر",
+    subscribeLinkText: "اشترك الآن",
+    checkSubText: "تحققت من الدفع؟ اضغط هنا",
     checkingSub: "كنتحققو من الاشتراك...",
     subSuccess: "تفعل الاشتراك بنجاح! 🎉",
-    subActivateError: "وقع مشكل فالتفعيل",
-    subPostPayError: "خطأ فـ الاتصال بالسيرفر بعد الدفع",
-    paypalError: "وقع مشكل مع PayPal، عاود جرب"
+    subNotYet: "مازال ماوصلش تأكيد الدفع، استنى شوية وعاود جرب (ممكن ياخد دقيقة)",
+    subCheckError: "خطأ فـ الاتصال بالسيرفر"
   },
   fr: {
     pageTitle: "Comparer les modèles",
@@ -329,13 +335,12 @@ const I18N = {
     subscribeTitle: "Abonnez-vous à Premium",
     subscribeDesc: "10$/mois — questions illimitées avec tous les modèles",
     paymentNotReady: "Le paiement n'est pas encore configuré, réessayez plus tard",
-    paypalLoadError: "Impossible de charger PayPal, vérifiez votre connexion internet",
-    paypalServerError: "Erreur de connexion au serveur",
+    subscribeLinkText: "S'abonner maintenant",
+    checkSubText: "Vous avez payé ? Cliquez ici",
     checkingSub: "Vérification de l'abonnement...",
     subSuccess: "Abonnement activé avec succès ! 🎉",
-    subActivateError: "Un problème est survenu lors de l'activation",
-    subPostPayError: "Erreur de connexion au serveur après le paiement",
-    paypalError: "Un problème est survenu avec PayPal, réessayez"
+    subNotYet: "La confirmation du paiement n'est pas encore arrivée, réessayez dans une minute",
+    subCheckError: "Erreur de connexion au serveur"
   },
   en: {
     pageTitle: "Compare AI Models",
@@ -371,13 +376,12 @@ const I18N = {
     subscribeTitle: "Subscribe to Premium",
     subscribeDesc: "$10/month — unlimited questions with every model",
     paymentNotReady: "Payments aren't set up yet, try again later",
-    paypalLoadError: "Couldn't load PayPal, check your internet connection",
-    paypalServerError: "Server connection error",
+    subscribeLinkText: "Subscribe now",
+    checkSubText: "Already paid? Click here",
     checkingSub: "Checking your subscription...",
     subSuccess: "Subscription activated! 🎉",
-    subActivateError: "Something went wrong activating it",
-    subPostPayError: "Server connection error after payment",
-    paypalError: "Something went wrong with PayPal, try again"
+    subNotYet: "Payment confirmation hasn't arrived yet, try again in a minute",
+    subCheckError: "Server connection error"
   }
 };
 
@@ -408,6 +412,8 @@ function setLanguage(lang) {
   document.getElementById("logoutBtn").textContent = t("logoutBtn");
   document.getElementById("subscribeTitle").textContent = t("subscribeTitle");
   document.getElementById("subscribeDesc").textContent = t("subscribeDesc");
+  document.getElementById("subscribeLinkBtnInner").textContent = t("subscribeLinkText");
+  document.getElementById("checkSubBtn").textContent = t("checkSubText");
 
   document.querySelectorAll(".lang-btn").forEach(b => {
     b.classList.toggle("active", b.dataset.lang === lang);
@@ -539,9 +545,6 @@ function renderModelChips() {
   });
 }
 
-// Fetches OpenRouter's public model catalog and keeps only the free ones
-// (prompt + completion price = 0), limited to well-known chat-capable
-// families so the comparison stays meaningful (no OCR/coder-only niche models).
 const FAMOUS_PREFIXES = [
   "meta-llama/", "google/", "qwen/", "nvidia/", "mistralai/",
   "moonshotai/", "deepseek/", "microsoft/", "openrouter/"
@@ -576,7 +579,6 @@ MODELS = free
     return a.label.localeCompare(b.label);
   })
   .slice(0, 8);
-     // نبقاو فـ حدود 8 نماذج باش الواجهة تبقى مرتبة
   } catch (err) {
     MODELS = FALLBACK_MODELS;
   }
@@ -598,8 +600,6 @@ document.getElementById("logoutBtn").onclick = () => {
   token = null;
   userEmail = null;
   clearSession();
-  paypalButtonRendered = false;
-  document.getElementById("paypal-button-container").innerHTML = "";
   document.getElementById("appSection").classList.add("hidden");
   document.getElementById("authSection").classList.remove("hidden");
   document.getElementById("authEmail").value = "";
@@ -622,7 +622,6 @@ async function refreshUsage() {
       headers: { "Authorization": "Bearer " + token }
     });
     if (res.status === 401) {
-      // التوكن ماشي صالح ولا خلصات صلاحيته، نرجعو للمستخدم صفحة الدخول
       token = null;
       userEmail = null;
       clearSession();
@@ -644,14 +643,13 @@ async function refreshUsage() {
     } else if (data.in_trial) {
       pill.textContent = t("trialLabel", data.trial_days_left);
       subscribeBox.classList.remove("hidden");
-      loadPayPalButton();
+      setupSubscribeLink();
       promptBox.disabled = false;
       runBtn.disabled = false;
     } else {
-      // خلصات التجربة المجانية، خاص يشترك باش يكمل
       pill.textContent = t("trialEndedLabel");
       subscribeBox.classList.remove("hidden");
-      loadPayPalButton();
+      setupSubscribeLink();
       promptBox.disabled = true;
       runBtn.disabled = true;
     }
@@ -660,91 +658,64 @@ async function refreshUsage() {
   }
 }
 
-// ---------- PayPal Subscription ----------
-let paypalButtonRendered = false;
+// ---------- Gumroad Subscription ----------
+let subscribeLinkReady = false;
 
-async function loadPayPalButton() {
-  if (paypalButtonRendered) return; // ما نعاودوش نرندريو الزر مرتين
+// كنجيبو رابط المنتج ديال Gumroad من السيرفر ونحطوه فالزر، مع تعمير الإيميل مسبقا
+async function setupSubscribeLink() {
+  if (subscribeLinkReady) return;
 
   const statusEl = document.getElementById("subscribeStatus");
-  statusEl.textContent = "";
-  statusEl.className = "subscribe-status";
+  const linkEl = document.getElementById("subscribeLinkBtn");
 
   try {
-    // 1. نجيبو clientId و planId من السيرفر (آمن، Client ID عمومي)
     const configRes = await fetch(BACKEND_URL + "/api/payment/config");
     const config = await configRes.json();
 
-    if (!config.clientId || !config.planId) {
+    if (!config.productUrl) {
       statusEl.textContent = t("paymentNotReady");
       statusEl.className = "subscribe-status error";
       return;
     }
 
-    // 2. نزيدو سكريبت PayPal SDK ديال subscriptions
-    // (client-id, vault, intent، والـ plan_id فـ renderPayPalButtons - ماشي مرتبطين باللغة أبدا)
-    const script = document.createElement("script");
-    script.src = `https://www.paypal.com/sdk/js?client-id=${config.clientId}&vault=true&intent=subscription`;
-    script.onload = () => renderPayPalButtons(config.planId);
-    script.onerror = () => {
-      statusEl.textContent = t("paypalLoadError");
-      statusEl.className = "subscribe-status error";
-    };
-    document.body.appendChild(script);
+    // نزيدو الإيميل ديال المستخدم كـ query param باش يتعمر مسبقا فصفحة Gumroad
+    const urlWithEmail = config.productUrl +
+      (config.productUrl.includes("?") ? "&" : "?") +
+      "email=" + encodeURIComponent(userEmail);
+
+    linkEl.href = urlWithEmail;
+    subscribeLinkReady = true;
   } catch (err) {
-    statusEl.textContent = t("paypalServerError");
+    statusEl.textContent = t("paymentNotReady");
     statusEl.className = "subscribe-status error";
   }
 }
 
-function renderPayPalButtons(planId) {
+// زر "تحققت من الدفع" كيسول directly على /api/usage باش يشوف واش is_premium تبدلات
+document.getElementById("checkSubBtn").onclick = async () => {
   const statusEl = document.getElementById("subscribeStatus");
-  paypalButtonRendered = true;
+  statusEl.textContent = t("checkingSub");
+  statusEl.className = "subscribe-status";
 
-  window.paypal.Buttons({
-    style: {
-      shape: "pill",
-      color: "gold",
-      layout: "vertical",
-      label: "subscribe"
-    },
-    createSubscription: function (data, actions) {
-      return actions.subscription.create({
-        plan_id: planId
-      });
-    },
-    onApprove: async function (data) {
-      statusEl.textContent = t("checkingSub");
+  try {
+    const res = await fetch(BACKEND_URL + "/api/usage", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    const data = await res.json();
+
+    if (data.is_premium) {
+      statusEl.textContent = t("subSuccess");
+      statusEl.className = "subscribe-status success";
+      refreshUsage();
+    } else {
+      statusEl.textContent = t("subNotYet");
       statusEl.className = "subscribe-status";
-      try {
-        const res = await fetch(BACKEND_URL + "/api/payment/activate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-          },
-          body: JSON.stringify({ subscriptionID: data.subscriptionID })
-        });
-        const result = await res.json();
-        if (res.ok && result.success) {
-          statusEl.textContent = t("subSuccess");
-          statusEl.className = "subscribe-status success";
-          refreshUsage();
-        } else {
-          statusEl.textContent = result.error || t("subActivateError");
-          statusEl.className = "subscribe-status error";
-        }
-      } catch (err) {
-        statusEl.textContent = t("subPostPayError");
-        statusEl.className = "subscribe-status error";
-      }
-    },
-    onError: function (err) {
-      statusEl.textContent = t("paypalError");
-      statusEl.className = "subscribe-status error";
     }
-  }).render("#paypal-button-container");
-}
+  } catch (err) {
+    statusEl.textContent = t("subCheckError");
+    statusEl.className = "subscribe-status error";
+  }
+};
 
 document.getElementById("runBtn").onclick = async () => {
   const prompt = document.getElementById("prompt").value.trim();
@@ -814,4 +785,3 @@ setLanguage("ar");
 
 </body>
 </html>
-
