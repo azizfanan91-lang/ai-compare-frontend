@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" id="htmlRoot">
 <head>
@@ -173,6 +174,41 @@
   }
   .subscribe-status.success { color: var(--accent); }
   .subscribe-status.error { color: var(--danger); }
+
+  /* Image generation */
+  .image-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 22px;
+  }
+  .image-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .image-box h3 { margin: 0; font-size: 15px; color: var(--accent); }
+  .image-box textarea { min-height: 60px; }
+  .image-box button {
+    background: var(--accent);
+    margin-top: 4px;
+  }
+  .image-status {
+    font-size: 13px;
+    margin-top: 10px;
+    min-height: 16px;
+    color: var(--muted);
+  }
+  .image-status.error { color: var(--danger); }
+  .image-status.success { color: var(--accent); }
+  #imageResult img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 12px;
+    display: block;
+  }
 </style>
 </head>
 <body>
@@ -240,6 +276,18 @@
     <button class="run" id="runBtn">قارن الجوابات</button>
 
     <div class="results" id="results"></div>
+
+    <!-- Image generation section -->
+    <div class="image-box">
+      <div class="image-box-header">
+        <h3 id="imageTitle">ولّد صورة</h3>
+        <span class="usage-pill" id="imageUsagePill">...</span>
+      </div>
+      <textarea id="imagePrompt" placeholder="وصف الصورة اللي بغيتي..."></textarea>
+      <button type="button" id="generateImageBtn">ولّد الصورة</button>
+      <div class="image-status" id="imageStatus"></div>
+      <div id="imageResult"></div>
+    </div>
   </div>
 
 </div>
@@ -299,7 +347,16 @@ const I18N = {
     checkingSub: "كنتحققو من الاشتراك...",
     subSuccess: "تفعل الاشتراك بنجاح! 🎉",
     subNotYet: "مازال ماوصلش تأكيد الدفع، استنى شوية وعاود جرب (ممكن ياخد دقيقة)",
-    subCheckError: "خطأ فـ الاتصال بالسيرفر"
+    subCheckError: "خطأ فـ الاتصال بالسيرفر",
+    imageTitle: "ولّد صورة",
+    imagePromptPlaceholder: "وصف الصورة اللي بغيتي...",
+    generateImageBtn: "ولّد الصورة",
+    imageRemainingLabel: (n) => `باقيلك ${n} صور اليوم`,
+    imageLimitReached: "وصلتي للحد اليومي ديال الصور، عاود جرب غدا",
+    imageEmptyPrompt: "كتب وصف للصورة",
+    imageGenerating: "كنولدو الصورة... (ممكن ياخد شوية وقت)",
+    imageError: "خطأ: ",
+    imageConnError: "خطأ فـ الاتصال بالسيرفر"
   },
   fr: {
     pageTitle: "Comparer les modèles",
@@ -340,7 +397,16 @@ const I18N = {
     checkingSub: "Vérification de l'abonnement...",
     subSuccess: "Abonnement activé avec succès ! 🎉",
     subNotYet: "La confirmation du paiement n'est pas encore arrivée, réessayez dans une minute",
-    subCheckError: "Erreur de connexion au serveur"
+    subCheckError: "Erreur de connexion au serveur",
+    imageTitle: "Générer une image",
+    imagePromptPlaceholder: "Décrivez l'image souhaitée...",
+    generateImageBtn: "Générer l'image",
+    imageRemainingLabel: (n) => `${n} images restantes aujourd'hui`,
+    imageLimitReached: "Limite quotidienne atteinte, réessayez demain",
+    imageEmptyPrompt: "Décrivez l'image",
+    imageGenerating: "Génération en cours... (peut prendre un moment)",
+    imageError: "Erreur : ",
+    imageConnError: "Erreur de connexion au serveur"
   },
   en: {
     pageTitle: "Compare AI Models",
@@ -381,7 +447,16 @@ const I18N = {
     checkingSub: "Checking your subscription...",
     subSuccess: "Subscription activated! 🎉",
     subNotYet: "Payment confirmation hasn't arrived yet, try again in a minute",
-    subCheckError: "Server connection error"
+    subCheckError: "Server connection error",
+    imageTitle: "Generate an image",
+    imagePromptPlaceholder: "Describe the image you want...",
+    generateImageBtn: "Generate image",
+    imageRemainingLabel: (n) => `${n} images left today`,
+    imageLimitReached: "Daily limit reached, try again tomorrow",
+    imageEmptyPrompt: "Describe the image",
+    imageGenerating: "Generating... (may take a moment)",
+    imageError: "Error: ",
+    imageConnError: "Server connection error"
   }
 };
 
@@ -414,13 +489,19 @@ function setLanguage(lang) {
   document.getElementById("subscribeDesc").textContent = t("subscribeDesc");
   document.getElementById("subscribeLinkBtnInner").textContent = t("subscribeLinkText");
   document.getElementById("checkSubBtn").textContent = t("checkSubText");
+  document.getElementById("imageTitle").textContent = t("imageTitle");
+  document.getElementById("imagePrompt").placeholder = t("imagePromptPlaceholder");
+  document.getElementById("generateImageBtn").textContent = t("generateImageBtn");
 
   document.querySelectorAll(".lang-btn").forEach(b => {
     b.classList.toggle("active", b.dataset.lang === lang);
   });
 
   renderAuthMode();
-  if (token) refreshUsage();
+  if (token) {
+    refreshUsage();
+    refreshImageUsage();
+  }
 }
 
 document.querySelectorAll(".lang-btn").forEach(btn => {
@@ -594,6 +675,7 @@ function showApp() {
   document.getElementById("appSection").classList.remove("hidden");
   document.getElementById("userEmailLabel").textContent = userEmail;
   refreshUsage();
+  refreshImageUsage();
 }
 
 document.getElementById("logoutBtn").onclick = () => {
@@ -778,6 +860,73 @@ document.getElementById("runBtn").onclick = async () => {
   btn.disabled = false;
   btn.textContent = t("runBtn");
   refreshUsage();
+};
+
+// ---------- Image Generation ----------
+async function refreshImageUsage() {
+  const pill = document.getElementById("imageUsagePill");
+  try {
+    const res = await fetch(BACKEND_URL + "/api/images/usage", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    pill.textContent = t("imageRemainingLabel", data.remaining);
+  } catch (err) {
+    // silent fail
+  }
+}
+
+document.getElementById("generateImageBtn").onclick = async () => {
+  const promptEl = document.getElementById("imagePrompt");
+  const prompt = promptEl.value.trim();
+  const statusEl = document.getElementById("imageStatus");
+  const resultEl = document.getElementById("imageResult");
+  const btn = document.getElementById("generateImageBtn");
+
+  if (!prompt) {
+    statusEl.textContent = t("imageEmptyPrompt");
+    statusEl.className = "image-status error";
+    return;
+  }
+
+  btn.disabled = true;
+  statusEl.textContent = t("imageGenerating");
+  statusEl.className = "image-status";
+  resultEl.innerHTML = "";
+
+  try {
+    const res = await fetch(BACKEND_URL + "/api/images/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({ prompt })
+    });
+    const data = await res.json();
+
+    if (res.status === 429) {
+      statusEl.textContent = data.error || t("imageLimitReached");
+      statusEl.className = "image-status error";
+    } else if (!res.ok) {
+      statusEl.textContent = t("imageError") + (data.error || "");
+      statusEl.className = "image-status error";
+    } else {
+      statusEl.textContent = "";
+      const img = document.createElement("img");
+      img.src = data.image || data.imageUrl;
+      resultEl.appendChild(img);
+      if (typeof data.remaining === "number") {
+        document.getElementById("imageUsagePill").textContent = t("imageRemainingLabel", data.remaining);
+      }
+    }
+  } catch (err) {
+    statusEl.textContent = t("imageConnError");
+    statusEl.className = "image-status error";
+  }
+
+  btn.disabled = false;
 };
 
 setLanguage("ar");
