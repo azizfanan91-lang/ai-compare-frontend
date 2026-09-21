@@ -1,654 +1,824 @@
-<nav>
-  #homeالرئيسية</a>
-  #toolsالأدوات</a>
-  #compareالمقارنة</a>
-  #pricingالأسعار</a>
-</nav>
-
-
-<title>نواة AI</title>
-
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="hT2FDh9OExjZR-fDaO2KDz0Flq1Nl5_4GmiH-NgwvW0" />
+<title id="pageTitle">قارن بين النماذج</title>
 <style>
+  :root {
+    --bg: #101314;
+    --panel: #171b1d;
+    --border: #262b2e;
+    --text: #e8e6e1;
+    --muted: #8a9296;
+    --accent: #5ec8b8;
+    --accent-dim: #2f4644;
+    --danger: #e07a7a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header {
+    padding: 20px 20px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  header h1 { margin: 0 0 4px; font-size: 20px; font-weight: 600; }
+  header p { margin: 0; color: var(--muted); font-size: 13px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
 
-:root{
-  --primary:#6D5DFB;
-  --secondary:#4F8CFF;
-  --dark:#0f172a;
-  --light:#f8fafc;
-  --white:#ffffff;
-}
+  /* Language switcher */
+  .lang-switch {
+    display: flex;
+    gap: 4px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    width: auto;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    background: transparent;
+    color: var(--muted);
+    border-radius: 16px;
+  }
+  .lang-btn.active { background: var(--accent); color: #08211d; }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',Tahoma,sans-serif;
-}
+  /* ==================== IMAGE: AUTH HERO ==================== */
+  .auth-hero {
+    width: 100%;
+    height: 160px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    position: relative;
+    background: #0d1011;
+  }
+  .auth-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: brightness(0.85) saturate(1.1);
+  }
+  .auth-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(16,19,20,0.75) 100%);
+    pointer-events: none;
+  }
+  .auth-hero .hero-text {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    left: 16px;
+    z-index: 2;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  }
 
-html{
-  scroll-behavior:smooth;
-}
+  /* ==================== IMAGE: BANNER (main app) ==================== */
+  .app-banner {
+    width: 100%;
+    height: 130px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    position: relative;
+    background: #0d1011;
+    border: 1px solid var(--border);
+  }
+  .app-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: brightness(0.75) saturate(1.15);
+  }
+  .app-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(16,19,20,0.9) 0%, rgba(16,19,20,0.2) 60%, transparent 100%);
+    pointer-events: none;
+  }
+  .app-banner .banner-text {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 2;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    max-width: 60%;
+  }
+  .app-banner .banner-text small {
+    display: block;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 400;
+    margin-top: 4px;
+  }
 
-body{
-  background:linear-gradient(
-  135deg,
-  #f8fafc,
-  #eef2ff,
-  #ffffff
-  );
-  color:var(--dark);
-  overflow-x:hidden;
-}
+  /* Auth */
+  .auth-box {
+    max-width: 380px;
+    margin: 40px auto;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .auth-box h2 { margin-top: 0; font-size: 18px; }
+  input[type="password"], input[type="text"], input[type="email"], textarea {
+    background: #0d1011;
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 11px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  textarea { min-height: 80px; resize: vertical; }
+  button {
+    background: var(--accent);
+    color: #08211d;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+  }
+  button:disabled { opacity: .5; cursor: default; }
+  button.secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    margin-top: 8px;
+  }
+  .error { color: var(--danger); font-size: 13px; margin: 8px 0; min-height: 16px; }
+  .switch-link { text-align: center; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .switch-link a { color: var(--accent); cursor: pointer; text-decoration: underline; }
 
-header{
-  position:sticky;
-  top:0;
-  z-index:999;
-  background:rgba(255,255,255,.85);
-  backdrop-filter:blur(16px);
-  padding:20px 50px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 2px 20px rgba(0,0,0,.05);
-}
+  /* Top bar user info */
+  .user-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .user-bar button { width: auto; padding: 6px 14px; font-size: 12px; }
+  .usage-pill {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+  }
 
-.logo{
-  font-size:32px;
-  font-weight:700;
-  color:var(--primary);
-}
+  /* Chat UI */
+  .hidden { display: none; }
+  .models { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .chip {
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--muted);
+    background: transparent;
+    user-select: none;
+    width: auto;
+  }
+  .chip.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+  .results { display: grid; gap: 14px; margin-top: 22px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .card h3 { margin: 0 0 8px; font-size: 14px; color: var(--accent); }
+  .card .body { font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .limit-banner {
+    background: #2a1f1f;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
 
-nav{
-  display:flex;
-  gap:30px;
-}
-
-nav a{
-  color:var(--dark);
-  text-decoration:none;
-  font-weight:600;
-  transition:.3s;
-}
-
-nav a:hover{
-  color:var(--primary);
-}
-
-.btn{
-  background:linear-gradient(
-  135deg,
-  #6D5DFB,
-  #8B5CF6
-  );
-  color:white;
-  border:none;
-  padding:14px 28px;
-  border-radius:14px;
-  cursor:pointer;
-  font-weight:600;
-  transition:.35s;
-}
-
-.btn:hover{
-  transform:translateY(-2px);
-}
-
-.hero{
-  min-height:90vh;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:60px;
-  padding:80px;
-  position:relative;
-  overflow:hidden;
-}
-
-.hero::before{
-  content:"";
-  position:absolute;
-  width:500px;
-  height:500px;
-  border-radius:50%;
-  background:#6D5DFB;
-  opacity:.12;
-  filter:blur(120px);
-  top:-200px;
-  left:-150px;
-}
-
-.hero-content{
-  flex:1;
-  z-index:2;
-}
-
-.hero h1{
-  font-size:68px;
-  line-height:1.2;
-  margin-bottom:20px;
-}
-
-.hero h1 span{
-  color:var(--primary);
-}
-
-.hero p{
-  font-size:20px;
-  max-width:650px;
-  margin-bottom:25px;
-}
-
-.hero img{
-  width:550px;
-  max-width:100%;
-  border-radius:28px;
-  box-shadow:
-  0 25px 50px rgba(0,0,0,.15);
-}
-
-.section-title{
-  text-align:center;
-  font-size:42px;
-  margin:80px 0 40px;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:
-  repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-  padding:0 80px 60px;
-}
-
-.stat-card{
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  text-align:center;
-  box-shadow:
-  0 8px 20px rgba(0,0,0,.06);
-}
-
-.stat-card h3{
-  color:var(--primary);
-  font-size:32px;
-}
-
-.tools{
-  display:grid;
-  grid-template-columns:
-  repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
-  padding:40px 80px;
-}
-
-.card{
-  background:
-  rgba(255,255,255,.8);
-
-  backdrop-filter:blur(14px);
-
-  border:
-  1px solid rgba(255,255,255,.5);
-
-  border-radius:24px;
-
-  padding:30px;
-
-  transition:.35s;
-
-  box-shadow:
-  0 10px 25px rgba(0,0,0,.06);
-}
-
-.card:hover{
-  transform:translateY(-6px);
-}
-
-.card h3{
-  margin-bottom:15px;
-  color:var(--primary);
-}
-
-img{
-max-width:100%;
-display:block;
-}
-
-/* Responsive */
-
-@media(max-width:1024px){
-
-.hero{
-flex-direction:column;
-text-align:center;
-padding:50px 30px;
-}
-
-.hero h1{
-font-size:52px;
-}
-
-}
-
-@media(max-width:768px){
-
-header{
-flex-direction:column;
-padding:15px;
-gap:15px;
-}
-
-nav{
-flex-wrap:wrap;
-justify-content:center;
-gap:15px;
-}
-
-.hero{
-padding:30px 20px;
-min-height:auto;
-}
-
-.hero h1{
-font-size:38px;
-}
-
-.hero p{
-font-size:16px;
-}
-
-.section-title{
-font-size:28px;
-}
-
-.tools,
-.stats{
-grid-template-columns:1fr;
-padding:20px;
-}
-
-.btn{
-width:100%;
-}
-
-}
-
-@media(max-width:480px){
-
-.logo{
-font-size:24px;
-}
-
-.hero h1{
-font-size:30px;
-}
-
-.hero p{
-font-size:15px;
-}
-
-.card{
-padding:20px;
-}
-
-}
+  /* Subscribe box */
+  .subscribe-box {
+    background: var(--panel);
+    border: 1px solid var(--accent-dim);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .subscribe-box h3 { margin: 0 0 6px; font-size: 16px; color: var(--accent); }
+  .subscribe-box p { margin: 0 0 14px; color: var(--muted); font-size: 13px; }
+  .subscribe-actions { max-width: 320px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+  #subscribeLinkBtn {
+    display: inline-block;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+  .subscribe-status {
+    font-size: 13px;
+    margin-top: 10px;
+    min-height: 16px;
+  }
+  .subscribe-status.success { color: var(--accent); }
+  .subscribe-status.error { color: var(--danger); }
 </style>
-
 </head>
-
 <body>
 
 <header>
-
-<div class="logo">
-نواة AI
-</div>
-
-<nav>
-#homeالرئيسية</a>
-#toolsالأدوات</a>
-#compareالمقارنة</a>
-#pricingالأسعار</a>
-</nav>
-
-<button class="btn">
-تسجيل الدخول
-</button>
-
+  <div>
+    <h1 id="mainTitle">قارن بين نماذج الذكاء الاصطناعي</h1>
+    <p id="subTitle">سؤال واحد، عدة نماذج، جوابات جنب بعض</p>
+  </div>
+  <div class="lang-switch">
+    <button class="lang-btn" data-lang="ar">ع</button>
+    <button class="lang-btn" data-lang="fr">FR</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
 </header>
 
-<section class="hero" id="home">
+<div class="container">
 
-<div class="hero-content">
+  <!-- Auth screens -->
+  <div id="authSection">
+    <div class="auth-box">
 
-<h1>
-أنجز المزيد
-<span>بذكاء</span>
-</h1>
+      <!-- ========== صورة 3: AUTH HERO ========== -->
+      <div class="auth-hero">
+        <img src="hero.png" alt="AI Compare">
+        <div class="hero-text" id="heroText">🤖 قارن بين أقوى نماذج الذكاء الاصطناعي</div>
+      </div>
 
-<p>
-منصة ذكاء اصطناعي تجمع ChatGPT و Gemini و Claude و DeepSeek و NVIDIA في مكان واحد.
-</p>
+      <h2 id="authTitle">تسجيل الدخول</h2>
+      <input type="email" id="authEmail" placeholder="الإيميل ديالك">
+      <input type="password" id="authPassword" placeholder="كلمة السر">
+      <div class="error" id="authError"></div>
+      <button id="authSubmitBtn">دخول</button>
+      <div class="switch-link">
+        <span id="switchText">ما عندكش حساب؟</span>
+        <a id="switchLink">صاوب واحد</a>
+      </div>
+    </div>
+  </div>
 
-<button class="btn">
-ابدأ الآن
-</button>
+  <!-- Main app (hidden until logged in) -->
+  <div id="appSection" class="hidden">
 
-</div>
+    <!-- ========== صورة 3: BANNER ========== -->
+    <div class="app-banner">
+      <img src="hero.png" alt="AI Banner">
+      <div class="banner-text" id="bannerText">
+        سؤال واحد، عدة نماذج
+        <small>اختار، كتب، وقارن</small>
+      </div>
+    </div>
 
-images/hero-ai.jpg
+    <div class="user-bar">
+      <span id="userEmailLabel"></span>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <span class="usage-pill" id="usagePill">...</span>
+        <button id="logoutBtn">خروج</button>
+      </div>
+    </div>
 
-</section>
+    <div id="limitBanner" class="limit-banner hidden"></div>
 
-<section class="stats">
+    <!-- Subscribe box (يبان غير إلى المستخدم ماشي مشترك) -->
+    <div id="subscribeBox" class="subscribe-box hidden">
+      <h3 id="subscribeTitle">اشترك فـ Premium</h3>
+      <p id="subscribeDesc">10$ فالشهر — أسئلة بلا حدود مع كل النماذج</p>
+      <div class="subscribe-actions">
+        <a id="subscribeLinkBtn" target="_blank" rel="noopener">
+          <button type="button" id="subscribeLinkBtnInner"></button>
+        </a>
+        <button type="button" class="secondary" id="checkSubBtn"></button>
+      </div>
+      <div class="subscribe-status" id="subscribeStatus"></div>
+    </div>
 
-<div class="stat-card">
-<h3>+10</h3>
-<p>نماذج ذكاء اصطناعي</p>
-</div>
+    <textarea id="prompt" placeholder="كتب السؤال ديالك هنا..."></textarea>
 
-<div class="stat-card">
-<h3>+100</h3>
-<p>أداة وقالب جاهز</p>
-</div>
+    <div class="models" id="modelChips"></div>
 
-<div class="stat-card">
-<h3>24/7</h3>
-<p>خدمة متواصلة</p>
-</div>
+    <button class="run" id="runBtn">قارن الجوابات</button>
 
-<div class="stat-card">
-<h3>99.9%</h3>
-<p>استقرار المنصة</p>
-</div>
-
-</section>
-
-<h2 class="section-title" id="tools">
-الأدوات الذكية
-</h2>
-
-<section class="tools">
-
-<div class="card">
-<h3>✍️ إنشاء النصوص</h3>
-<p>إنشاء مقالات ومنشورات وتسويق ورسائل احترافية.</p>
-</div>
-
-<div class="card">
-<h3>🤖 مقارنة النماذج</h3>
-<p>قارن بين ChatGPT و Gemini و Claude و DeepSeek.</p>
-</div>
-
-<div class="card">
-<h3>🎨 توليد الصور</h3>
-<p>إنشاء صور احترافية من وصف نصي.</p>
-</div>
-
-<div class="card">
-<h3>🖼️ تحرير الصور</h3>
-<p>إزالة الخلفية وتحسين الجودة والتعديل الذكي.</p>
-</div>
-
-<div class="card">
-<h3>📄 تلخيص المستندات</h3>
-<p>تلخيص PDF و Word واستخراج المعلومات.</p>
-</div>
-
-<div class="card">
-<h3>📊 تحليل البيانات</h3>
-<p>تحليل Excel و CSV مع رسوم وإحصائيات.</p>
-</div>
-
-</section>
-<h2 class="section-title" id="compare">
-قارن بين أفضل النماذج
-</h2>
-
-<section class="compare-section">
-
-<div class="compare-content">
-
-<h2>
-نتائج متعددة من أفضل نماذج الذكاء الاصطناعي
-</h2>
-
-<p style="margin-bottom:20px;">
-احصل على إجابات من ChatGPT و Gemini و Claude و DeepSeek
-و NVIDIA في شاشة واحدة.
-</p>
-
-<textarea
-placeholder="اكتب سؤالك هنا..."
-></textarea>
-
-<div class="models">
-
-<label>
-<input type="checkbox" checked>
-ChatGPT
-</label>
-
-<label>
-<input type="checkbox" checked>
-Gemini
-</label>
-
-<label>
-<input type="checkbox" checked>
-Claude
-</label>
-
-<label>
-<input type="checkbox">
-DeepSeek
-</label>
-
-<label>
-<input type="checkbox">
-NVIDIA
-</label>
+    <div class="results" id="results"></div>
+  </div>
 
 </div>
 
-<button class="btn">
-قارن النماذج
-</button>
+<script>
+const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
 
-</div>
+// Used only if the free-models fetch below fails, so the app still works.
+const FALLBACK_MODELS = [
+  { id: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3" },
+  { id: "qwen/qwen3-coder:free", label: "Qwen3" },
+  { id: "google/gemma-2-9b-it:free", label: "Gemma 2" },
+  { id: "openrouter/free", label: "Auto (Free)" }
+];
 
-images/compare-ai.jpg
+// Populated dynamically from OpenRouter's public models list (free models only).
+let MODELS = [];
 
-</section>
+// ---------- Translations ----------
+const I18N = {
+  ar: {
+    pageTitle: "قارن بين النماذج",
+    mainTitle: "قارن بين نماذج الذكاء الاصطناعي",
+    subTitle: "سؤال واحد، عدة نماذج، جوابات جنب بعض",
+    loginTitle: "تسجيل الدخول",
+    signupTitle: "صاوب حساب جديد",
+    emailPlaceholder: "الإيميل ديالك",
+    passwordPlaceholder: "كلمة السر",
+    loginBtn: "دخول",
+    signupBtn: "تسجيل",
+    switchToSignupText: "ما عندكش حساب؟",
+    switchToSignupLink: "صاوب واحد",
+    switchToLoginText: "عندك حساب من قبل؟",
+    switchToLoginLink: "دخول",
+    fillFields: "عمر الإيميل وكلمة السر",
+    working: "كيخدم...",
+    genericError: "وقع مشكل",
+    connError: "خطأ فـ الاتصال بالسيرفر. يمكن السيرفر كيبدا (جرب مرة أخرى بعد 30 ثانية).",
+    logoutBtn: "خروج",
+    premiumLabel: "مشترك — بلا حدود",
+    trialLabel: (d) => d === 1 ? "باقي يوم واحد فـ التجربة المجانية" : `باقي ${d} أيام فـ التجربة المجانية`,
+    trialEndedLabel: "خلصات التجربة المجانية — اشترك باش تكمل",
+    promptPlaceholder: "كتب السؤال ديالك هنا...",
+    runBtn: "قارن الجوابات",
+    runningBtn: "كيخدم...",
+    emptyPromptAlert: "كتب سؤال ولا",
+    noModelAlert: "ختار على الأقل نموذج واحد",
+    limitReachedShort: "وصلتي للحد اليومي",
+    errorPrefix: "خطأ: ",
+    connErrorPrefix: "خطأ فـ الاتصال: ",
+    loadingModels: "كنحملو النماذج المجانية...",
+    subscribeTitle: "اشترك فـ Premium",
+    subscribeDesc: "10$ فالشهر — أسئلة بلا حدود مع كل النماذج",
+    paymentNotReady: "الدفع ماشي معمر مزيان دابا، عاود جرب من بعد",
+    subscribeLinkText: "اشترك الآن",
+    checkSubText: "تحققت من الدفع؟ اضغط هنا",
+    checkingSub: "كنتحققو من الاشتراك...",
+    subSuccess: "تفعل الاشتراك بنجاح! 🎉",
+    subNotYet: "مازال ماوصلش تأكيد الدفع، استنى شوية وعاود جرب (ممكن ياخد دقيقة)",
+    subCheckError: "خطأ فـ الاتصال بالسيرفر",
+    heroText: "🤖 قارن بين أقوى نماذج الذكاء الاصطناعي",
+    bannerTitle: "سؤال واحد، عدة نماذج",
+    bannerSub: "اختار، كتب، وقارن"
+  },
+  fr: {
+    pageTitle: "Comparer les modèles",
+    mainTitle: "Comparez les modèles d'IA",
+    subTitle: "Une question, plusieurs modèles, réponses côte à côte",
+    loginTitle: "Connexion",
+    signupTitle: "Créer un compte",
+    emailPlaceholder: "Votre email",
+    passwordPlaceholder: "Mot de passe",
+    loginBtn: "Connexion",
+    signupBtn: "S'inscrire",
+    switchToSignupText: "Pas de compte ?",
+    switchToSignupLink: "Créer un compte",
+    switchToLoginText: "Déjà un compte ?",
+    switchToLoginLink: "Connexion",
+    fillFields: "Remplissez l'email et le mot de passe",
+    working: "Chargement...",
+    genericError: "Une erreur est survenue",
+    connError: "Erreur de connexion au serveur. Le serveur démarre peut-être (réessayez dans 30 secondes).",
+    logoutBtn: "Déconnexion",
+    premiumLabel: "Abonné — illimité",
+    trialLabel: (d) => d === 1 ? "1 jour restant dans l'essai gratuit" : `${d} jours restants dans l'essai gratuit`,
+    trialEndedLabel: "Essai gratuit terminé — abonnez-vous pour continuer",
+    promptPlaceholder: "Écrivez votre question ici...",
+    runBtn: "Comparer les réponses",
+    runningBtn: "Chargement...",
+    emptyPromptAlert: "Écrivez une question",
+    noModelAlert: "Sélectionnez au moins un modèle",
+    limitReachedShort: "Limite quotidienne atteinte",
+    errorPrefix: "Erreur : ",
+    connErrorPrefix: "Erreur de connexion : ",
+    loadingModels: "Chargement des modèles gratuits...",
+    subscribeTitle: "Abonnez-vous à Premium",
+    subscribeDesc: "10$/mois — questions illimitées avec tous les modèles",
+    paymentNotReady: "Le paiement n'est pas encore configuré, réessayez plus tard",
+    subscribeLinkText: "S'abonner maintenant",
+    checkSubText: "Vous avez payé ? Cliquez ici",
+    checkingSub: "Vérification de l'abonnement...",
+    subSuccess: "Abonnement activé avec succès ! 🎉",
+    subNotYet: "La confirmation du paiement n'est pas encore arrivée, réessayez dans une minute",
+    subCheckError: "Erreur de connexion au serveur",
+    heroText: "🤖 Comparez les meilleurs modèles d'IA",
+    bannerTitle: "Une question, plusieurs modèles",
+    bannerSub: "Choisissez, écrivez, comparez"
+  },
+  en: {
+    pageTitle: "Compare AI Models",
+    mainTitle: "Compare AI Models",
+    subTitle: "One question, several models, side-by-side answers",
+    loginTitle: "Log In",
+    signupTitle: "Create Account",
+    emailPlaceholder: "Your email",
+    passwordPlaceholder: "Password",
+    loginBtn: "Log In",
+    signupBtn: "Sign Up",
+    switchToSignupText: "No account?",
+    switchToSignupLink: "Sign up",
+    switchToLoginText: "Already have an account?",
+    switchToLoginLink: "Log in",
+    fillFields: "Fill in email and password",
+    working: "Working...",
+    genericError: "Something went wrong",
+    connError: "Server connection error. The server may be waking up (try again in 30 seconds).",
+    logoutBtn: "Log out",
+    premiumLabel: "Subscribed — unlimited",
+    trialLabel: (d) => d === 1 ? "1 day left in your free trial" : `${d} days left in your free trial`,
+    trialEndedLabel: "Free trial ended — subscribe to continue",
+    promptPlaceholder: "Type your question here...",
+    runBtn: "Compare Answers",
+    runningBtn: "Working...",
+    emptyPromptAlert: "Type a question",
+    noModelAlert: "Select at least one model",
+    limitReachedShort: "Daily limit reached",
+    errorPrefix: "Error: ",
+    connErrorPrefix: "Connection error: ",
+    loadingModels: "Loading free models...",
+    subscribeTitle: "Subscribe to Premium",
+    subscribeDesc: "$10/month — unlimited questions with every model",
+    paymentNotReady: "Payments aren't set up yet, try again later",
+    subscribeLinkText: "Subscribe now",
+    checkSubText: "Already paid? Click here",
+    checkingSub: "Checking your subscription...",
+    subSuccess: "Subscription activated! 🎉",
+    subNotYet: "Payment confirmation hasn't arrived yet, try again in a minute",
+    subCheckError: "Server connection error",
+    heroText: "🤖 Compare the best AI models",
+    bannerTitle: "One question, several models",
+    bannerSub: "Pick, write, compare"
+  }
+};
 
-<h2 class="section-title">
-🎨 توليد الصور بالذكاء الاصطناعي
-</h2>
+let currentLang = "ar";
+let token = null;
+let userEmail = null;
+let isSignupMode = false;
+let selectedModels = new Set();
 
-<section class="image-section">
+function t(key, ...args) {
+  const val = I18N[currentLang][key];
+  return typeof val === "function" ? val(...args) : val;
+}
 
-<div class="image-content">
+function setLanguage(lang) {
+  if (!I18N[lang]) return;
+  currentLang = lang;
+  document.getElementById("htmlRoot").lang = lang;
+  document.getElementById("htmlRoot").dir = lang === "ar" ? "rtl" : "ltr";
 
-<h2>
-أنشئ صورًا احترافية من وصف نصي
-</h2>
+  document.getElementById("pageTitle").textContent = t("pageTitle");
+  document.getElementById("mainTitle").textContent = t("mainTitle");
+  document.getElementById("subTitle").textContent = t("subTitle");
+  document.getElementById("authEmail").placeholder = t("emailPlaceholder");
+  document.getElementById("authPassword").placeholder = t("passwordPlaceholder");
+  document.getElementById("prompt").placeholder = t("promptPlaceholder");
+  document.getElementById("runBtn").textContent = t("runBtn");
+  document.getElementById("logoutBtn").textContent = t("logoutBtn");
+  document.getElementById("subscribeTitle").textContent = t("subscribeTitle");
+  document.getElementById("subscribeDesc").textContent = t("subscribeDesc");
+  document.getElementById("subscribeLinkBtnInner").textContent = t("subscribeLinkText");
+  document.getElementById("checkSubBtn").textContent = t("checkSubText");
 
-<p style="margin-bottom:20px;">
-اكتب وصف الصورة وسيقوم الذكاء الاصطناعي بإنشائها خلال ثوانٍ.
-</p>
+  // النصوص الجديدة ديال الصور
+  const heroTextEl = document.getElementById("heroText");
+  if (heroTextEl) heroTextEl.textContent = t("heroText");
+  const bannerTitleEl = document.getElementById("bannerTitle");
+  if (bannerTitleEl) bannerTitleEl.textContent = t("bannerTitle");
+  const bannerSubEl = document.getElementById("bannerSub");
+  if (bannerSubEl) bannerSubEl.textContent = t("bannerSub");
 
-<textarea
-placeholder="مثال: مدينة مستقبلية ليلاً بإضاءة نيون زرقاء"
-></textarea>
+  document.querySelectorAll(".lang-btn").forEach(b => {
+    b.classList.toggle("active", b.dataset.lang === lang);
+  });
 
-<button class="btn">
-إنشاء صورة
-</button>
+  renderAuthMode();
+  if (token) {
+    refreshUsage();
+  }
+}
 
-</div>
+document.querySelectorAll(".lang-btn").forEach(btn => {
+  btn.onclick = () => setLanguage(btn.dataset.lang);
+});
 
-images/robot-hand.png
+// ---------- Auth UI ----------
+const authTitle = document.getElementById("authTitle");
+const authSubmitBtn = document.getElementById("authSubmitBtn");
+const switchText = document.getElementById("switchText");
+const switchLink = document.getElementById("switchLink");
+const authError = document.getElementById("authError");
 
-</section>
+function renderAuthMode() {
+  if (isSignupMode) {
+    authTitle.textContent = t("signupTitle");
+    authSubmitBtn.textContent = t("signupBtn");
+    switchText.textContent = t("switchToLoginText");
+    switchLink.textContent = t("switchToLoginLink");
+  } else {
+    authTitle.textContent = t("loginTitle");
+    authSubmitBtn.textContent = t("loginBtn");
+    switchText.textContent = t("switchToSignupText");
+    switchLink.textContent = t("switchToSignupLink");
+  }
+  authError.textContent = "";
+}
 
-<h2 class="section-title">
-لماذا نواة AI ؟
-</h2>
+switchLink.onclick = () => {
+  isSignupMode = !isSignupMode;
+  renderAuthMode();
+};
 
-<section class="tools">
+authSubmitBtn.onclick = async () => {
+  const email = document.getElementById("authEmail").value.trim();
+  const password = document.getElementById("authPassword").value;
+  authError.textContent = "";
 
-<div class="card">
-<h3>⚡ سرعة عالية</h3>
-<p>
-الوصول إلى أفضل النماذج من مكان واحد.
-</p>
-</div>
+  if (!email || !password) {
+    authError.textContent = t("fillFields");
+    return;
+  }
 
-<div class="card">
-<h3>🔒 حماية البيانات</h3>
-<p>
-حسابات آمنة مع توثيق وتشفير كامل.
-</p>
-</div>
+  authSubmitBtn.disabled = true;
+  authSubmitBtn.textContent = t("working");
 
-<div class="card">
-<h3>🌍 منصة عربية</h3>
-<p>
-واجهة عربية حديثة وسهلة الاستخدام.
-</p>
-</div>
+  try {
+    const endpoint = isSignupMode ? "/api/auth/signup" : "/api/auth/login";
+    const res = await fetch(BACKEND_URL + endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
 
-<div class="card">
-<h3>📈 تطوير مستمر</h3>
-<p>
-إضافة نماذج وأدوات جديدة باستمرار.
-</p>
-</div>
+    if (!res.ok) {
+      authError.textContent = data.error || t("genericError");
+      authSubmitBtn.disabled = false;
+      renderAuthMode();
+      return;
+    }
 
-</section>
+    token = data.token;
+    userEmail = data.email;
+    saveSession(token, userEmail);
+    showApp();
+  } catch (err) {
+    authError.textContent = t("connError");
+  }
 
-<h2 class="section-title" id="pricing">
-الأسعار
-</h2>
+  authSubmitBtn.disabled = false;
+  renderAuthMode();
+};
 
-<section class="pricing">
+// حفظ الجلسة فـ localStorage باش المستخدم يبقى مسجل حتى بعد ما يسد الصفحة أو يعاود يفتحها
+function saveSession(tok, email) {
+  try {
+    localStorage.setItem("azizart_token", tok);
+    localStorage.setItem("azizart_email", email);
+  } catch (e) {
+    // localStorage ماشي متاح (نادر جدا)، التطبيق غيخدم بلا حفظ دائم
+  }
+}
 
-<div class="price-card">
+function clearSession() {
+  try {
+    localStorage.removeItem("azizart_token");
+    localStorage.removeItem("azizart_email");
+  } catch (e) {}
+}
 
-<h2>
-الخطة المجانية
-</h2>
+function loadSession() {
+  try {
+    return {
+      token: localStorage.getItem("azizart_token"),
+      email: localStorage.getItem("azizart_email")
+    };
+  } catch (e) {
+    return { token: null, email: null };
+  }
+}
 
-<ul>
+// ---------- Main App ----------
+const modelChips = document.getElementById("modelChips");
 
-<li>
-50 رسالة يومياً
-</li>
+function renderModelChips() {
+  modelChips.innerHTML = "";
+  MODELS.forEach(m => {
+    const chip = document.createElement("div");
+    chip.className = "chip active";
+    chip.textContent = m.label;
+    chip.onclick = () => {
+      if (selectedModels.has(m.id)) {
+        selectedModels.delete(m.id);
+        chip.classList.remove("active");
+      } else {
+        selectedModels.add(m.id);
+        chip.classList.add("active");
+      }
+    };
+    modelChips.appendChild(chip);
+  });
+}
 
-<li>
-5 صور يومياً
-</li>
+const FAMOUS_PREFIXES = [
+  "meta-llama/", "google/", "qwen/", "nvidia/", "mistralai/",
+  "moonshotai/", "deepseek/", "microsoft/", "openrouter/"
+];
 
-<li>
-مقارنة نماذج أساسية
-</li>
+async function loadFreeModels() {
+  modelChips.innerHTML = `<span class="muted" id="modelsLoadingMsg">${t("loadingModels")}</span>`;
+  try {
+    const res = await fetch("https://openrouter.ai/api/v1/models");
+    const data = await res.json();
+const EXCLUDE_KEYWORDS = ["lyria", "whisper", "tts", "embed", "moderation", "dall-e", "musicgen"];
 
-<li>
-تجربة مجانية
-</li>
+const free = (data.data || []).filter(m => {
+  const p = m.pricing || {};
+  const isFree = parseFloat(p.prompt || "0") === 0 && parseFloat(p.completion || "0") === 0;
+  const arch = m.architecture || {};
+  const outputs = Array.isArray(arch.output_modalities) ? arch.output_modalities : ["text"];
+  const isChatText = outputs.includes("text");
+  const isFamous = FAMOUS_PREFIXES.some(pfx => m.id.startsWith(pfx));
+  const isExcluded = EXCLUDE_KEYWORDS.some(k => m.id.toLowerCase().includes(k));
+  return isFree && isChatText && isFamous && !isExcluded;
+});
 
-</ul>
+if (free.length === 0) throw new Error("no free models returned");
 
-</div>
+MODELS = free
+  .map(m => ({ id: m.id, label: (m.name || m.id).replace(/\s*\(free\)\s*$/i, "") }))
+  .sort((a, b) => {
+    const aTop = a.id.startsWith("deepseek/") ? 0 : 1;
+    const bTop = b.id.startsWith("deepseek/") ? 0 : 1;
+    if (aTop !== bTop) return aTop - bTop;
+    return a.label.localeCompare(b.label);
+  })
+  .slice(0, 8);
+  } catch (err) {
+    MODELS = FALLBACK_MODELS;
+  }
 
-<div class="price-card">
+  selectedModels = new Set(MODELS.map(m => m.id));
+  renderModelChips();
+}
 
-<h2>
-Premium
-</h2>
+loadFreeModels();
 
-<ul>
+function showApp() {
+  document.getElementById("authSection").classList.add("hidden");
+  document.getElementById("appSection").classList.remove("hidden");
+  document.getElementById("userEmailLabel").textContent = userEmail;
+  refreshUsage();
+}
 
-<li>
-وصول غير محدود
-</li>
+document.getElementById("logoutBtn").onclick = () => {
+  token = null;
+  userEmail = null;
+  clearSession();
+  document.getElementById("appSection").classList.add("hidden");
+  document.getElementById("authSection").classList.remove("hidden");
+  document.getElementById("authEmail").value = "";
+  document.getElementById("authPassword").value = "";
+};
 
-<li>
-توليد الصور
-</li>
+// عند فتح الصفحة، نتحققو واش كاين جلسة محفوظة من قبل ونعاودو تسجيل الدخول أوتوماتيكيا
+(function restoreSession() {
+  const saved = loadSession();
+  if (saved.token && saved.email) {
+    token = saved.token;
+    userEmail = saved.email;
+    showApp();
+  }
+})();
 
-<li>
-تحرير الصور
-</li>
+async function refreshUsage() {
+  try {
+    const res = await fetch(BACKEND_URL + "/api/usage", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    if (res.status === 401) {
+      token = null;
+      userEmail = null;
+      clearSession();
+      document.getElementById("appSection").classList.add("hidden");
+      document.getElementById("authSection").classList.remove("hidden");
+      return;
+    }
+    const data = await res.json();
+    const pill = document.getElementById("usagePill");
+    const subscribeBox = document.getElementById("subscribeBox");
+    const promptBox = document.getElementById("prompt");
+    const runBtn = document.getElementById("runBtn");
 
-<li>
-مقارنة شاملة
-</li>
+    if (data.is_premium) {
+      pill.textContent = t("premiumLabel");
+      subscribeBox.classList.add("hidden");
+      promptBox.disabled = false;
+      runBtn.disabled = false;
+    } else if (data.in_trial) {
+      pill.textContent = t("trialLabel", data.trial_days_left);
+      subscribeBox.classList.remove("hidden");
+      setupSubscribeLink();
+      promptBox.disabled = false;
+      runBtn.disabled = false;
+    } else {
+      pill.textContent = t("trialEndedLabel");
+      subscribeBox.classList.remove("hidden");
+      setupSubscribeLink();
+      promptBox.disabled = true;
+      runBtn.disabled = true;
+    }
+  } catch (err) {
+    // silent fail
+  }
+}
 
-<li>
-حفظ المشاريع
-</li>
+// ---------- Gumroad Subscription ----------
+let subscribeLinkReady = false;
 
-<li>
-دعم فني مميز
-</li>
+// كنجيبو رابط المنتج ديال Gumroad من السيرفر ونحطوه فالزر، مع تعمير الإيميل مسبقا
+async function setupSubscribeLink() {
+  if (subscribeLinkReady) return;
 
-</ul>
+  const statusEl = document.getElementById("subscribeStatus");
+  const linkEl = document.getElementById("subscribeLinkBtn");
 
-</div>
+  try {
+    const configRes = await fetch(BACKEND_URL + "/api/payment/config");
+    const config = await configRes.json();
 
-</section>
+    if (!config.productUrl) {
+      statusEl.textContent = t("paymentNotReady");
+      statusEl.className = "subscribe-status error";
+      return;
+    }
 
-<section
-style="
-padding:100px 30px;
-text-align:center;
-"
->
+    // نزيدو الإيميل ديال المستخدم كـ query param باش يتعمر مسبقا فصفحة Gumroad
+    const urlWithEmail = config.productUrl +
+      (config.productUrl.includes("?") ? "&" : "?") +
+      "email=" + encodeURIComponent(userEmail);
 
-<h2
-style="
-font-size:48px;
-margin-bottom:20px;
-"
->
-جاهز للانطلاق؟
-</h2>
+    linkEl.href = urlWithEmail;
+    subscribeLinkReady = true;
+  } catch (err) {
+    statusEl.textContent = t("paymentNotReady");
+    statusEl.className = "subscribe-status error";
+  }
+}
 
-<p
-style="
-font-size:20px;
-margin-bottom:30px;
-"
->
-ابدأ استخدام أقوى أدوات الذكاء الاصطناعي اليوم.
-</p>
+// زر "تحققت من الدفع" كيسول directly على /api/usage باش يشوف واش is_premium تبدلات
+document.getElementById("checkSubBtn").onclick = async () => {
+  const statusEl = document.getElementById("subscribeStatus");
+  statusEl.textContent = t("checkingSub");
+  statusEl.className = "subscribe-status";
 
-<button class="btn">
-ابدأ مجانًا
-</button>
+  try {
+    const res = await fetch(BACKEND_URL + "/api/usage", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    const data = await res.json();
 
-</section>
-
-<footer>
-
-<h2 style="margin-bottom:20px;">
-نواة AI
-</h2>
-
-<p style="margin-bottom:15px;">
-منصة عربية تجمع أفضل نماذج الذكاء الاصطناعي
-في مكان واحد.
-</p>
-
-<p style="opacity:.7;">
-© 2026 Nawa AI
-جميع الحقوق محفوظة
-</p>
-
-</footer>
-
-</body>
-</html>
+    if (data.is_premium) {
+      statusEl.textContent = t("subSuccess");
