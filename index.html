@@ -1,1333 +1,654 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl" id="htmlRoot">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="google-site-verification" content="hT2FDh9OExjZR-fDaO2KDz0Flq1Nl5_4GmiH-NgwvW0" />
-<title id="pageTitle">QueryMix</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<nav>
+  #homeالرئيسية</a>
+  #toolsالأدوات</a>
+  #compareالمقارنة</a>
+  #pricingالأسعار</a>
+</nav>
+
+
+<title>نواة AI</title>
+
 <style>
+
 :root{
-  --bg:#f8f7fd; --card:#ffffff; --ink:#1f2340; --muted:#6b7090; --line:#ebe8f7;
-  --p1:#8b6be0; --p2:#6444c7; --blue:#4b8df2; --soft:#efeafc; --ok:#1f9d6b; --err:#d64550;
-  --shadow:0 6px 24px rgba(100,68,199,.09);
+  --primary:#6D5DFB;
+  --secondary:#4F8CFF;
+  --dark:#0f172a;
+  --light:#f8fafc;
+  --white:#ffffff;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{font-family:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;
-  background-image:radial-gradient(900px 400px at 85% -5%,#e9e2fb 0,transparent 70%),radial-gradient(700px 400px at 0% 30%,#e4edfd 0,transparent 70%);
-  background-repeat:no-repeat}
-a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer}
-button:disabled{opacity:.55;cursor:default}
-:focus-visible{outline:3px solid #b9a6f3;outline-offset:2px}
-.hidden{display:none!important}
-.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
-/* Navbar */
-.nav{position:sticky;top:12px;z-index:50;margin:12px auto 0;max-width:1180px;padding:0 20px}
-.nav-in{background:var(--card);border-radius:18px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;padding:14px 26px;gap:16px;position:relative}
-.logo{font-size:26px;font-weight:700;display:flex;gap:6px;align-items:baseline;direction:ltr}
-.logo b{color:var(--p2)}
-.links{display:flex;gap:30px;font-weight:500}
-.links a{padding:6px 2px;border-bottom:2px solid transparent}
-.links a:hover{color:var(--p2);border-color:var(--p2)}
-.nav-end{display:flex;align-items:center;gap:12px}
-.lang{display:flex;gap:2px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:3px}
-.lang button{border:0;background:transparent;color:var(--muted);font-weight:600;font-size:12px;padding:4px 10px;border-radius:999px}
-.lang button.active{background:var(--p2);color:#fff}
-.btn{border:0;border-radius:12px;padding:12px 24px;font-weight:600;font-size:16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,box-shadow .15s}
-.btn-p{background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;box-shadow:0 8px 20px rgba(100,68,199,.28)}
-.btn-p:hover:not(:disabled){transform:translateY(-2px)}
-.btn-w{background:#fff;color:var(--ink);border:1px solid var(--line)}
-.btn-w:hover{border-color:var(--p1)}
-.btn-sm{padding:9px 18px;font-size:15px}
-.arrow::before{content:"‹"}
-html[dir="ltr"] .arrow::before{content:"›"}
-.menu-btn{display:none;background:none;border:0;font-size:26px;color:var(--ink)}
-
-/* Hero */
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:64px 0 34px}
-.hero h1{font-size:clamp(36px,5.4vw,62px);line-height:1.25;font-weight:700}
-.hero p{color:var(--muted);font-size:19px;margin:20px 0 30px;max-width:540px}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
-.visual{position:relative;min-height:340px}
-.win{background:#fff;border-radius:22px;box-shadow:0 20px 50px rgba(100,68,199,.16);padding:18px;position:absolute;inset-block:20px;inset-inline:30px 10px;display:flex;flex-direction:column}
-.dots{display:flex;gap:6px;margin-bottom:14px}.dots i{width:9px;height:9px;border-radius:50%;background:#e4defa}
-.tiles{flex:1;display:grid;grid-template-columns:1.1fr 1fr;grid-template-rows:1fr 1fr;gap:12px}
-.tile{background:var(--bg);border-radius:14px;padding:12px}
-.t-text{grid-row:span 2;display:flex;flex-direction:column;gap:9px}
-.t-text u{display:block;height:8px;border-radius:4px;background:#dcd5f6}
-.t-text u:nth-child(2){width:85%}.t-text u:nth-child(3){width:95%}.t-text u:nth-child(4){width:60%}.t-text u:nth-child(5){width:78%}.t-text u:nth-child(6){width:70%}
-.t-img{display:grid;place-items:center;color:#b7a5ee}
-.t-bars{display:flex;align-items:flex-end;gap:8px}
-.t-bars i{flex:1;border-radius:6px 6px 0 0;background:linear-gradient(180deg,var(--blue),#8fb9f7)}
-.float{position:absolute;width:54px;height:54px;border-radius:15px;display:grid;place-items:center;color:#fff;font-size:24px;box-shadow:0 10px 24px rgba(100,68,199,.25)}
-.f1{top:0;inset-inline-end:0;background:linear-gradient(135deg,#c78af0,#8b6be0)}
-.f2{bottom:0;inset-inline-end:10px;background:linear-gradient(135deg,#5aa0ff,#3d78e0)}
-.f3{top:120px;inset-inline-start:-6px;background:linear-gradient(135deg,#66b6ff,#4b8df2)}
-
-/* Tool cards */
-.feats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:24px 0 40px}
-.feat{background:var(--card);border:0;border-radius:18px;padding:22px;box-shadow:var(--shadow);display:flex;gap:16px;align-items:flex-start;text-align:start;color:var(--ink);transition:transform .15s}
-.feat:hover{transform:translateY(-3px)}
-.ico{flex:none;width:54px;height:54px;border-radius:14px;display:grid;place-items:center;color:#fff;font-size:24px}
-.feat h3{font-size:18px;margin-bottom:4px}
-.feat p{color:var(--muted);font-size:14.5px;line-height:1.65}
-
-/* Tools workspace */
-.section-title{font-size:28px;font-weight:700;text-align:center;margin-bottom:8px}
-.section-sub{text-align:center;color:var(--muted);margin-bottom:28px}
-.tool{background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:28px;margin-bottom:56px}
-.status{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:14.5px;margin-bottom:16px}
-.pill{background:var(--soft);color:var(--p2);font-weight:600;border-radius:999px;padding:4px 14px}
-.email{color:var(--muted);font-size:14px;direction:ltr}
-.banner{background:#fdecee;border:1px solid var(--err);color:var(--err);padding:12px 16px;border-radius:12px;font-size:14px;margin-bottom:16px}
-.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--line);padding-bottom:16px}
-.tab{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 18px;font-weight:600;font-size:15px;color:var(--muted)}
-.tab[aria-selected="true"]{background:var(--soft);color:var(--p2);border-color:var(--p1)}
-.models-label{font-size:14px;color:var(--muted);margin-bottom:8px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;padding:2px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:14px;color:var(--muted)}
-.chip[aria-pressed="true"]{background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;border-color:transparent}
-.ta{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;font:inherit;font-size:16px;resize:vertical;min-height:130px;background:var(--bg);color:var(--ink)}
-.ta:focus,.sel:focus,.inp:focus{outline:none;border-color:var(--p1);background:#fff}
-.inp{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;font:inherit;background:var(--bg);color:var(--ink);margin-top:10px}
-.opts{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin:12px 0}
-.opt{display:grid;gap:4px;font-size:13.5px;color:var(--muted)}
-.sel{border:1.5px solid var(--line);border-radius:12px;padding:9px 12px;font:inherit;font-size:15px;background:var(--bg);color:var(--ink);min-width:150px}
-.file input{display:none}
-.file{cursor:pointer}
-.run{margin-top:4px}
-.hint{color:var(--muted);font-size:13.5px;margin-top:10px}
-.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:22px}
-.res{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff}
-.res-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
-.res h4{font-size:15px;color:var(--p2)}
-.copy{border:1px solid var(--line);background:#fff;border-radius:8px;font-size:12.5px;padding:3px 10px;color:var(--muted)}
-.copy:hover{border-color:var(--p1);color:var(--p2)}
-.res .body{white-space:pre-wrap;font-size:15px;line-height:1.75;max-height:460px;overflow:auto}
-.res .body.muted{color:var(--muted)}
-.muted{color:var(--muted);font-size:14px}
-.img-out{margin-top:20px;display:grid;gap:12px;justify-items:center}
-.img-frame{width:100%;max-width:560px;background:var(--bg);border:1px solid var(--line);border-radius:18px;display:grid;place-items:center;overflow:hidden;min-height:180px;text-align:center;padding:10px}
-.img-frame img{width:100%;height:auto;border-radius:12px;display:block}
-
-/* Steps */
-.steps-box{background:var(--card);border-radius:22px;padding:28px;box-shadow:var(--shadow);margin-bottom:40px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
-.step{background:var(--bg);border-radius:16px;padding:18px}
-.num{width:30px;height:30px;border-radius:50%;background:var(--p1);color:#fff;font-weight:700;display:grid;place-items:center;margin-bottom:10px}
-.step:nth-child(2) .num{background:var(--blue)}.step:nth-child(3) .num{background:var(--p2)}.step:nth-child(4) .num{background:#37b5a3}
-.step h4{font-size:17px}.step p{color:var(--muted);font-size:14.5px}
-
-/* Pricing */
-.plans{display:grid;grid-template-columns:repeat(2,minmax(0,360px));gap:22px;justify-content:center;margin-bottom:56px}
-.plan{background:var(--card);border-radius:22px;padding:28px;box-shadow:var(--shadow);border:2px solid transparent;display:flex;flex-direction:column}
-.plan.hot{border-color:var(--p1)}
-.plan h3{font-size:20px}
-.price{font-size:40px;font-weight:700;margin:8px 0}.price small{font-size:16px;color:var(--muted);font-weight:500}
-.plan ul{list-style:none;margin:16px 0 22px;display:grid;gap:8px;color:var(--muted);flex:1}
-.plan li::before{content:"✓";color:var(--ok);font-weight:700;margin-inline-end:8px}
-.plan .btn{width:100%}
-.sub-actions{display:grid;gap:8px}
-.sub-status{font-size:13.5px;margin-top:10px;min-height:20px;color:var(--muted)}
-.sub-status.success{color:var(--ok)}.sub-status.error{color:var(--err)}
-.prem-ok{background:var(--soft);color:var(--p2);font-weight:600;text-align:center;border-radius:12px;padding:12px}
-
-/* CTA */
-.cta{background:linear-gradient(120deg,#ddd5fa,#dbe7fd);border-radius:22px;padding:30px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:34px}
-.cta h2{font-size:26px}.cta p{opacity:.8}
-footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
-
-/* Modal */
-.modal{position:fixed;inset:0;background:rgba(31,35,64,.5);display:none;place-items:center;z-index:100;padding:20px}
-.modal.open{display:grid}
-.box{background:#fff;border-radius:22px;padding:28px;width:100%;max-width:400px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
-.box h3{font-size:22px;margin-bottom:6px}
-.box input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;background:var(--bg);margin-top:12px;color:var(--ink)}
-.box input:focus{outline:none;border-color:var(--p1);background:#fff}
-.box .btn{width:100%;margin-top:14px}
-.switch{text-align:center;margin-top:14px;font-size:14px;color:var(--muted)}
-.switch a{color:var(--p2);font-weight:600;cursor:pointer;text-decoration:underline}
-.err{color:var(--err);font-size:14px;margin-top:10px;min-height:20px}
-.close{float:inline-end;background:none;border:0;font-size:22px;color:var(--muted)}
-
-@media (max-width:980px){
-  .hero{grid-template-columns:1fr;padding-top:40px}.visual{min-height:280px;order:-1}
-  .feats,.steps{grid-template-columns:repeat(2,1fr)}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',Tahoma,sans-serif;
 }
-@media (max-width:820px){
-  .links{display:none;position:absolute;top:66px;inset-inline:0;background:#fff;border-radius:16px;box-shadow:var(--shadow);flex-direction:column;gap:6px;padding:16px;z-index:5}
-  .links.open{display:flex}.menu-btn{display:block}
+
+html{
+  scroll-behavior:smooth;
 }
-@media (max-width:720px){
-  .feats,.steps,.plans{grid-template-columns:1fr}
-  .cta{padding:24px}.tool{padding:18px}
-  .nav-in{padding:12px 14px;gap:8px}.logo{font-size:22px}
-  .nav-end{gap:8px}.btn-sm{padding:8px 12px;font-size:14px}
-  .tab{padding:8px 12px;font-size:14px}
+
+body{
+  background:linear-gradient(
+  135deg,
+  #f8fafc,
+  #eef2ff,
+  #ffffff
+  );
+  color:var(--dark);
+  overflow-x:hidden;
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(16px);
+  padding:20px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 20px rgba(0,0,0,.05);
+}
+
+.logo{
+  font-size:32px;
+  font-weight:700;
+  color:var(--primary);
+}
+
+nav{
+  display:flex;
+  gap:30px;
+}
+
+nav a{
+  color:var(--dark);
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+}
+
+nav a:hover{
+  color:var(--primary);
+}
+
+.btn{
+  background:linear-gradient(
+  135deg,
+  #6D5DFB,
+  #8B5CF6
+  );
+  color:white;
+  border:none;
+  padding:14px 28px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:600;
+  transition:.35s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.hero{
+  min-height:90vh;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:60px;
+  padding:80px;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  background:#6D5DFB;
+  opacity:.12;
+  filter:blur(120px);
+  top:-200px;
+  left:-150px;
+}
+
+.hero-content{
+  flex:1;
+  z-index:2;
+}
+
+.hero h1{
+  font-size:68px;
+  line-height:1.2;
+  margin-bottom:20px;
+}
+
+.hero h1 span{
+  color:var(--primary);
+}
+
+.hero p{
+  font-size:20px;
+  max-width:650px;
+  margin-bottom:25px;
+}
+
+.hero img{
+  width:550px;
+  max-width:100%;
+  border-radius:28px;
+  box-shadow:
+  0 25px 50px rgba(0,0,0,.15);
+}
+
+.section-title{
+  text-align:center;
+  font-size:42px;
+  margin:80px 0 40px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:
+  repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  padding:0 80px 60px;
+}
+
+.stat-card{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:
+  0 8px 20px rgba(0,0,0,.06);
+}
+
+.stat-card h3{
+  color:var(--primary);
+  font-size:32px;
+}
+
+.tools{
+  display:grid;
+  grid-template-columns:
+  repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+  padding:40px 80px;
+}
+
+.card{
+  background:
+  rgba(255,255,255,.8);
+
+  backdrop-filter:blur(14px);
+
+  border:
+  1px solid rgba(255,255,255,.5);
+
+  border-radius:24px;
+
+  padding:30px;
+
+  transition:.35s;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,.06);
+}
+
+.card:hover{
+  transform:translateY(-6px);
+}
+
+.card h3{
+  margin-bottom:15px;
+  color:var(--primary);
+}
+
+img{
+max-width:100%;
+display:block;
+}
+
+/* Responsive */
+
+@media(max-width:1024px){
+
+.hero{
+flex-direction:column;
+text-align:center;
+padding:50px 30px;
+}
+
+.hero h1{
+font-size:52px;
+}
+
+}
+
+@media(max-width:768px){
+
+header{
+flex-direction:column;
+padding:15px;
+gap:15px;
+}
+
+nav{
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+
+.hero{
+padding:30px 20px;
+min-height:auto;
+}
+
+.hero h1{
+font-size:38px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+.section-title{
+font-size:28px;
+}
+
+.tools,
+.stats{
+grid-template-columns:1fr;
+padding:20px;
+}
+
+.btn{
+width:100%;
+}
+
+}
+
+@media(max-width:480px){
+
+.logo{
+font-size:24px;
+}
+
+.hero h1{
+font-size:30px;
+}
+
+.hero p{
+font-size:15px;
+}
+
+.card{
+padding:20px;
+}
+
+}
 </style>
+
 </head>
+
 <body>
 
-<header class="nav">
-  <div class="nav-in">
-    <a href="#home" class="logo"><b>Mix</b>Query</a>
-    <nav class="links" id="links">
-      <a href="#home" data-i18n="navHome"></a>
-      <a href="#tools" data-i18n="navTools"></a>
-      <a href="#how" data-i18n="navHow"></a>
-      <a href="#pricing" data-i18n="navPricing"></a>
-    </nav>
-    <div class="nav-end">
-      <div class="lang" role="group" aria-label="Language">
-        <button class="lang-btn" data-lang="ar">ع</button>
-        <button class="lang-btn" data-lang="fr">FR</button>
-        <button class="lang-btn" data-lang="en">EN</button>
-      </div>
-      <button class="btn btn-p btn-sm" id="authBtn"></button>
-      <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
-    </div>
-  </div>
-</header>
+<header>
 
-<main class="wrap" id="home">
-
-  <section class="hero">
-    <div>
-      <h1 data-i18n="heroTitle"></h1>
-      <p data-i18n="heroText"></p>
-      <div class="hero-btns">
-        <a href="#tools" class="btn btn-p"><span class="arrow"></span> <span data-i18n="heroCta1"></span></a>
-        <a href="#toolcards" class="btn btn-w"><span class="arrow"></span> <span data-i18n="heroCta2"></span></a>
-      </div>
-    </div>
-    <div class="visual" aria-hidden="true">
-      <div class="win">
-        <div class="dots"><i></i><i></i><i></i></div>
-        <div class="tiles">
-          <div class="tile t-text"><u></u><u></u><u></u><u></u><u></u><u></u></div>
-          <div class="tile t-img">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="6" y="10" width="52" height="44" rx="8" stroke="currentColor" stroke-width="4"/><circle cx="22" cy="26" r="5" fill="currentColor"/><path d="M10 48l16-14 10 8 10-10 10 12" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="tile t-bars"><i style="height:35%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:85%"></i></div>
-        </div>
-      </div>
-      <div class="float f1">✎</div>
-      <div class="float f2">◔</div>
-      <div class="float f3">✦</div>
-    </div>
-  </section>
-
-  <section class="feats" id="toolcards">
-    <button class="feat" data-tool="edit"><div class="ico" style="background:linear-gradient(135deg,#a582ee,#7a55d6)">✎</div>
-      <div><h3 data-i18n="tEditT"></h3><p data-i18n="tEditD"></p></div></button>
-    <button class="feat" data-tool="image"><div class="ico" style="background:linear-gradient(135deg,#66b6ff,#3d78e0)">▣</div>
-      <div><h3 data-i18n="tImgT"></h3><p data-i18n="tImgD"></p></div></button>
-    <button class="feat" data-tool="data"><div class="ico" style="background:linear-gradient(135deg,#9a7ae8,#6f4fd0)">▥</div>
-      <div><h3 data-i18n="tDataT"></h3><p data-i18n="tDataD"></p></div></button>
-    <button class="feat" data-tool="summary"><div class="ico" style="background:linear-gradient(135deg,#4fa2f0,#2f7ad8)">≡</div>
-      <div><h3 data-i18n="tSumT"></h3><p data-i18n="tSumD"></p></div></button>
-  </section>
-
-  <section id="tools">
-    <h2 class="section-title" data-i18n="toolsTitle"></h2>
-    <p class="section-sub" data-i18n="toolsSub"></p>
-    <div class="tool">
-      <div class="status">
-        <span class="pill" id="usagePill">...</span>
-        <span class="email" id="userEmailLabel"></span>
-      </div>
-      <div id="trialBanner" class="banner hidden"></div>
-      <div id="limitBanner" class="banner hidden"></div>
-
-      <div class="tabs" role="tablist">
-        <button class="tab" role="tab" data-tool="edit" data-i18n="tEditT"></button>
-        <button class="tab" role="tab" data-tool="image" data-i18n="tImgT"></button>
-        <button class="tab" role="tab" data-tool="data" data-i18n="tDataT"></button>
-        <button class="tab" role="tab" data-tool="summary" data-i18n="tSumT"></button>
-      </div>
-
-      <div id="modelsBox">
-        <div class="models-label" data-i18n="modelsLabel"></div>
-        <div class="chips" id="modelChips"></div>
-      </div>
-
-      <!-- تحرير النصوص -->
-      <div data-panel="edit">
-        <div class="opts">
-          <label class="opt"><span data-i18n="editKind"></span>
-            <select class="sel" id="editAction">
-              <option value="fix" data-i18n="actFix"></option>
-              <option value="improve" data-i18n="actImprove"></option>
-              <option value="rephrase" data-i18n="actRephrase"></option>
-              <option value="shorter" data-i18n="actShort"></option>
-              <option value="longer" data-i18n="actLong"></option>
-              <option value="formal" data-i18n="actFormal"></option>
-              <option value="friendly" data-i18n="actFriendly"></option>
-            </select>
-          </label>
-        </div>
-        <textarea class="ta" id="editText" data-i18n-ph="editPh"></textarea>
-        <button class="btn btn-p run" id="editRun" data-i18n="editRun" style="margin-top:12px"></button>
-        <div class="results" id="editResults" aria-live="polite"></div>
-      </div>
-
-      <!-- توليد الصور -->
-      <div data-panel="image" class="hidden">
-        <textarea class="ta" id="imgPrompt" data-i18n-ph="imgPh" maxlength="500" style="min-height:100px"></textarea>
-        <div class="opts">
-          <label class="opt"><span data-i18n="imgStyle"></span>
-            <select class="sel" id="imgStyleSel">
-              <option value="none" data-i18n="stNone"></option>
-              <option value="real" data-i18n="stReal"></option>
-              <option value="digital" data-i18n="stDigital"></option>
-              <option value="anime" data-i18n="stAnime"></option>
-              <option value="3d" data-i18n="st3d"></option>
-              <option value="water" data-i18n="stWater"></option>
-            </select>
-          </label>
-          <label class="opt"><span data-i18n="imgSize"></span>
-            <select class="sel" id="imgSizeSel">
-              <option value="1024x1024" data-i18n="szSquare"></option>
-              <option value="1280x720" data-i18n="szWide"></option>
-              <option value="720x1280" data-i18n="szTall"></option>
-            </select>
-          </label>
-        </div>
-        <button class="btn btn-p run" id="imgRun" data-i18n="imgRun"></button>
-        <p class="hint" data-i18n="imgNote"></p>
-        <div class="img-out hidden" id="imgOut">
-          <div class="img-frame" id="imgFrame">
-            <span class="muted" id="imgStatus"></span>
-            <img id="imgEl" alt="" class="hidden">
-          </div>
-          <a class="btn btn-w btn-sm hidden" id="imgOpen" target="_blank" rel="noopener" data-i18n="imgOpen"></a>
-        </div>
-      </div>
-
-      <!-- تحليل البيانات -->
-      <div data-panel="data" class="hidden">
-        <label class="btn btn-w btn-sm file"><input type="file" id="dataFile" accept=".csv,.tsv,.txt,.json"><span data-i18n="uploadCsv"></span></label>
-        <textarea class="ta" id="dataText" data-i18n-ph="dataPh" style="margin-top:12px"></textarea>
-        <input class="inp" id="dataQ" data-i18n-ph="dataQPh" maxlength="300">
-        <button class="btn btn-p run" id="dataRun" data-i18n="dataRun" style="margin-top:12px"></button>
-        <p class="hint" data-i18n="dataNote"></p>
-        <div class="results" id="dataResults" aria-live="polite"></div>
-      </div>
-
-      <!-- تلخيص النصوص -->
-      <div data-panel="summary" class="hidden">
-        <label class="btn btn-w btn-sm file"><input type="file" id="sumFile" accept=".txt,.md,.csv,.json"><span data-i18n="uploadTxt"></span></label>
-        <textarea class="ta" id="sumText" data-i18n-ph="sumPh" style="margin-top:12px"></textarea>
-        <div class="opts">
-          <label class="opt"><span data-i18n="sumLen"></span>
-            <select class="sel" id="sumLenSel">
-              <option value="short" data-i18n="lenShort"></option>
-              <option value="medium" data-i18n="lenMedium" selected></option>
-              <option value="long" data-i18n="lenLong"></option>
-            </select>
-          </label>
-          <label class="opt"><span data-i18n="sumFmt"></span>
-            <select class="sel" id="sumFmtSel">
-              <option value="para" data-i18n="fmtPara"></option>
-              <option value="bullets" data-i18n="fmtBullets"></option>
-            </select>
-          </label>
-        </div>
-        <button class="btn btn-p run" id="sumRun" data-i18n="sumRun"></button>
-        <div class="results" id="sumResults" aria-live="polite"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="steps-box" id="how">
-    <h2 class="section-title" data-i18n="howTitle"></h2>
-    <div class="steps">
-      <div class="step"><div class="num">1</div><h4 data-i18n="s1t"></h4><p data-i18n="s1d"></p></div>
-      <div class="step"><div class="num">2</div><h4 data-i18n="s2t"></h4><p data-i18n="s2d"></p></div>
-      <div class="step"><div class="num">3</div><h4 data-i18n="s3t"></h4><p data-i18n="s3d"></p></div>
-      <div class="step"><div class="num">4</div><h4 data-i18n="s4t"></h4><p data-i18n="s4d"></p></div>
-    </div>
-  </section>
-
-  <section id="pricing">
-    <h2 class="section-title" data-i18n="pricingTitle"></h2>
-    <p class="section-sub" data-i18n="pricingSub"></p>
-    <div class="plans">
-      <div class="plan">
-        <h3 data-i18n="freePlan"></h3>
-        <div class="price">0$ <small data-i18n="freePer"></small></div>
-        <ul><li data-i18n="freeLi1"></li><li data-i18n="freeLi2"></li><li data-i18n="freeLi3"></li></ul>
-        <button class="btn btn-w" id="freeBtn" data-i18n="freeBtn"></button>
-      </div>
-      <div class="plan hot">
-        <h3 id="subscribeTitle" data-i18n="subscribeTitle"></h3>
-        <div class="price">10$ <small data-i18n="premPer"></small></div>
-        <ul><li data-i18n="premLi1"></li><li data-i18n="premLi2"></li><li data-i18n="premLi3"></li></ul>
-
-        <!-- الدفع عبر Gumroad: نفس المنطق القديم -->
-        <div class="sub-actions" id="subActions">
-          <a class="btn btn-p" id="subscribeLink" target="_blank" rel="noopener" data-i18n="subscribeLinkText"></a>
-          <button type="button" class="btn btn-w" id="checkSubBtn" data-i18n="checkSubText"></button>
-        </div>
-        <div class="prem-ok hidden" id="premiumOk" data-i18n="premiumLabel"></div>
-        <div class="sub-status" id="subscribeStatus"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta">
-    <div>
-      <h2 data-i18n="ctaTitle"></h2>
-      <p data-i18n="ctaText"></p>
-    </div>
-    <button class="btn btn-p" id="ctaBtn"><span class="arrow"></span> <span data-i18n="freeBtn"></span></button>
-  </section>
-</main>
-
-<footer>© 2026 QueryMix — usequerymix.com</footer>
-
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
-  <div class="box">
-    <button class="close" id="mClose" aria-label="Close">✕</button>
-    <h3 id="authTitle"></h3>
-    <input type="email" id="authEmail" autocomplete="email" dir="ltr">
-    <input type="password" id="authPassword" autocomplete="current-password" dir="ltr">
-    <div class="err" id="authError"></div>
-    <button class="btn btn-p" id="authSubmitBtn"></button>
-    <div class="switch"><span id="switchText"></span> <a id="switchLink"></a></div>
-  </div>
+<div class="logo">
+نواة AI
 </div>
 
-<script>
-const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
-
-// Used only if the free-models fetch below fails, so the app still works.
-const FALLBACK_MODELS = [
-  { id: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3" },
-  { id: "qwen/qwen3-coder:free", label: "Qwen3" },
-  { id: "google/gemma-2-9b-it:free", label: "Gemma 2" },
-  { id: "openrouter/free", label: "Auto (Free)" }
-];
-
-const MAX_TEXT_CHARS = 12000;   // حد النص المرسل للنموذج (تحرير/تلخيص)
-const MAX_DATA_CHARS = 14000;   // حد البيانات المرسلة للتحليل
-const MAX_FILE_BYTES = 500 * 1024;
-const DEFAULT_SELECTED = 2;     // عدد النماذج المحددة افتراضياً
-
-let MODELS = [];
-
-// ---------- Translations ----------
-const I18N = {
-  ar: {
-    pageTitle: "QueryMix — أدوات الذكاء الاصطناعي",
-    navHome: "الرئيسية", navTools: "الأدوات", navHow: "كيف تبدأ", navPricing: "الأسعار",
-    heroTitle: "أنجز المزيد بذكاء",
-    heroText: "أدوات ذكاء اصطناعي في مكان واحد: تحرير النصوص، توليد الصور، تلخيص المستندات وتحليل البيانات — بسرعة وسهولة.",
-    heroCta1: "ابدأ الآن", heroCta2: "استكشف الأدوات",
-    tEditT: "تحرير النصوص", tEditD: "صحّح وحسّن وأعد صياغة نصوصك بأسلوب واضح.",
-    tImgT: "توليد الصور", tImgD: "حوّل وصفك إلى صور مذهلة بأساليب متنوعة.",
-    tDataT: "تحليل البيانات", tDataD: "حلّل جداولك واكتشف الأنماط واحصل على رؤى مفيدة.",
-    tSumT: "تلخيص النصوص", tSumD: "لخّص النصوص الطويلة واستخرج أهم النقاط بسرعة.",
-    toolsTitle: "الأدوات", toolsSub: "اختر أداة وابدأ العمل.",
-    modelsLabel: "النماذج — اختر نموذجاً أو أكثر وقارن النتائج جنب بعض",
-    copyBtn: "نسخ", copiedBtn: "تم النسخ",
-    guestLabel: "سجّل الدخول لبدء التجربة المجانية",
-    editKind: "نوع التحرير",
-    actFix: "تصحيح لغوي", actImprove: "تحسين الأسلوب", actRephrase: "إعادة صياغة",
-    actShort: "تقصير", actLong: "توسيع", actFormal: "نبرة رسمية", actFriendly: "نبرة ودية",
-    editPh: "الصق النص الذي تريد تحريره هنا...", editRun: "حرّر النص",
-    imgPh: "صف الصورة التي تريدها بالتفصيل... (الوصف بالإنجليزية يعطي غالباً نتائج أدق)",
-    imgStyle: "الأسلوب", stNone: "بدون", stReal: "واقعي", stDigital: "رسم رقمي", stAnime: "أنمي", st3d: "ثلاثي الأبعاد", stWater: "ألوان مائية",
-    imgSize: "الحجم", szSquare: "مربع", szWide: "أفقي", szTall: "عمودي",
-    imgRun: "ولّد الصورة", imgOpen: "فتح الصورة", imgLoading: "كنولدو الصورة...",
-    imgError: "تعذّر توليد الصورة. جرّب وصفاً آخر أو أعد المحاولة.",
-    imgNote: "توليد الصور يتم عبر خدمة خارجية مجانية (Pollinations)، والوصف الذي تكتبه يُرسل إليها.",
-    emptyImgAlert: "كتب وصف للصورة",
-    uploadCsv: "رفع ملف CSV", uploadTxt: "رفع ملف نصي",
-    dataPh: "الصق بياناتك هنا (CSV أو جدول منسوخ) أو ارفع ملفاً...",
-    dataQPh: "ماذا تريد أن تعرف؟ (اختياري)",
-    dataRun: "حلّل البيانات",
-    dataNote: "التحليل يتم بواسطة نموذج لغوي، فالأرقام تقريبية وتحتاج مراجعتك.",
-    emptyDataAlert: "الصق بياناتك أو ارفع ملفاً",
-    sumPh: "الصق النص الطويل هنا أو ارفع ملفاً نصياً...",
-    sumLen: "الطول", lenShort: "قصير", lenMedium: "متوسط", lenLong: "مفصّل",
-    sumFmt: "الشكل", fmtPara: "فقرة", fmtBullets: "نقاط",
-    sumRun: "لخّص النص",
-    emptyTextAlert: "الصق النص أولاً",
-    fileTooBig: "الملف كبير جداً (الحد 500 كيلوبايت)",
-    fileReadErr: "تعذّرت قراءة الملف",
-    truncated: "النص طويل، تمت معالجة الجزء الأول منه فقط.",
-    howTitle: "كيف تبدأ",
-    s1t: "أنشئ حسابك", s1d: "سجّل بالإيميل وابدأ تجربة 7 أيام.",
-    s2t: "اختر الأداة", s2d: "تصفح الأدوات واختر ما يناسب احتياجك.",
-    s3t: "أدخل بياناتك", s3d: "قدّم النص أو الملف أو الوصف المطلوب.",
-    s4t: "احصل على النتائج", s4d: "استلم النتائج وانسخها أو شاركها بسهولة.",
-    pricingTitle: "الأسعار", pricingSub: "ابدأ مجاناً، وترقّى عندما تحتاج.",
-    freePlan: "التجربة المجانية", freePer: "/ 7 أيام",
-    freeLi1: "استخدام بلا حدود لمدة 7 أيام", freeLi2: "كل الأدوات الأربع", freeLi3: "بدون بطاقة بنكية",
-    freeBtn: "ابدأ مجاناً",
-    premPer: "/ الشهر",
-    premLi1: "أسئلة بلا حدود مع كل النماذج", premLi2: "كل الأدوات الأربع", premLi3: "الدفع الآمن عبر Gumroad",
-    ctaTitle: "جاهز للانطلاق؟", ctaText: "ابدأ إنجاز أعمالك بسرعة وذكاء مع QueryMix.",
-    loginTitle: "تسجيل الدخول",
-    signupTitle: "صاوب حساب جديد",
-    emailPlaceholder: "الإيميل ديالك",
-    passwordPlaceholder: "كلمة السر",
-    loginBtn: "دخول",
-    signupBtn: "تسجيل",
-    switchToSignupText: "ما عندكش حساب؟",
-    switchToSignupLink: "صاوب واحد",
-    switchToLoginText: "عندك حساب من قبل؟",
-    switchToLoginLink: "دخول",
-    fillFields: "عمر الإيميل وكلمة السر",
-    working: "كيخدم...",
-    genericError: "وقع مشكل",
-    connError: "خطأ فـ الاتصال بالسيرفر. يمكن السيرفر كيبدا (جرب مرة أخرى بعد 30 ثانية).",
-    logoutBtn: "خروج",
-    premiumLabel: "مشترك — بلا حدود",
-    trialLabel: (d) => d === 1 ? "باقي يوم واحد فـ التجربة المجانية" : `باقي ${d} أيام فـ التجربة المجانية`,
-    trialEndedLabel: "خلصات التجربة المجانية — اشترك باش تكمل",
-    runningBtn: "كيخدم...",
-    noModelAlert: "ختار على الأقل نموذج واحد",
-    limitReachedShort: "وصلتي للحد اليومي",
-    errorPrefix: "خطأ: ",
-    connErrorPrefix: "خطأ فـ الاتصال: ",
-    loadingModels: "كنحملو النماذج المجانية...",
-    subscribeTitle: "الاشتراك الشهري",
-    subscribeLinkText: "اشترك الآن",
-    checkSubText: "تحققت من الدفع؟ اضغط هنا",
-    checkingSub: "كنتحققو من الاشتراك...",
-    subSuccess: "تفعل الاشتراك بنجاح! 🎉",
-    subNotYet: "مازال ماوصلش تأكيد الدفع، استنى شوية وعاود جرب (ممكن ياخد دقيقة)",
-    subCheckError: "خطأ فـ الاتصال بالسيرفر",
-    paymentNotReady: "الدفع ماشي معمر مزيان دابا، عاود جرب من بعد"
-  },
-  fr: {
-    pageTitle: "QueryMix — Outils d'IA",
-    navHome: "Accueil", navTools: "Outils", navHow: "Comment ça marche", navPricing: "Tarifs",
-    heroTitle: "Faites plus, avec intelligence",
-    heroText: "Des outils d'IA au même endroit : édition de textes, génération d'images, résumé de documents et analyse de données — simplement et rapidement.",
-    heroCta1: "Commencer", heroCta2: "Explorer les outils",
-    tEditT: "Édition de textes", tEditD: "Corrigez, améliorez et reformulez vos textes clairement.",
-    tImgT: "Génération d'images", tImgD: "Transformez vos idées en images surprenantes, dans divers styles.",
-    tDataT: "Analyse de données", tDataD: "Analysez vos tableaux, repérez les tendances et obtenez des pistes utiles.",
-    tSumT: "Résumé de textes", tSumD: "Résumez de longs textes et extrayez l'essentiel rapidement.",
-    toolsTitle: "Outils", toolsSub: "Choisissez un outil et lancez-vous.",
-    modelsLabel: "Modèles — choisissez-en un ou plusieurs et comparez les résultats côte à côte",
-    copyBtn: "Copier", copiedBtn: "Copié",
-    guestLabel: "Connectez-vous pour démarrer l'essai gratuit",
-    editKind: "Type d'édition",
-    actFix: "Correction", actImprove: "Améliorer le style", actRephrase: "Reformuler",
-    actShort: "Raccourcir", actLong: "Développer", actFormal: "Ton formel", actFriendly: "Ton amical",
-    editPh: "Collez ici le texte à éditer...", editRun: "Éditer le texte",
-    imgPh: "Décrivez l'image souhaitée en détail... (une description en anglais donne souvent de meilleurs résultats)",
-    imgStyle: "Style", stNone: "Aucun", stReal: "Réaliste", stDigital: "Illustration numérique", stAnime: "Anime", st3d: "3D", stWater: "Aquarelle",
-    imgSize: "Taille", szSquare: "Carré", szWide: "Paysage", szTall: "Portrait",
-    imgRun: "Générer l'image", imgOpen: "Ouvrir l'image", imgLoading: "Génération de l'image...",
-    imgError: "Impossible de générer l'image. Essayez une autre description ou réessayez.",
-    imgNote: "Les images sont générées par un service externe gratuit (Pollinations) ; votre description lui est envoyée.",
-    emptyImgAlert: "Écrivez une description",
-    uploadCsv: "Importer un CSV", uploadTxt: "Importer un fichier texte",
-    dataPh: "Collez vos données ici (CSV ou tableau copié) ou importez un fichier...",
-    dataQPh: "Que voulez-vous savoir ? (facultatif)",
-    dataRun: "Analyser les données",
-    dataNote: "L'analyse est faite par un modèle de langage : les chiffres sont approximatifs et à vérifier.",
-    emptyDataAlert: "Collez vos données ou importez un fichier",
-    sumPh: "Collez le long texte ici ou importez un fichier texte...",
-    sumLen: "Longueur", lenShort: "Court", lenMedium: "Moyen", lenLong: "Détaillé",
-    sumFmt: "Format", fmtPara: "Paragraphe", fmtBullets: "Puces",
-    sumRun: "Résumer le texte",
-    emptyTextAlert: "Collez d'abord un texte",
-    fileTooBig: "Fichier trop volumineux (limite 500 Ko)",
-    fileReadErr: "Impossible de lire le fichier",
-    truncated: "Texte long : seule la première partie a été traitée.",
-    howTitle: "Comment ça marche",
-    s1t: "Créez votre compte", s1d: "Inscrivez-vous par email et démarrez 7 jours d'essai.",
-    s2t: "Choisissez l'outil", s2d: "Parcourez les outils et choisissez celui qu'il vous faut.",
-    s3t: "Saisissez vos données", s3d: "Fournissez le texte, le fichier ou la description.",
-    s4t: "Obtenez les résultats", s4d: "Recevez les résultats, copiez-les ou partagez-les facilement.",
-    pricingTitle: "Tarifs", pricingSub: "Commencez gratuitement, passez à Premium quand vous voulez.",
-    freePlan: "Essai gratuit", freePer: "/ 7 jours",
-    freeLi1: "Usage illimité pendant 7 jours", freeLi2: "Les quatre outils", freeLi3: "Sans carte bancaire",
-    freeBtn: "Commencer gratuitement",
-    premPer: "/ mois",
-    premLi1: "Questions illimitées avec tous les modèles", premLi2: "Les quatre outils", premLi3: "Paiement sécurisé via Gumroad",
-    ctaTitle: "Prêt à démarrer ?", ctaText: "Avancez plus vite et plus intelligemment avec QueryMix.",
-    loginTitle: "Connexion",
-    signupTitle: "Créer un compte",
-    emailPlaceholder: "Votre email",
-    passwordPlaceholder: "Mot de passe",
-    loginBtn: "Connexion",
-    signupBtn: "S'inscrire",
-    switchToSignupText: "Pas de compte ?",
-    switchToSignupLink: "Créer un compte",
-    switchToLoginText: "Déjà un compte ?",
-    switchToLoginLink: "Connexion",
-    fillFields: "Remplissez l'email et le mot de passe",
-    working: "Chargement...",
-    genericError: "Une erreur est survenue",
-    connError: "Erreur de connexion au serveur. Le serveur démarre peut-être (réessayez dans 30 secondes).",
-    logoutBtn: "Déconnexion",
-    premiumLabel: "Abonné — illimité",
-    trialLabel: (d) => d === 1 ? "1 jour restant dans l'essai gratuit" : `${d} jours restants dans l'essai gratuit`,
-    trialEndedLabel: "Essai gratuit terminé — abonnez-vous pour continuer",
-    runningBtn: "Chargement...",
-    noModelAlert: "Sélectionnez au moins un modèle",
-    limitReachedShort: "Limite quotidienne atteinte",
-    errorPrefix: "Erreur : ",
-    connErrorPrefix: "Erreur de connexion : ",
-    loadingModels: "Chargement des modèles gratuits...",
-    subscribeTitle: "Abonnement mensuel",
-    subscribeLinkText: "S'abonner maintenant",
-    checkSubText: "Vous avez payé ? Cliquez ici",
-    checkingSub: "Vérification de l'abonnement...",
-    subSuccess: "Abonnement activé avec succès ! 🎉",
-    subNotYet: "La confirmation du paiement n'est pas encore arrivée, réessayez dans une minute",
-    subCheckError: "Erreur de connexion au serveur",
-    paymentNotReady: "Le paiement n'est pas encore configuré, réessayez plus tard"
-  },
-  en: {
-    pageTitle: "QueryMix — AI Tools",
-    navHome: "Home", navTools: "Tools", navHow: "How it works", navPricing: "Pricing",
-    heroTitle: "Get more done, smarter",
-    heroText: "AI tools in one place: text editing, image generation, document summaries and data analysis — fast and simple.",
-    heroCta1: "Get started", heroCta2: "Explore tools",
-    tEditT: "Text editing", tEditD: "Fix, polish and rephrase your writing with clarity.",
-    tImgT: "Image generation", tImgD: "Turn your ideas into striking images in a range of styles.",
-    tDataT: "Data analysis", tDataD: "Analyze your tables, spot patterns and get useful insights.",
-    tSumT: "Text summarizing", tSumD: "Summarize long texts and pull out the key points fast.",
-    toolsTitle: "Tools", toolsSub: "Pick a tool and get to work.",
-    modelsLabel: "Models — pick one or more and compare results side by side",
-    copyBtn: "Copy", copiedBtn: "Copied",
-    guestLabel: "Log in to start your free trial",
-    editKind: "Edit type",
-    actFix: "Fix spelling & grammar", actImprove: "Improve style", actRephrase: "Rephrase",
-    actShort: "Make shorter", actLong: "Expand", actFormal: "Formal tone", actFriendly: "Friendly tone",
-    editPh: "Paste the text you want to edit here...", editRun: "Edit text",
-    imgPh: "Describe the image you want in detail... (English descriptions often work best)",
-    imgStyle: "Style", stNone: "None", stReal: "Realistic", stDigital: "Digital art", stAnime: "Anime", st3d: "3D", stWater: "Watercolor",
-    imgSize: "Size", szSquare: "Square", szWide: "Landscape", szTall: "Portrait",
-    imgRun: "Generate image", imgOpen: "Open image", imgLoading: "Generating your image...",
-    imgError: "Couldn't generate the image. Try a different description or try again.",
-    imgNote: "Images are generated by a free external service (Pollinations); your description is sent to it.",
-    emptyImgAlert: "Write an image description",
-    uploadCsv: "Upload CSV", uploadTxt: "Upload text file",
-    dataPh: "Paste your data here (CSV or a copied table) or upload a file...",
-    dataQPh: "What do you want to know? (optional)",
-    dataRun: "Analyze data",
-    dataNote: "Analysis is done by a language model, so numbers are approximate and worth double-checking.",
-    emptyDataAlert: "Paste your data or upload a file",
-    sumPh: "Paste the long text here or upload a text file...",
-    sumLen: "Length", lenShort: "Short", lenMedium: "Medium", lenLong: "Detailed",
-    sumFmt: "Format", fmtPara: "Paragraph", fmtBullets: "Bullet points",
-    sumRun: "Summarize text",
-    emptyTextAlert: "Paste some text first",
-    fileTooBig: "File is too large (500 KB limit)",
-    fileReadErr: "Couldn't read the file",
-    truncated: "Long text: only the first part was processed.",
-    howTitle: "How it works",
-    s1t: "Create your account", s1d: "Sign up with your email and start a 7-day trial.",
-    s2t: "Choose a tool", s2d: "Browse the tools and pick what fits your need.",
-    s3t: "Enter your input", s3d: "Provide the text, file or description.",
-    s4t: "Get your results", s4d: "Receive results, then copy or share them easily.",
-    pricingTitle: "Pricing", pricingSub: "Start free, upgrade when you need to.",
-    freePlan: "Free trial", freePer: "/ 7 days",
-    freeLi1: "Unlimited use for 7 days", freeLi2: "All four tools", freeLi3: "No credit card needed",
-    freeBtn: "Start free",
-    premPer: "/ month",
-    premLi1: "Unlimited questions with every model", premLi2: "All four tools", premLi3: "Secure payment via Gumroad",
-    ctaTitle: "Ready to start?", ctaText: "Get your work done faster and smarter with QueryMix.",
-    loginTitle: "Log In",
-    signupTitle: "Create Account",
-    emailPlaceholder: "Your email",
-    passwordPlaceholder: "Password",
-    loginBtn: "Log In",
-    signupBtn: "Sign Up",
-    switchToSignupText: "No account?",
-    switchToSignupLink: "Sign up",
-    switchToLoginText: "Already have an account?",
-    switchToLoginLink: "Log in",
-    fillFields: "Fill in email and password",
-    working: "Working...",
-    genericError: "Something went wrong",
-    connError: "Server connection error. The server may be waking up (try again in 30 seconds).",
-    logoutBtn: "Log out",
-    premiumLabel: "Subscribed — unlimited",
-    trialLabel: (d) => d === 1 ? "1 day left in your free trial" : `${d} days left in your free trial`,
-    trialEndedLabel: "Free trial ended — subscribe to continue",
-    runningBtn: "Working...",
-    noModelAlert: "Select at least one model",
-    limitReachedShort: "Daily limit reached",
-    errorPrefix: "Error: ",
-    connErrorPrefix: "Connection error: ",
-    loadingModels: "Loading free models...",
-    subscribeTitle: "Monthly subscription",
-    subscribeLinkText: "Subscribe now",
-    checkSubText: "Already paid? Click here",
-    checkingSub: "Checking your subscription...",
-    subSuccess: "Subscription activated! 🎉",
-    subNotYet: "Payment confirmation hasn't arrived yet, try again in a minute",
-    subCheckError: "Server connection error",
-    paymentNotReady: "Payments aren't set up yet, try again later"
-  }
-};
-
-const LANG_NAMES = { ar: "Arabic", fr: "French", en: "English" };
-
-let currentLang = "ar";
-let token = null;
-let userEmail = null;
-let isSignupMode = false;
-let selectedModels = new Set();
-let lastUsage = null;
-let subscribeLinkReady = false;
-let running = false;
-let activeTool = "edit";
-
-const $ = (id) => document.getElementById(id);
-
-function t(key, ...args) {
-  const val = I18N[currentLang][key];
-  return typeof val === "function" ? val(...args) : val;
-}
-
-function setLanguage(lang) {
-  if (!I18N[lang]) return;
-  currentLang = lang;
-  const root = $("htmlRoot");
-  root.lang = lang;
-  root.dir = lang === "ar" ? "rtl" : "ltr";
-
-  $("pageTitle").textContent = t("pageTitle");
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    if (el.classList.contains("run") && running) return;
-    el.textContent = t(el.dataset.i18n);
-  });
-  document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
-  $("authEmail").placeholder = t("emailPlaceholder");
-  $("authPassword").placeholder = t("passwordPlaceholder");
-
-  document.querySelectorAll(".lang-btn").forEach(b => {
-    b.classList.toggle("active", b.dataset.lang === lang);
-  });
-
-  renderAuthMode();
-  updateNav();
-  renderUsage();
-  if (!MODELS.length) {
-    $("modelChips").innerHTML = `<span class="muted">${t("loadingModels")}</span>`;
-  }
-}
-
-document.querySelectorAll(".lang-btn").forEach(btn => {
-  btn.onclick = () => setLanguage(btn.dataset.lang);
-});
-
-// ---------- Nav ----------
-$("menuBtn").onclick = () => $("links").classList.toggle("open");
-document.querySelectorAll(".links a").forEach(a => a.onclick = () => $("links").classList.remove("open"));
-
-function updateNav() {
-  $("authBtn").textContent = token ? t("logoutBtn") : "👤 " + t("loginTitle");
-  $("userEmailLabel").textContent = token ? (userEmail || "") : "";
-}
-
-$("authBtn").onclick = () => { token ? logout() : openAuth(false); };
-
-// ---------- Tools tabs ----------
-function setTool(name) {
-  activeTool = name;
-  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", b.dataset.tool === name));
-  document.querySelectorAll("[data-panel]").forEach(p => p.classList.toggle("hidden", p.dataset.panel !== name));
-  $("modelsBox").classList.toggle("hidden", name === "image");
-}
-document.querySelectorAll(".tab").forEach(b => b.onclick = () => setTool(b.dataset.tool));
-document.querySelectorAll(".feat").forEach(b => b.onclick = () => {
-  setTool(b.dataset.tool);
-  $("tools").scrollIntoView();
-});
-
-// ---------- Auth modal ----------
-const authTitle = $("authTitle");
-const authSubmitBtn = $("authSubmitBtn");
-const switchText = $("switchText");
-const switchLink = $("switchLink");
-const authError = $("authError");
-
-function openAuth(signup) {
-  isSignupMode = !!signup;
-  renderAuthMode();
-  $("modal").classList.add("open");
-  $("authEmail").focus();
-}
-function closeAuth() { $("modal").classList.remove("open"); authError.textContent = ""; }
-$("mClose").onclick = closeAuth;
-$("modal").onclick = (e) => { if (e.target.id === "modal") closeAuth(); };
-document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAuth(); });
-["authEmail", "authPassword"].forEach(id => $(id).addEventListener("keydown", (e) => {
-  if (e.key === "Enter") authSubmitBtn.click();
-}));
-
-function renderAuthMode() {
-  if (isSignupMode) {
-    authTitle.textContent = t("signupTitle");
-    authSubmitBtn.textContent = t("signupBtn");
-    switchText.textContent = t("switchToLoginText");
-    switchLink.textContent = t("switchToLoginLink");
-    $("authPassword").autocomplete = "new-password";
-  } else {
-    authTitle.textContent = t("loginTitle");
-    authSubmitBtn.textContent = t("loginBtn");
-    switchText.textContent = t("switchToSignupText");
-    switchLink.textContent = t("switchToSignupLink");
-    $("authPassword").autocomplete = "current-password";
-  }
-  authError.textContent = "";
-}
-
-switchLink.onclick = () => { isSignupMode = !isSignupMode; renderAuthMode(); };
-
-authSubmitBtn.onclick = async () => {
-  const email = $("authEmail").value.trim();
-  const password = $("authPassword").value;
-  authError.textContent = "";
-
-  if (!email || !password) { authError.textContent = t("fillFields"); return; }
-
-  authSubmitBtn.disabled = true;
-  authSubmitBtn.textContent = t("working");
-
-  try {
-    const endpoint = isSignupMode ? "/api/auth/signup" : "/api/auth/login";
-    const res = await fetch(BACKEND_URL + endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
-    });
-    const data = await res.json();
-
-    if (!res.ok) {
-      authError.textContent = data.error || t("genericError");
-      authSubmitBtn.disabled = false;
-      authSubmitBtn.textContent = isSignupMode ? t("signupBtn") : t("loginBtn");
-      return;
-    }
-
-    token = data.token;
-    userEmail = data.email;
-    saveSession(token, userEmail);
-    showApp();
-  } catch (err) {
-    authError.textContent = t("connError");
-  }
-
-  authSubmitBtn.disabled = false;
-  authSubmitBtn.textContent = isSignupMode ? t("signupBtn") : t("loginBtn");
-};
-
-// حفظ الجلسة فـ localStorage (نفس المفاتيح القديمة)
-function saveSession(tok, email) {
-  try {
-    localStorage.setItem("azizart_token", tok);
-    localStorage.setItem("azizart_email", email);
-  } catch (e) {}
-}
-function clearSession() {
-  try {
-    localStorage.removeItem("azizart_token");
-    localStorage.removeItem("azizart_email");
-  } catch (e) {}
-}
-function loadSession() {
-  try {
-    return { token: localStorage.getItem("azizart_token"), email: localStorage.getItem("azizart_email") };
-  } catch (e) {
-    return { token: null, email: null };
-  }
-}
-
-function logout() {
-  token = null;
-  userEmail = null;
-  lastUsage = null;
-  subscribeLinkReady = false;
-  $("subscribeLink").removeAttribute("href");
-  $("subscribeStatus").textContent = "";
-  ["editResults", "dataResults", "sumResults"].forEach(id => $(id).innerHTML = "");
-  $("limitBanner").classList.add("hidden");
-  clearSession();
-  updateNav();
-  renderUsage();
-}
-
-// ---------- Models ----------
-const modelChips = $("modelChips");
-
-function renderModelChips() {
-  modelChips.innerHTML = "";
-  MODELS.forEach(m => {
-    const chip = document.createElement("button");
-    chip.type = "button";
-    chip.className = "chip";
-    chip.textContent = m.label;
-    chip.setAttribute("aria-pressed", selectedModels.has(m.id));
-    chip.onclick = () => {
-      if (selectedModels.has(m.id)) selectedModels.delete(m.id);
-      else selectedModels.add(m.id);
-      chip.setAttribute("aria-pressed", selectedModels.has(m.id));
-    };
-    modelChips.appendChild(chip);
-  });
-}
-
-const FAMOUS_PREFIXES = [
-  "meta-llama/", "google/", "qwen/", "nvidia/", "mistralai/",
-  "moonshotai/", "deepseek/", "microsoft/", "openrouter/"
-];
-const EXCLUDE_KEYWORDS = ["lyria", "whisper", "tts", "embed", "moderation", "dall-e", "musicgen", "nano-omni", "3-super"];
-
-async function loadFreeModels() {
-  modelChips.innerHTML = `<span class="muted">${t("loadingModels")}</span>`;
-  try {
-    const res = await fetch("https://openrouter.ai/api/v1/models");
-    const data = await res.json();
-
-    const free = (data.data || []).filter(m => {
-      const p = m.pricing || {};
-      const isFree = parseFloat(p.prompt || "0") === 0 && parseFloat(p.completion || "0") === 0;
-      const arch = m.architecture || {};
-      const outputs = Array.isArray(arch.output_modalities) ? arch.output_modalities : ["text"];
-      const isChatText = outputs.includes("text");
-      const isFamous = FAMOUS_PREFIXES.some(pfx => m.id.startsWith(pfx));
-      const isExcluded = EXCLUDE_KEYWORDS.some(k => m.id.toLowerCase().includes(k));
-      return isFree && isChatText && isFamous && !isExcluded;
-    });
-
-    if (free.length === 0) throw new Error("no free models returned");
-
-    MODELS = free
-      .map(m => ({ id: m.id, label: (m.name || m.id).replace(/\s*\(free\)\s*$/i, "") }))
-      .sort((a, b) => {
-        const aTop = a.id.startsWith("deepseek/") ? 0 : 1;
-        const bTop = b.id.startsWith("deepseek/") ? 0 : 1;
-        if (aTop !== bTop) return aTop - bTop;
-        return a.label.localeCompare(b.label);
-      })
-      .slice(0, 8);
-  } catch (err) {
-    MODELS = FALLBACK_MODELS;
-  }
-
-  selectedModels = new Set(MODELS.slice(0, DEFAULT_SELECTED).map(m => m.id));
-  renderModelChips();
-}
-
-// ---------- App state ----------
-function showApp() {
-  closeAuth();
-  updateNav();
-  refreshUsage();
-}
-
-function sessionExpired() {
-  logout();
-  openAuth(false);
-}
-
-function isLocked() {
-  return !!token && !!lastUsage && !lastUsage.is_premium && !lastUsage.in_trial;
-}
-
-function syncButtons() {
-  const lock = isLocked();
-  document.querySelectorAll(".run").forEach(b => { b.disabled = running || lock; });
-}
-
-function renderUsage() {
-  const pill = $("usagePill");
-  const actions = $("subActions");
-  const premOk = $("premiumOk");
-  const banner = $("trialBanner");
-  banner.classList.add("hidden");
-
-  if (!token) {
-    pill.textContent = t("guestLabel");
-    actions.classList.remove("hidden");
-    premOk.classList.add("hidden");
-    syncButtons();
-    return;
-  }
-
-  const d = lastUsage;
-  if (!d) { pill.textContent = "..."; syncButtons(); return; }
-
-  if (d.is_premium) {
-    pill.textContent = t("premiumLabel");
-    actions.classList.add("hidden");
-    premOk.classList.remove("hidden");
-  } else if (d.in_trial) {
-    pill.textContent = t("trialLabel", d.trial_days_left);
-    actions.classList.remove("hidden");
-    premOk.classList.add("hidden");
-  } else {
-    pill.textContent = t("trialEndedLabel");
-    banner.textContent = t("trialEndedLabel");
-    banner.classList.remove("hidden");
-    actions.classList.remove("hidden");
-    premOk.classList.add("hidden");
-  }
-  syncButtons();
-}
-
-async function refreshUsage() {
-  if (!token) return;
-  try {
-    const res = await fetch(BACKEND_URL + "/api/usage", {
-      headers: { "Authorization": "Bearer " + token }
-    });
-    if (res.status === 401) { sessionExpired(); return; }
-    lastUsage = await res.json();
-    renderUsage();
-    if (!lastUsage.is_premium) setupSubscribeLink();
-  } catch (err) {
-    // silent fail
-  }
-}
-
-// عند فتح الصفحة: استرجاع الجلسة المحفوظة
-(function restoreSession() {
-  const saved = loadSession();
-  if (saved.token && saved.email) {
-    token = saved.token;
-    userEmail = saved.email;
-    showApp();
-  }
-})();
-
-// ---------- Gumroad Subscription (نفس المنطق القديم بلا تغيير) ----------
-async function setupSubscribeLink() {
-  if (subscribeLinkReady || !token) return;
-
-  const statusEl = $("subscribeStatus");
-  const linkEl = $("subscribeLink");
-
-  try {
-    const configRes = await fetch(BACKEND_URL + "/api/payment/config");
-    const config = await configRes.json();
-
-    if (!config.productUrl) {
-      statusEl.textContent = t("paymentNotReady");
-      statusEl.className = "sub-status error";
-      return;
-    }
-
-    const urlWithEmail = config.productUrl +
-      (config.productUrl.includes("?") ? "&" : "?") +
-      "email=" + encodeURIComponent(userEmail);
-
-    linkEl.href = urlWithEmail;
-    subscribeLinkReady = true;
-  } catch (err) {
-    statusEl.textContent = t("paymentNotReady");
-    statusEl.className = "sub-status error";
-  }
-}
-
-$("subscribeLink").addEventListener("click", (e) => {
-  if (!token) { e.preventDefault(); openAuth(true); return; }
-  if (!subscribeLinkReady) {
-    e.preventDefault();
-    const statusEl = $("subscribeStatus");
-    statusEl.textContent = t("paymentNotReady");
-    statusEl.className = "sub-status error";
-    setupSubscribeLink();
-  }
-});
-
-$("checkSubBtn").onclick = async () => {
-  if (!token) { openAuth(true); return; }
-  const statusEl = $("subscribeStatus");
-  statusEl.textContent = t("checkingSub");
-  statusEl.className = "sub-status";
-
-  try {
-    const res = await fetch(BACKEND_URL + "/api/usage", {
-      headers: { "Authorization": "Bearer " + token }
-    });
-    if (res.status === 401) { sessionExpired(); return; }
-    const data = await res.json();
-
-    if (data.is_premium) {
-      statusEl.textContent = t("subSuccess");
-      statusEl.className = "sub-status success";
-      refreshUsage();
-    } else {
-      statusEl.textContent = t("subNotYet");
-      statusEl.className = "sub-status";
-    }
-  } catch (err) {
-    statusEl.textContent = t("subCheckError");
-    statusEl.className = "sub-status error";
-  }
-};
-
-function goStart() {
-  if (token) $("tools").scrollIntoView();
-  else openAuth(true);
-}
-$("freeBtn").onclick = goStart;
-$("ctaBtn").onclick = goStart;
-
-// ---------- Shared helpers ----------
-// يتحقق من الدخول والتجربة قبل أي أداة
-function guard(needModels) {
-  if (!token) { openAuth(true); return false; }
-  if (isLocked()) { $("pricing").scrollIntoView(); return false; }
-  if (needModels && selectedModels.size === 0) { alert(t("noModelAlert")); return false; }
-  return true;
-}
-
-function clip(text, max) {
-  return text.length > max ? { text: text.slice(0, max), cut: true } : { text, cut: false };
-}
-
-function bindFile(inputId, areaId) {
-  $(inputId).addEventListener("change", () => {
-    const f = $(inputId).files[0];
-    if (!f) return;
-    if (f.size > MAX_FILE_BYTES) { alert(t("fileTooBig")); $(inputId).value = ""; return; }
-    const r = new FileReader();
-    r.onload = () => { $(areaId).value = String(r.result); };
-    r.onerror = () => alert(t("fileReadErr"));
-    r.readAsText(f);
-    $(inputId).value = "";
-  });
-}
-bindFile("dataFile", "dataText");
-bindFile("sumFile", "sumText");
-
-// يرسل نفس الطلب لكل النماذج المختارة، واحداً تلو الآخر (كما كان سابقاً)
-async function runOnModels(prompt, resultsEl, btn, noteText) {
-  const limitBanner = $("limitBanner");
-  limitBanner.classList.add("hidden");
-  resultsEl.innerHTML = "";
-
-  if (noteText) {
-    const n = document.createElement("div");
-    n.className = "muted";
-    n.style.gridColumn = "1 / -1";
-    n.textContent = noteText;
-    resultsEl.appendChild(n);
-  }
-
-  running = true;
-  syncButtons();
-  btn.textContent = t("runningBtn");
-
-  const activeModels = MODELS.filter(m => selectedModels.has(m.id));
-  const cards = new Map();
-
-  activeModels.forEach(m => {
-    const card = document.createElement("div");
-    card.className = "res";
-    const head = document.createElement("div");
-    head.className = "res-head";
-    const h = document.createElement("h4");
-    h.textContent = m.label;
-    const copy = document.createElement("button");
-    copy.type = "button";
-    copy.className = "copy hidden";
-    copy.textContent = t("copyBtn");
-    head.append(h, copy);
-    const body = document.createElement("div");
-    body.className = "body muted";
-    body.textContent = t("working");
-    card.append(head, body);
-    resultsEl.appendChild(card);
-    cards.set(m.id, { body, copy });
-  });
-
-  for (const m of activeModels) {
-    const { body, copy } = cards.get(m.id);
-    try {
-      const res = await fetch(BACKEND_URL + "/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify({ model: m.id, prompt })
-      });
-      const data = await res.json();
-
-      if (res.status === 401) { sessionExpired(); break; }
-
-      if (res.status === 429) {
-        body.textContent = t("limitReachedShort");
-        limitBanner.textContent = data.error;
-        limitBanner.classList.remove("hidden");
-        continue;
-      }
-
-      if (data.error) {
-        body.textContent = t("errorPrefix") + data.error;
-      } else {
-        body.textContent = data.text;
-        body.classList.remove("muted");
-        copy.classList.remove("hidden");
-        copy.onclick = async () => {
-          try {
-            await navigator.clipboard.writeText(body.textContent);
-            copy.textContent = t("copiedBtn");
-            setTimeout(() => { copy.textContent = t("copyBtn"); }, 1500);
-          } catch (e) {}
-        };
-      }
-    } catch (err) {
-      body.textContent = t("connErrorPrefix") + err.message;
-    }
-  }
-
-  running = false;
-  btn.textContent = t(btn.dataset.i18n);
-  syncButtons();
-  refreshUsage();
-}
-
-// ---------- Tool 1: تحرير النصوص ----------
-const EDIT_INSTRUCTIONS = {
-  fix: "Fix spelling, grammar and punctuation only. Keep the original wording and meaning.",
-  improve: "Improve the clarity, flow and style of the text while keeping its meaning.",
-  rephrase: "Rewrite the text using different wording while keeping the same meaning.",
-  shorter: "Make the text shorter and more concise while keeping the key points.",
-  longer: "Expand the text with more detail and smoother flow, without inventing facts.",
-  formal: "Rewrite the text in a formal, professional tone.",
-  friendly: "Rewrite the text in a warm, friendly, conversational tone."
-};
-
-$("editRun").onclick = () => {
-  if (!guard(true)) return;
-  const raw = $("editText").value.trim();
-  if (!raw) { alert(t("emptyTextAlert")); return; }
-  const { text, cut } = clip(raw, MAX_TEXT_CHARS);
-  const instr = EDIT_INSTRUCTIONS[$("editAction").value];
-  const prompt = `${instr}\nReply in the same language as the text. Return only the edited text, with no explanations or comments.\n\nText:\n"""\n${text}\n"""`;
-  runOnModels(prompt, $("editResults"), $("editRun"), cut ? t("truncated") : "");
-};
-
-// ---------- Tool 2: تلخيص النصوص ----------
-const SUM_LEN = {
-  short: "in 2 to 3 sentences",
-  medium: "in one short paragraph of about 100 words",
-  long: "in a detailed summary of about 250 words"
-};
-
-$("sumRun").onclick = () => {
-  if (!guard(true)) return;
-  const raw = $("sumText").value.trim();
-  if (!raw) { alert(t("emptyTextAlert")); return; }
-  const { text, cut } = clip(raw, MAX_TEXT_CHARS);
-  const len = SUM_LEN[$("sumLenSel").value];
-  const fmt = $("sumFmtSel").value === "bullets" ? "as clear bullet points" : "as flowing prose";
-  const prompt = `Summarize the following text ${len}, ${fmt}. Reply in the same language as the text. Use only information found in the text; do not add facts or opinions.\n\nText:\n"""\n${text}\n"""`;
-  runOnModels(prompt, $("sumResults"), $("sumRun"), cut ? t("truncated") : "");
-};
-
-// ---------- Tool 3: تحليل البيانات ----------
-function describeData(text) {
-  const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
-  const first = lines[0] || "";
-  const counts = { ",": 0, ";": 0, "\t": 0, "|": 0 };
-  for (const ch of first) if (ch in counts) counts[ch]++;
-  const best = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
-  const cols = best[1] > 0 ? best[1] + 1 : 1;
-  return { rows: lines.length, cols };
-}
-
-$("dataRun").onclick = () => {
-  if (!guard(true)) return;
-  const raw = $("dataText").value.trim();
-  if (!raw) { alert(t("emptyDataAlert")); return; }
-  const info = describeData(raw);
-  const { text, cut } = clip(raw, MAX_DATA_CHARS);
-  const question = $("dataQ").value.trim() ||
-    "Describe the dataset, give key statistics, point out notable patterns or anomalies, and finish with 3 actionable insights.";
-  const prompt =
-`You are a careful data analyst. The dataset below has about ${info.rows} lines (including a header if present) and about ${info.cols} columns.${cut ? " Only the first part of the data is shown, so say clearly that your findings are based on a partial sample." : ""}
-Task: ${question}
-Rules: use only the data provided; show briefly how you got each number; never invent values; say so if the data is insufficient to answer. Reply in ${LANG_NAMES[currentLang]}.
-
-Data:
-"""
-${text}
-"""`;
-  runOnModels(prompt, $("dataResults"), $("dataRun"), cut ? t("truncated") : "");
-};
-
-// ---------- Tool 4: توليد الصور ----------
-const IMG_STYLES = {
-  none: "",
-  real: "photorealistic, high detail, natural lighting",
-  digital: "digital illustration, vibrant colors, detailed",
-  anime: "anime style, clean lines, expressive",
-  "3d": "3D render, soft lighting, high quality",
-  water: "watercolor painting, soft textures"
-};
-
-$("imgRun").onclick = () => {
-  if (!guard(false)) return;
-  const p = $("imgPrompt").value.trim();
-  if (!p) { alert(t("emptyImgAlert")); return; }
-
-  const style = IMG_STYLES[$("imgStyleSel").value] || "";
-  const [w, h] = $("imgSizeSel").value.split("x").map(Number);
-  const full = style ? `${p}, ${style}` : p;
-  const seed = Math.floor(Math.random() * 1e9);
-  const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(full)}?width=${w}&height=${h}&seed=${seed}&nologo=true`;
-
-  const btn = $("imgRun");
-  const img = $("imgEl");
-  const status = $("imgStatus");
-  const openLink = $("imgOpen");
-
-  $("imgOut").classList.remove("hidden");
-  img.classList.add("hidden");
-  openLink.classList.add("hidden");
-  status.textContent = t("imgLoading");
-  $("imgFrame").style.aspectRatio = `${w} / ${h}`;
-
-  running = true;
-  syncButtons();
-  btn.textContent = t("runningBtn");
-
-  const done = () => { running = false; btn.textContent = t("imgRun"); syncButtons(); };
-  img.onload = () => {
-    status.textContent = "";
-    img.alt = p;
-    img.classList.remove("hidden");
-    $("imgFrame").style.aspectRatio = "auto";
-    openLink.href = url;
-    openLink.classList.remove("hidden");
-    done();
-  };
-  img.onerror = () => {
-    status.textContent = t("imgError");
-    done();
-  };
-  img.src = url;
-};
-
-// ---------- Init ----------
-setTool("edit");
-setLanguage("ar");
-loadFreeModels();
-</script>
+<nav>
+#homeالرئيسية</a>
+#toolsالأدوات</a>
+#compareالمقارنة</a>
+#pricingالأسعار</a>
+</nav>
+
+<button class="btn">
+تسجيل الدخول
+</button>
+
+</header>
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<h1>
+أنجز المزيد
+<span>بذكاء</span>
+</h1>
+
+<p>
+منصة ذكاء اصطناعي تجمع ChatGPT و Gemini و Claude و DeepSeek و NVIDIA في مكان واحد.
+</p>
+
+<button class="btn">
+ابدأ الآن
+</button>
+
+</div>
+
+images/hero-ai.jpg
+
+</section>
+
+<section class="stats">
+
+<div class="stat-card">
+<h3>+10</h3>
+<p>نماذج ذكاء اصطناعي</p>
+</div>
+
+<div class="stat-card">
+<h3>+100</h3>
+<p>أداة وقالب جاهز</p>
+</div>
+
+<div class="stat-card">
+<h3>24/7</h3>
+<p>خدمة متواصلة</p>
+</div>
+
+<div class="stat-card">
+<h3>99.9%</h3>
+<p>استقرار المنصة</p>
+</div>
+
+</section>
+
+<h2 class="section-title" id="tools">
+الأدوات الذكية
+</h2>
+
+<section class="tools">
+
+<div class="card">
+<h3>✍️ إنشاء النصوص</h3>
+<p>إنشاء مقالات ومنشورات وتسويق ورسائل احترافية.</p>
+</div>
+
+<div class="card">
+<h3>🤖 مقارنة النماذج</h3>
+<p>قارن بين ChatGPT و Gemini و Claude و DeepSeek.</p>
+</div>
+
+<div class="card">
+<h3>🎨 توليد الصور</h3>
+<p>إنشاء صور احترافية من وصف نصي.</p>
+</div>
+
+<div class="card">
+<h3>🖼️ تحرير الصور</h3>
+<p>إزالة الخلفية وتحسين الجودة والتعديل الذكي.</p>
+</div>
+
+<div class="card">
+<h3>📄 تلخيص المستندات</h3>
+<p>تلخيص PDF و Word واستخراج المعلومات.</p>
+</div>
+
+<div class="card">
+<h3>📊 تحليل البيانات</h3>
+<p>تحليل Excel و CSV مع رسوم وإحصائيات.</p>
+</div>
+
+</section>
+<h2 class="section-title" id="compare">
+قارن بين أفضل النماذج
+</h2>
+
+<section class="compare-section">
+
+<div class="compare-content">
+
+<h2>
+نتائج متعددة من أفضل نماذج الذكاء الاصطناعي
+</h2>
+
+<p style="margin-bottom:20px;">
+احصل على إجابات من ChatGPT و Gemini و Claude و DeepSeek
+و NVIDIA في شاشة واحدة.
+</p>
+
+<textarea
+placeholder="اكتب سؤالك هنا..."
+></textarea>
+
+<div class="models">
+
+<label>
+<input type="checkbox" checked>
+ChatGPT
+</label>
+
+<label>
+<input type="checkbox" checked>
+Gemini
+</label>
+
+<label>
+<input type="checkbox" checked>
+Claude
+</label>
+
+<label>
+<input type="checkbox">
+DeepSeek
+</label>
+
+<label>
+<input type="checkbox">
+NVIDIA
+</label>
+
+</div>
+
+<button class="btn">
+قارن النماذج
+</button>
+
+</div>
+
+images/compare-ai.jpg
+
+</section>
+
+<h2 class="section-title">
+🎨 توليد الصور بالذكاء الاصطناعي
+</h2>
+
+<section class="image-section">
+
+<div class="image-content">
+
+<h2>
+أنشئ صورًا احترافية من وصف نصي
+</h2>
+
+<p style="margin-bottom:20px;">
+اكتب وصف الصورة وسيقوم الذكاء الاصطناعي بإنشائها خلال ثوانٍ.
+</p>
+
+<textarea
+placeholder="مثال: مدينة مستقبلية ليلاً بإضاءة نيون زرقاء"
+></textarea>
+
+<button class="btn">
+إنشاء صورة
+</button>
+
+</div>
+
+images/robot-hand.png
+
+</section>
+
+<h2 class="section-title">
+لماذا نواة AI ؟
+</h2>
+
+<section class="tools">
+
+<div class="card">
+<h3>⚡ سرعة عالية</h3>
+<p>
+الوصول إلى أفضل النماذج من مكان واحد.
+</p>
+</div>
+
+<div class="card">
+<h3>🔒 حماية البيانات</h3>
+<p>
+حسابات آمنة مع توثيق وتشفير كامل.
+</p>
+</div>
+
+<div class="card">
+<h3>🌍 منصة عربية</h3>
+<p>
+واجهة عربية حديثة وسهلة الاستخدام.
+</p>
+</div>
+
+<div class="card">
+<h3>📈 تطوير مستمر</h3>
+<p>
+إضافة نماذج وأدوات جديدة باستمرار.
+</p>
+</div>
+
+</section>
+
+<h2 class="section-title" id="pricing">
+الأسعار
+</h2>
+
+<section class="pricing">
+
+<div class="price-card">
+
+<h2>
+الخطة المجانية
+</h2>
+
+<ul>
+
+<li>
+50 رسالة يومياً
+</li>
+
+<li>
+5 صور يومياً
+</li>
+
+<li>
+مقارنة نماذج أساسية
+</li>
+
+<li>
+تجربة مجانية
+</li>
+
+</ul>
+
+</div>
+
+<div class="price-card">
+
+<h2>
+Premium
+</h2>
+
+<ul>
+
+<li>
+وصول غير محدود
+</li>
+
+<li>
+توليد الصور
+</li>
+
+<li>
+تحرير الصور
+</li>
+
+<li>
+مقارنة شاملة
+</li>
+
+<li>
+حفظ المشاريع
+</li>
+
+<li>
+دعم فني مميز
+</li>
+
+</ul>
+
+</div>
+
+</section>
+
+<section
+style="
+padding:100px 30px;
+text-align:center;
+"
+>
+
+<h2
+style="
+font-size:48px;
+margin-bottom:20px;
+"
+>
+جاهز للانطلاق؟
+</h2>
+
+<p
+style="
+font-size:20px;
+margin-bottom:30px;
+"
+>
+ابدأ استخدام أقوى أدوات الذكاء الاصطناعي اليوم.
+</p>
+
+<button class="btn">
+ابدأ مجانًا
+</button>
+
+</section>
+
+<footer>
+
+<h2 style="margin-bottom:20px;">
+نواة AI
+</h2>
+
+<p style="margin-bottom:15px;">
+منصة عربية تجمع أفضل نماذج الذكاء الاصطناعي
+في مكان واحد.
+</p>
+
+<p style="opacity:.7;">
+© 2026 Nawa AI
+جميع الحقوق محفوظة
+</p>
+
+</footer>
+
 </body>
 </html>
