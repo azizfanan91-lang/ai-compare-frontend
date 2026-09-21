@@ -57,89 +57,6 @@
   }
   .lang-btn.active { background: var(--accent); color: #08211d; }
 
-  /* ==================== IMAGE: AUTH HERO ==================== */
-  .auth-hero {
-    width: 100%;
-    height: 160px;
-    border-radius: 10px;
-    margin-bottom: 18px;
-    overflow: hidden;
-    position: relative;
-    background: #0d1011;
-  }
-  .auth-hero img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    filter: brightness(0.85) saturate(1.1);
-  }
-  .auth-hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 40%, rgba(16,19,20,0.75) 100%);
-    pointer-events: none;
-  }
-  .auth-hero .hero-text {
-    position: absolute;
-    bottom: 12px;
-    right: 16px;
-    left: 16px;
-    z-index: 2;
-    font-size: 13px;
-    color: var(--accent);
-    font-weight: 600;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-  }
-
-  /* ==================== IMAGE: BANNER (main app) ==================== */
-  .app-banner {
-    width: 100%;
-    height: 130px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    position: relative;
-    background: #0d1011;
-    border: 1px solid var(--border);
-  }
-  .app-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    filter: brightness(0.75) saturate(1.15);
-  }
-  .app-banner::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(16,19,20,0.9) 0%, rgba(16,19,20,0.2) 60%, transparent 100%);
-    pointer-events: none;
-  }
-  .app-banner .banner-text {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    z-index: 2;
-    color: var(--text);
-    font-size: 15px;
-    font-weight: 600;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    max-width: 60%;
-  }
-  .app-banner .banner-text small {
-    display: block;
-    font-size: 12px;
-    color: var(--accent);
-    font-weight: 400;
-    margin-top: 4px;
-  }
-
   /* Auth */
   .auth-box {
     max-width: 380px;
@@ -277,13 +194,6 @@
   <!-- Auth screens -->
   <div id="authSection">
     <div class="auth-box">
-
-      <!-- ========== صورة 3: AUTH HERO ========== -->
-      <div class="auth-hero">
-        <img src="hero.png" alt="AI Compare">
-        <div class="hero-text" id="heroText">🤖 قارن بين أقوى نماذج الذكاء الاصطناعي</div>
-      </div>
-
       <h2 id="authTitle">تسجيل الدخول</h2>
       <input type="email" id="authEmail" placeholder="الإيميل ديالك">
       <input type="password" id="authPassword" placeholder="كلمة السر">
@@ -298,16 +208,6 @@
 
   <!-- Main app (hidden until logged in) -->
   <div id="appSection" class="hidden">
-
-    <!-- ========== صورة 3: BANNER ========== -->
-    <div class="app-banner">
-      <img src="hero.png" alt="AI Banner">
-      <div class="banner-text" id="bannerText">
-        سؤال واحد، عدة نماذج
-        <small>اختار، كتب، وقارن</small>
-      </div>
-    </div>
-
     <div class="user-bar">
       <span id="userEmailLabel"></span>
       <div style="display:flex; gap:10px; align-items:center;">
@@ -319,6 +219,8 @@
     <div id="limitBanner" class="limit-banner hidden"></div>
 
     <!-- Subscribe box (يبان غير إلى المستخدم ماشي مشترك) -->
+    <!-- Gumroad: subscription link + a manual "check status" button, since the
+         webhook updates the DB in the background after checkout on Gumroad's site -->
     <div id="subscribeBox" class="subscribe-box hidden">
       <h3 id="subscribeTitle">اشترك فـ Premium</h3>
       <p id="subscribeDesc">10$ فالشهر — أسئلة بلا حدود مع كل النماذج</p>
@@ -397,10 +299,7 @@ const I18N = {
     checkingSub: "كنتحققو من الاشتراك...",
     subSuccess: "تفعل الاشتراك بنجاح! 🎉",
     subNotYet: "مازال ماوصلش تأكيد الدفع، استنى شوية وعاود جرب (ممكن ياخد دقيقة)",
-    subCheckError: "خطأ فـ الاتصال بالسيرفر",
-    heroText: "🤖 قارن بين أقوى نماذج الذكاء الاصطناعي",
-    bannerTitle: "سؤال واحد، عدة نماذج",
-    bannerSub: "اختار، كتب، وقارن"
+    subCheckError: "خطأ فـ الاتصال بالسيرفر"
   },
   fr: {
     pageTitle: "Comparer les modèles",
@@ -441,10 +340,7 @@ const I18N = {
     checkingSub: "Vérification de l'abonnement...",
     subSuccess: "Abonnement activé avec succès ! 🎉",
     subNotYet: "La confirmation du paiement n'est pas encore arrivée, réessayez dans une minute",
-    subCheckError: "Erreur de connexion au serveur",
-    heroText: "🤖 Comparez les meilleurs modèles d'IA",
-    bannerTitle: "Une question, plusieurs modèles",
-    bannerSub: "Choisissez, écrivez, comparez"
+    subCheckError: "Erreur de connexion au serveur"
   },
   en: {
     pageTitle: "Compare AI Models",
@@ -485,10 +381,7 @@ const I18N = {
     checkingSub: "Checking your subscription...",
     subSuccess: "Subscription activated! 🎉",
     subNotYet: "Payment confirmation hasn't arrived yet, try again in a minute",
-    subCheckError: "Server connection error",
-    heroText: "🤖 Compare the best AI models",
-    bannerTitle: "One question, several models",
-    bannerSub: "Pick, write, compare"
+    subCheckError: "Server connection error"
   }
 };
 
@@ -521,14 +414,6 @@ function setLanguage(lang) {
   document.getElementById("subscribeDesc").textContent = t("subscribeDesc");
   document.getElementById("subscribeLinkBtnInner").textContent = t("subscribeLinkText");
   document.getElementById("checkSubBtn").textContent = t("checkSubText");
-
-  // النصوص الجديدة ديال الصور
-  const heroTextEl = document.getElementById("heroText");
-  if (heroTextEl) heroTextEl.textContent = t("heroText");
-  const bannerTitleEl = document.getElementById("bannerTitle");
-  if (bannerTitleEl) bannerTitleEl.textContent = t("bannerTitle");
-  const bannerSubEl = document.getElementById("bannerSub");
-  if (bannerSubEl) bannerSubEl.textContent = t("bannerSub");
 
   document.querySelectorAll(".lang-btn").forEach(b => {
     b.classList.toggle("active", b.dataset.lang === lang);
@@ -822,3 +707,83 @@ document.getElementById("checkSubBtn").onclick = async () => {
 
     if (data.is_premium) {
       statusEl.textContent = t("subSuccess");
+      statusEl.className = "subscribe-status success";
+      refreshUsage();
+    } else {
+      statusEl.textContent = t("subNotYet");
+      statusEl.className = "subscribe-status";
+    }
+  } catch (err) {
+    statusEl.textContent = t("subCheckError");
+    statusEl.className = "subscribe-status error";
+  }
+};
+
+document.getElementById("runBtn").onclick = async () => {
+  const prompt = document.getElementById("prompt").value.trim();
+  const resultsEl = document.getElementById("results");
+  const btn = document.getElementById("runBtn");
+  const limitBanner = document.getElementById("limitBanner");
+  limitBanner.classList.add("hidden");
+
+  if (!prompt) { alert(t("emptyPromptAlert")); return; }
+  if (selectedModels.size === 0) { alert(t("noModelAlert")); return; }
+
+  resultsEl.innerHTML = "";
+  btn.disabled = true;
+  btn.textContent = t("runningBtn");
+
+  const activeModels = MODELS.filter(m => selectedModels.has(m.id));
+
+  activeModels.forEach(m => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.id = "card-" + m.id.replace(/[^a-z0-9]/gi, "-");
+    card.innerHTML = `<h3>${m.label}</h3><div class="body muted">${t("working")}</div>`;
+    resultsEl.appendChild(card);
+  });
+
+  let hitLimit = false;
+
+  for (const m of activeModels) {
+    const card = document.getElementById("card-" + m.id.replace(/[^a-z0-9]/gi, "-"));
+    try {
+      const res = await fetch(BACKEND_URL + "/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ model: m.id, prompt })
+      });
+      const data = await res.json();
+
+      if (res.status === 429) {
+        card.querySelector(".body").textContent = t("limitReachedShort");
+        hitLimit = true;
+        limitBanner.textContent = data.error;
+        limitBanner.classList.remove("hidden");
+        continue;
+      }
+
+      if (data.error) {
+        card.querySelector(".body").textContent = t("errorPrefix") + data.error;
+      } else {
+        card.querySelector(".body").textContent = data.text;
+        card.querySelector(".body").classList.remove("muted");
+      }
+    } catch (err) {
+      card.querySelector(".body").textContent = t("connErrorPrefix") + err.message;
+    }
+  }
+
+  btn.disabled = false;
+  btn.textContent = t("runBtn");
+  refreshUsage();
+};
+
+setLanguage("ar");
+</script>
+
+</body>
+</html>
