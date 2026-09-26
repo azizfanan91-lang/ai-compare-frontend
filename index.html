@@ -202,7 +202,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
 
 <main class="wrap" id="home">
 
-  <section class="hero">
+  <section class="hero" id="heroSection">
     <div>
       <h1 data-i18n="heroTitle"></h1>
       <p data-i18n="heroText"></p>
@@ -877,6 +877,9 @@ function logout() {
   clearSession();
   updateNav();
   renderUsage();
+  // نرجعو القسم التسويقي يبان للزوار (بعد ما خرج المستخدم)
+  $("heroSection").classList.remove("hidden");
+  $("toolcards").classList.remove("hidden");
 }
 
 // ---------- Models ----------
@@ -946,6 +949,11 @@ function showApp() {
   closeAuth();
   updateNav();
   refreshUsage();
+  // للمستخدم المسجل، نخبيو القسم التسويقي (Hero + بطاقات الأدوات)
+  // ونوجهوه مباشرة لقسم الأدوات، بلا ما نمسو قسم الأسعار/الدفع
+  $("heroSection").classList.add("hidden");
+  $("toolcards").classList.add("hidden");
+  $("tools").scrollIntoView({ block: "start" });
 }
 
 function sessionExpired() {
