@@ -1303,7 +1303,7 @@ const IMG_STYLES = {
 };
 const MAX_IMG_MODELS = 4;
 const DEFAULT_IMG_SELECTED = 2;
-// تُستعمل فقط إذا تعذّر الوصول لـ /api/image/models فـ السيرفر، باش الأداة تبقى خدامة
+// تُستعمل فقط إذا تعذّر الوصول لـ /api/images/models فـ السيرفر، باش الأداة تبقى خدامة
 const FALLBACK_IMAGE_MODELS = [
   { id: "flux", label: "FLUX Schnell", description: "سريع جداً" },
   { id: "sdxl", label: "Stable Diffusion XL", description: "جودة عالية" },
@@ -1335,7 +1335,7 @@ function renderImgChips() {
 async function loadImageModels() {
   const box = $("imgModelChips");
   try {
-    const res = await fetch(BACKEND_URL + "/api/image/models");
+    const res = await fetch(BACKEND_URL + "/api/images/models");
     if (!res.ok) throw new Error("no image service");
     const data = await res.json();
     IMAGE_MODELS = (data.models || []).filter(m => m && m.id);
@@ -1393,7 +1393,7 @@ $("imgRun").onclick = async () => {
   for (const m of models) {
     const { body, save } = cards.get(m.id);
     try {
-      const res = await fetch(BACKEND_URL + "/api/image", {
+      const res = await fetch(BACKEND_URL + "/api/images", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
         body: JSON.stringify({ model: m.id, prompt: full, width: w, height: h })
