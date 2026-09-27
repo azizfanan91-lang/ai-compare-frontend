@@ -448,7 +448,7 @@ const I18N = {
     imgSize: "الحجم", szSquare: "مربع", szWide: "أفقي", szTall: "عمودي",
     imgRun: "ولّد الصورة", imgOpen: "فتح الصورة", imgLoading: "كنولدو الصورة...",
     imgError: "تعذّر توليد الصورة. جرّب وصفاً آخر أو أعد المحاولة.",
-    imgNote: "الصور تُولَّد على السيرفر عبر خدمة Pollinations، والوصف الذي تكتبه يُرسل إليها. بعض النماذج أبطأ من غيرها.",
+    imgNote: "الصور تُولَّد على السيرفر عبر Hugging Face. بعض النماذج أبطأ من غيرها، خاصة عند أول تشغيل.",
     imgModelsLabel: "نماذج توليد الصور — اختر نموذجاً أو أكثر وقارن النتائج",
     imgSave: "تحميل",
     imgNoService: "خدمة توليد الصور غير متاحة الآن. حاول لاحقاً.",
@@ -536,7 +536,7 @@ const I18N = {
     imgSize: "Taille", szSquare: "Carré", szWide: "Paysage", szTall: "Portrait",
     imgRun: "Générer l'image", imgOpen: "Ouvrir l'image", imgLoading: "Génération de l'image...",
     imgError: "Impossible de générer l'image. Essayez une autre description ou réessayez.",
-    imgNote: "Les images sont générées côté serveur via le service Pollinations ; votre description lui est envoyée. Certains modèles sont plus lents que d'autres.",
+    imgNote: "Les images sont générées côté serveur via Hugging Face. Certains modèles sont plus lents, surtout au premier lancement.",
     imgModelsLabel: "Modèles d'image — choisissez-en un ou plusieurs et comparez",
     imgSave: "Télécharger",
     imgNoService: "Le service de génération d'images est indisponible pour le moment.",
@@ -624,7 +624,7 @@ const I18N = {
     imgSize: "Size", szSquare: "Square", szWide: "Landscape", szTall: "Portrait",
     imgRun: "Generate image", imgOpen: "Open image", imgLoading: "Generating your image...",
     imgError: "Couldn't generate the image. Try a different description or try again.",
-    imgNote: "Images are generated on the server through the Pollinations service; your description is sent to it. Some models are slower than others.",
+    imgNote: "Images are generated on the server via Hugging Face. Some models are slower, especially on first run.",
     imgModelsLabel: "Image models — pick one or more and compare",
     imgSave: "Download",
     imgNoService: "Image generation is unavailable right now.",
@@ -1305,9 +1305,9 @@ const MAX_IMG_MODELS = 4;
 const DEFAULT_IMG_SELECTED = 2;
 // تُستعمل فقط إذا تعذّر الوصول لـ /api/image/models فـ السيرفر، باش الأداة تبقى خدامة
 const FALLBACK_IMAGE_MODELS = [
-  { id: "flux", label: "Flux" },
-  { id: "turbo", label: "Turbo" },
-  { id: "qwen/qwen-image", label: "Qwen Image" }
+  { id: "flux", label: "FLUX Schnell", description: "سريع جداً" },
+  { id: "sdxl", label: "Stable Diffusion XL", description: "جودة عالية" },
+  { id: "sd35", label: "SD 3.5 Medium", description: "توازن بين السرعة والجودة" }
 ];
 let IMAGE_MODELS = [];
 let selectedImgModels = new Set();
@@ -1404,16 +1404,15 @@ $("imgRun").onclick = async () => {
         try { msg = (await res.json()).error; } catch (e) {}
         throw new Error(msg || t("imgError"));
       }
-      const blob = await res.blob();
-      if (!blob.type.startsWith("image/")) throw new Error(t("imgError"));
-      const url = URL.createObjectURL(blob);
-      imgObjectUrls.push(url);
+      const data = await res.json();
+      if (!data.image) throw new Error(t("imgError"));
+      const url = data.image; // data URI base64
       const img = document.createElement("img");
       img.src = url;
       img.alt = p;
       body.className = "body";
       body.replaceChildren(img);
-      const ext = (blob.type.split("/")[1] || "png").replace("jpeg", "jpg").split("+")[0];
+      const ext = url.startsWith("data:image/png") ? "png" : "jpg";
       save.classList.remove("hidden");
       save.onclick = () => {
         const a = document.createElement("a");
