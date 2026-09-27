@@ -1393,7 +1393,7 @@ $("imgRun").onclick = async () => {
   for (const m of models) {
     const { body, save } = cards.get(m.id);
     try {
-      const res = await fetch(BACKEND_URL + "/api/images", {
+      const res = await fetch(BACKEND_URL + "/api/images/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
         body: JSON.stringify({ model: m.id, prompt: full, width: w, height: h })
