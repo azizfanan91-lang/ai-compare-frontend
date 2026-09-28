@@ -197,9 +197,9 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
     </nav>
     <div class="nav-end">
       <div class="lang" role="group" aria-label="Language">
-        <button class="lang-btn" data-lang="ar">ع</button>
-        <button class="lang-btn" data-lang="fr">FR</button>
-        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ar" aria-label="العربية" aria-pressed="true">ع</button>
+        <button class="lang-btn" data-lang="fr" aria-label="Français" aria-pressed="false">FR</button>
+        <button class="lang-btn" data-lang="en" aria-label="English" aria-pressed="false">EN</button>
       </div>
       <button class="btn btn-p btn-sm" id="authBtn"></button>
       <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
@@ -259,7 +259,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
 
       <div id="modelsBox">
         <div class="models-label" data-i18n="modelsLabel"></div>
-        <div class="chips" id="modelChips"></div>
+        <div class="chips" id="modelChips" role="group" aria-label="النماذج"></div>
       </div>
 
       <!-- تحرير النصوص -->
@@ -285,7 +285,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
       <!-- توليد الصور -->
       <div data-panel="image" class="hidden">
         <div class="models-label" data-i18n="imgModelsLabel"></div>
-        <div class="chips" id="imgModelChips"></div>
+        <div class="chips" id="imgModelChips" role="group" aria-label="نماذج توليد الصور"></div>
         <textarea class="ta" id="imgPrompt" data-i18n-ph="imgPh" maxlength="500" style="min-height:100px"></textarea>
         <div class="opts">
           <label class="opt"><span data-i18n="imgStyle"></span>
@@ -722,12 +722,19 @@ function setLanguage(lang) {
     if (el.classList.contains("run") && running) return;
     el.textContent = t(el.dataset.i18n);
   });
-  document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+    const txt = t(el.dataset.i18nPh);
+    el.placeholder = txt;
+    el.setAttribute("aria-label", txt);
+  });
   $("authEmail").placeholder = t("emailPlaceholder");
+  $("authEmail").setAttribute("aria-label", t("emailPlaceholder"));
   $("authPassword").placeholder = t("passwordPlaceholder");
+  $("authPassword").setAttribute("aria-label", t("passwordPlaceholder"));
 
   document.querySelectorAll(".lang-btn").forEach(b => {
     b.classList.toggle("active", b.dataset.lang === lang);
+    b.setAttribute("aria-pressed", b.dataset.lang === lang ? "true" : "false");
   });
 
   renderAuthMode();
