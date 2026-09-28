@@ -478,7 +478,7 @@ const I18N = {
     freeBtn: "ابدأ مجاناً",
     premPer: "/ الشهر",
     premLi1: "أسئلة بلا حدود مع كل النماذج", premLi2: "كل الأدوات الأربع", premLi3: "الدفع الآمن عبر Gumroad",
-    ctaTitle: "جاهز للانطلاق؟", ctaText: "انضم إلى آلاف المستخدمين الذين ينجزون أعمالهم بسرعة وذكاء مع QueryMix.",
+    ctaTitle: "جاهز للانطلاق؟", ctaText: "انضم إلى المستخدمين الذين ينجزون أعمالهم بسرعة وذكاء مع QueryMix.",
     ctaBtnText: "ابدأ الآن مجاناً",
     loginTitle: "تسجيل الدخول",
     signupTitle: "صاوب حساب جديد",
@@ -566,7 +566,7 @@ const I18N = {
     freeBtn: "Commencer gratuitement",
     premPer: "/ mois",
     premLi1: "Questions illimitées avec tous les modèles", premLi2: "Les quatre outils", premLi3: "Paiement sécurisé via Gumroad",
-    ctaTitle: "Prêt à démarrer ?", ctaText: "Rejoignez des milliers d'utilisateurs qui avancent plus vite avec QueryMix.",
+    ctaTitle: "Prêt à démarrer ?", ctaText: "Rejoignez les utilisateurs qui avancent plus vite avec QueryMix.",
     ctaBtnText: "Commencer gratuitement",
     loginTitle: "Connexion",
     signupTitle: "Créer un compte",
@@ -654,7 +654,7 @@ const I18N = {
     freeBtn: "Start free",
     premPer: "/ month",
     premLi1: "Unlimited questions with every model", premLi2: "All four tools", premLi3: "Secure payment via Gumroad",
-    ctaTitle: "Ready to start?", ctaText: "Join thousands of users getting more done, faster, with QueryMix.",
+    ctaTitle: "Ready to start?", ctaText: "Join the users getting more done, faster, with QueryMix.",
     ctaBtnText: "Start free now",
     loginTitle: "Log In",
     signupTitle: "Create Account",
@@ -1117,6 +1117,17 @@ function clip(text, max) {
   return text.length > max ? { text: text.slice(0, max), cut: true } : { text, cut: false };
 }
 
+// fetch بمهلة زمنية باش الطلب ما يبقاش معلق للأبد إلا تعطل السيرفر
+async function fetchWithTimeout(url, options = {}, ms = 60000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function bindFile(inputId, areaId) {
   $(inputId).addEventListener("change", () => {
     const f = $(inputId).files[0];
@@ -1176,14 +1187,14 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
   for (const m of activeModels) {
     const { body, copy } = cards.get(m.id);
     try {
-      const res = await fetch(BACKEND_URL + "/api/chat", {
+      const res = await fetchWithTimeout(BACKEND_URL + "/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer " + token
         },
         body: JSON.stringify({ model: m.id, prompt })
-      });
+      }, 60000);
       const data = await res.json();
 
       if (res.status === 401) { sessionExpired(); break; }
