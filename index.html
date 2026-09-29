@@ -298,15 +298,11 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
               <option value="water" data-i18n="stWater"></option>
             </select>
           </label>
-          <label class="opt"><span data-i18n="imgSize"></span>
-            <select class="sel" id="imgSizeSel">
-              <option value="1024x1024" data-i18n="szSquare"></option>
-              <option value="1280x720" data-i18n="szWide"></option>
-              <option value="720x1280" data-i18n="szTall"></option>
-            </select>
-          </label>
         </div>
-        <button class="btn btn-p run" id="imgRun" data-i18n="imgRun"></button>
+        <div class="status" style="margin-bottom:0">
+          <span class="pill" id="imgUsagePill"></span>
+        </div>
+        <button class="btn btn-p run" id="imgRun" data-i18n="imgRun" style="margin-top:12px"></button>
         <p class="hint" data-i18n="imgNote"></p>
         <div class="results" id="imgResults" aria-live="polite"></div>
       </div>
@@ -445,8 +441,9 @@ const I18N = {
     editPh: "الصق النص الذي تريد تحريره هنا...", editRun: "حرّر النص",
     imgPh: "صف الصورة التي تريدها بالتفصيل... (الوصف بالإنجليزية يعطي غالباً نتائج أدق)",
     imgStyle: "الأسلوب", stNone: "بدون", stReal: "واقعي", stDigital: "رسم رقمي", stAnime: "أنمي", st3d: "ثلاثي الأبعاد", stWater: "ألوان مائية",
-    imgSize: "الحجم", szSquare: "مربع", szWide: "أفقي", szTall: "عمودي",
+    imgSize: "الحجم",
     imgRun: "ولّد الصورة", imgOpen: "فتح الصورة", imgLoading: "كنولدو الصورة...",
+    imgRemainingLabel: (r, l) => `باقي ${r} من ${l} صور اليوم`,
     imgError: "تعذّر توليد الصورة. جرّب وصفاً آخر أو أعد المحاولة.",
     imgNote: "الصور تُولَّد على السيرفر عبر خدمة Pollinations، والوصف الذي تكتبه يُرسل إليها. بعض النماذج أبطأ من غيرها.",
     imgModelsLabel: "نماذج توليد الصور — اختر نموذجاً أو أكثر وقارن النتائج",
@@ -533,8 +530,9 @@ const I18N = {
     editPh: "Collez ici le texte à éditer...", editRun: "Éditer le texte",
     imgPh: "Décrivez l'image souhaitée en détail... (une description en anglais donne souvent de meilleurs résultats)",
     imgStyle: "Style", stNone: "Aucun", stReal: "Réaliste", stDigital: "Illustration numérique", stAnime: "Anime", st3d: "3D", stWater: "Aquarelle",
-    imgSize: "Taille", szSquare: "Carré", szWide: "Paysage", szTall: "Portrait",
+    imgSize: "Taille",
     imgRun: "Générer l'image", imgOpen: "Ouvrir l'image", imgLoading: "Génération de l'image...",
+    imgRemainingLabel: (r, l) => `${r} sur ${l} images restantes aujourd'hui`,
     imgError: "Impossible de générer l'image. Essayez une autre description ou réessayez.",
     imgNote: "Les images sont générées côté serveur via le service Pollinations ; votre description lui est envoyée. Certains modèles sont plus lents que d'autres.",
     imgModelsLabel: "Modèles d'image — choisissez-en un ou plusieurs et comparez",
@@ -621,8 +619,9 @@ const I18N = {
     editPh: "Paste the text you want to edit here...", editRun: "Edit text",
     imgPh: "Describe the image you want in detail... (English descriptions often work best)",
     imgStyle: "Style", stNone: "None", stReal: "Realistic", stDigital: "Digital art", stAnime: "Anime", st3d: "3D", stWater: "Watercolor",
-    imgSize: "Size", szSquare: "Square", szWide: "Landscape", szTall: "Portrait",
+    imgSize: "Size",
     imgRun: "Generate image", imgOpen: "Open image", imgLoading: "Generating your image...",
+    imgRemainingLabel: (r, l) => `${r} of ${l} images left today`,
     imgError: "Couldn't generate the image. Try a different description or try again.",
     imgNote: "Images are generated on the server through the Pollinations service; your description is sent to it. Some models are slower than others.",
     imgModelsLabel: "Image models — pick one or more and compare",
@@ -740,6 +739,7 @@ function setLanguage(lang) {
   renderAuthMode();
   updateNav();
   renderUsage();
+  renderImgUsage(lastImgUsage);
   if (!MODELS.length) {
     $("modelChips").innerHTML = `<span class="muted">${t("loadingModels")}</span>`;
   }
@@ -884,6 +884,7 @@ function logout() {
   clearSession();
   updateNav();
   renderUsage();
+  renderImgUsage(null);
 }
 
 // ---------- Models ----------
@@ -953,6 +954,7 @@ function showApp() {
   closeAuth();
   updateNav();
   refreshUsage();
+  refreshImageUsage();
 }
 
 function sessionExpired() {
@@ -1303,6 +1305,7 @@ ${text}
 
 // ---------- Tool 4: توليد الصور (عدة نماذج، عبر السيرفر) ----------
 // المفتاح السري لخدمة الصور يبقى فـ السيرفر (Render) ولا يظهر أبداً فـ المتصفح.
+// ---------- Tool 4: توليد الصور (عبر السيرفر، نماذج بعدة مزودين مع fallback تلقائي) ----------
 const IMG_STYLES = {
   none: "",
   real: "photorealistic, high detail, natural lighting",
@@ -1311,17 +1314,15 @@ const IMG_STYLES = {
   "3d": "3D render, soft lighting, high quality",
   water: "watercolor painting, soft textures"
 };
-const MAX_IMG_MODELS = 4;
-const DEFAULT_IMG_SELECTED = 2;
-// تُستعمل فقط إذا تعذّر الوصول لـ /api/image/models فـ السيرفر، باش الأداة تبقى خدامة
+const MAX_IMG_MODELS = 3;
+// تُستعمل فقط إذا تعذّر الوصول لـ /api/images/models فـ السيرفر، باش الأداة تبقى خدامة
 const FALLBACK_IMAGE_MODELS = [
-  { id: "flux", label: "Flux" },
+  { id: "flux", label: "FLUX.1 Schnell" },
   { id: "turbo", label: "Turbo" },
-  { id: "qwen/qwen-image", label: "Qwen Image" }
+  { id: "qwen", label: "Qwen Image" }
 ];
 let IMAGE_MODELS = [];
 let selectedImgModels = new Set();
-let imgObjectUrls = [];
 
 function renderImgChips() {
   const box = $("imgModelChips");
@@ -1343,19 +1344,42 @@ function renderImgChips() {
 }
 
 async function loadImageModels() {
-  const box = $("imgModelChips");
   try {
-    const res = await fetch(BACKEND_URL + "/api/image/models");
+    const res = await fetch(BACKEND_URL + "/api/images/models");
     if (!res.ok) throw new Error("no image service");
     const data = await res.json();
-    IMAGE_MODELS = (data.models || []).filter(m => m && m.id);
+    IMAGE_MODELS = (data.models || [])
+      .filter(m => m && m.key)
+      .map(m => ({ id: m.key, label: m.name || m.key }));
     if (!IMAGE_MODELS.length) throw new Error("empty");
   } catch (e) {
     // السيرفر ما عندوش هاد المسار بعد (أو تعطل)، نستعملو قائمة احتياطية باش الأداة تخدم
     IMAGE_MODELS = FALLBACK_IMAGE_MODELS;
   }
-  selectedImgModels = new Set(IMAGE_MODELS.slice(0, DEFAULT_IMG_SELECTED).map(m => m.id));
+  selectedImgModels = new Set(IMAGE_MODELS.slice(0, 2).map(m => m.id));
   renderImgChips();
+}
+
+let lastImgUsage = null;
+
+function renderImgUsage(d) {
+  lastImgUsage = d;
+  const pill = $("imgUsagePill");
+  if (!token) { pill.textContent = t("guestLabel"); return; }
+  if (!d) { pill.textContent = "..."; return; }
+  pill.textContent = t("imgRemainingLabel", d.remaining, d.limit);
+}
+
+async function refreshImageUsage() {
+  if (!token) { renderImgUsage(null); return; }
+  try {
+    const res = await fetch(BACKEND_URL + "/api/images/usage", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    if (res.status === 401) { renderImgUsage(null); return; }
+    const data = await res.json();
+    renderImgUsage(data);
+  } catch (e) { /* صامت */ }
 }
 
 $("imgRun").onclick = async () => {
@@ -1366,11 +1390,8 @@ $("imgRun").onclick = async () => {
   if (models.length === 0) { alert(t("noModelAlert")); return; }
 
   const style = IMG_STYLES[$("imgStyleSel").value] || "";
-  const [w, h] = $("imgSizeSel").value.split("x").map(Number);
   const full = style ? `${p}, ${style}` : p;
 
-  imgObjectUrls.forEach(u => URL.revokeObjectURL(u));
-  imgObjectUrls = [];
   const out = $("imgResults");
   out.innerHTML = "";
 
@@ -1400,39 +1421,37 @@ $("imgRun").onclick = async () => {
     cards.set(m.id, { body, save });
   });
 
+  let lastUsage = null;
   for (const m of models) {
     const { body, save } = cards.get(m.id);
     try {
-      const res = await fetch(BACKEND_URL + "/api/image", {
+      const res = await fetchWithTimeout(BACKEND_URL + "/api/images/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
-        body: JSON.stringify({ model: m.id, prompt: full, width: w, height: h })
-      });
+        body: JSON.stringify({ model: m.id, prompt: full })
+      }, 90000);
+
+      const data = await res.json().catch(() => ({}));
+
       if (res.status === 401) { sessionExpired(); break; }
-      if (!res.ok) {
-        let msg = "";
-        try { msg = (await res.json()).error; } catch (e) {}
-        throw new Error(msg || t("imgError"));
-      }
-      const blob = await res.blob();
-      if (!blob.type.startsWith("image/")) throw new Error(t("imgError"));
-      const url = URL.createObjectURL(blob);
-      imgObjectUrls.push(url);
+      if (!res.ok) throw new Error(data.error || t("imgError"));
+      if (!data.image) throw new Error(t("imgError"));
+
       const img = document.createElement("img");
-      img.src = url;
+      img.src = data.image;
       img.alt = p;
       body.className = "body";
       body.replaceChildren(img);
-      const ext = (blob.type.split("/")[1] || "png").replace("jpeg", "jpg").split("+")[0];
       save.classList.remove("hidden");
       save.onclick = () => {
         const a = document.createElement("a");
-        a.href = url;
-        a.download = `querymix-${Date.now()}.${ext}`;
+        a.href = data.image;
+        a.download = `querymix-${Date.now()}.png`;
         document.body.appendChild(a);
         a.click();
         a.remove();
       };
+      if (typeof data.remaining === "number") lastUsage = { remaining: data.remaining };
     } catch (err) {
       body.className = "body ph bad";
       body.textContent = err.message || t("imgError");
@@ -1442,13 +1461,16 @@ $("imgRun").onclick = async () => {
   running = false;
   btn.textContent = t("imgRun");
   syncButtons();
+  if (lastUsage) refreshImageUsage();
 };
+
 
 // ---------- Init ----------
 setTool("edit");
 setLanguage("ar");
 loadFreeModels();
 loadImageModels();
+refreshImageUsage();
 </script>
 </body>
 </html>
