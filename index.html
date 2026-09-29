@@ -445,7 +445,7 @@ const I18N = {
     imgRun: "ولّد الصورة", imgOpen: "فتح الصورة", imgLoading: "كنولدو الصورة...",
     imgRemainingLabel: (r, l) => `باقي ${r} من ${l} صور اليوم`,
     imgError: "تعذّر توليد الصورة. جرّب وصفاً آخر أو أعد المحاولة.",
-    imgNote: "الصور تُولَّد على السيرفر عبر خدمة Pollinations، والوصف الذي تكتبه يُرسل إليها. بعض النماذج أبطأ من غيرها.",
+    imgNote: "الصور تُولَّد على السيرفر عبر Cloudflare Workers AI. بعض النماذج أبطأ من غيرها، خاصة عند أول تشغيل.",
     imgModelsLabel: "نماذج توليد الصور — اختر نموذجاً أو أكثر وقارن النتائج",
     imgSave: "تحميل",
     imgNoService: "خدمة توليد الصور غير متاحة الآن. حاول لاحقاً.",
@@ -534,7 +534,7 @@ const I18N = {
     imgRun: "Générer l'image", imgOpen: "Ouvrir l'image", imgLoading: "Génération de l'image...",
     imgRemainingLabel: (r, l) => `${r} sur ${l} images restantes aujourd'hui`,
     imgError: "Impossible de générer l'image. Essayez une autre description ou réessayez.",
-    imgNote: "Les images sont générées côté serveur via le service Pollinations ; votre description lui est envoyée. Certains modèles sont plus lents que d'autres.",
+    imgNote: "Les images sont générées côté serveur via Cloudflare Workers AI. Certains modèles sont plus lents, surtout au premier lancement.",
     imgModelsLabel: "Modèles d'image — choisissez-en un ou plusieurs et comparez",
     imgSave: "Télécharger",
     imgNoService: "Le service de génération d'images est indisponible pour le moment.",
@@ -623,7 +623,7 @@ const I18N = {
     imgRun: "Generate image", imgOpen: "Open image", imgLoading: "Generating your image...",
     imgRemainingLabel: (r, l) => `${r} of ${l} images left today`,
     imgError: "Couldn't generate the image. Try a different description or try again.",
-    imgNote: "Images are generated on the server through the Pollinations service; your description is sent to it. Some models are slower than others.",
+    imgNote: "Images are generated on the server via Cloudflare Workers AI. Some models may be slower on first run.",
     imgModelsLabel: "Image models — pick one or more and compare",
     imgSave: "Download",
     imgNoService: "Image generation is unavailable right now.",
@@ -1317,9 +1317,9 @@ const IMG_STYLES = {
 const MAX_IMG_MODELS = 3;
 // تُستعمل فقط إذا تعذّر الوصول لـ /api/images/models فـ السيرفر، باش الأداة تبقى خدامة
 const FALLBACK_IMAGE_MODELS = [
-  { id: "flux", label: "FLUX.1 Schnell" },
-  { id: "turbo", label: "Turbo" },
-  { id: "qwen", label: "Qwen Image" }
+  { id: "flux", label: "FLUX.1 Schnell", description: "سريع وجودة عالية" },
+  { id: "sdxl", label: "Stable Diffusion XL", description: "تفاصيل دقيقة" },
+  { id: "dreamshaper", label: "DreamShaper", description: "إبداعي وسلس" }
 ];
 let IMAGE_MODELS = [];
 let selectedImgModels = new Set();
