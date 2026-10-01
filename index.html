@@ -274,19 +274,6 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
 
       <!-- تحرير النصوص -->
       <div data-panel="edit">
-        <div class="opts">
-          <label class="opt"><span data-i18n="editKind"></span>
-            <select class="sel" id="editAction">
-              <option value="fix" data-i18n="actFix"></option>
-              <option value="improve" data-i18n="actImprove"></option>
-              <option value="rephrase" data-i18n="actRephrase"></option>
-              <option value="shorter" data-i18n="actShort"></option>
-              <option value="longer" data-i18n="actLong"></option>
-              <option value="formal" data-i18n="actFormal"></option>
-              <option value="friendly" data-i18n="actFriendly"></option>
-            </select>
-          </label>
-        </div>
         <textarea class="ta" id="editText" data-i18n-ph="editPh"></textarea>
         <button class="btn btn-p run" id="editRun" data-i18n="editRun" style="margin-top:12px"></button>
         <div class="results" id="editResults" aria-live="polite"></div>
@@ -437,7 +424,7 @@ const I18N = {
     heroTitle: "أنجز المزيد بذكاء",
     heroText: "منصة QueryMix تمنحك مجموعة متكاملة من أدوات الذكاء الاصطناعي لمساعدتك على الكتابة، الإبداع، التحليل، واتخاذ قرارات أفضل بسرعة وسهولة.",
     heroCta1: "ابدأ الآن", heroCta2: "استكشف الأدوات",
-    tEditT: "تحرير النصوص", tEditD: "أنشئ وصحّح ونصوصاً بجودة عالية وأسلوب واضح في ثوانٍ.",
+    tEditT: "مقارنة النماذج", tEditD: "اسأل سؤالاً واحداً واحصل على إجابات عدة نماذج جنباً إلى جنب.",
     tImgT: "توليد الصور", tImgD: "حوّل أفكارك إلى صور مذهلة بذكاء اصطناعي وبأساليب متنوعة.",
     tDataT: "تحليل البيانات", tDataD: "حلّل بياناتك واكتشف الأنماط واحصل على رؤى دقيقة تدعم قراراتك.",
     tSumT: "تلخيص المستندات", tSumD: "لخّص المستندات الطويلة واستخرج أهم النقاط بسرعة ودقة.",
@@ -445,10 +432,7 @@ const I18N = {
     modelsLabel: "النماذج — اختر نموذجاً أو أكثر وقارن النتائج جنب بعض",
     copyBtn: "نسخ", copiedBtn: "تم النسخ",
     guestLabel: "سجّل الدخول لبدء التجربة المجانية",
-    editKind: "نوع التحرير",
-    actFix: "تصحيح لغوي", actImprove: "تحسين الأسلوب", actRephrase: "إعادة صياغة",
-    actShort: "تقصير", actLong: "توسيع", actFormal: "نبرة رسمية", actFriendly: "نبرة ودية",
-    editPh: "الصق النص الذي تريد تحريره هنا...", editRun: "حرّر النص",
+    editPh: "اكتب سؤالك هنا...", editRun: "قارن الإجابات",
     imgPh: "صف الصورة التي تريدها بالتفصيل... (الوصف بالإنجليزية يعطي غالباً نتائج أدق)",
     imgStyle: "الأسلوب", stNone: "بدون", stReal: "واقعي", stDigital: "رسم رقمي", stAnime: "أنمي", st3d: "ثلاثي الأبعاد", stWater: "ألوان مائية",
     imgSize: "الحجم",
@@ -526,7 +510,7 @@ const I18N = {
     heroTitle: "Faites plus, avec intelligence",
     heroText: "QueryMix vous offre une suite complète d'outils d'IA pour écrire, créer, analyser et prendre de meilleures décisions, simplement et rapidement.",
     heroCta1: "Commencer", heroCta2: "Explorer les outils",
-    tEditT: "Édition de textes", tEditD: "Corrigez, améliorez et reformulez vos textes clairement.",
+    tEditT: "Comparer les modèles", tEditD: "Posez une question et comparez les réponses de plusieurs modèles.",
     tImgT: "Génération d'images", tImgD: "Transformez vos idées en images surprenantes, dans divers styles.",
     tDataT: "Analyse de données", tDataD: "Analysez vos tableaux, repérez les tendances et obtenez des pistes utiles.",
     tSumT: "Résumé de documents", tSumD: "Résumez de longs documents et extrayez l'essentiel, rapidement et avec précision.",
@@ -534,10 +518,7 @@ const I18N = {
     modelsLabel: "Modèles — choisissez-en un ou plusieurs et comparez les résultats côte à côte",
     copyBtn: "Copier", copiedBtn: "Copié",
     guestLabel: "Connectez-vous pour démarrer l'essai gratuit",
-    editKind: "Type d'édition",
-    actFix: "Correction", actImprove: "Améliorer le style", actRephrase: "Reformuler",
-    actShort: "Raccourcir", actLong: "Développer", actFormal: "Ton formel", actFriendly: "Ton amical",
-    editPh: "Collez ici le texte à éditer...", editRun: "Éditer le texte",
+    editPh: "Écrivez votre question ici...", editRun: "Comparer les réponses",
     imgPh: "Décrivez l'image souhaitée en détail... (une description en anglais donne souvent de meilleurs résultats)",
     imgStyle: "Style", stNone: "Aucun", stReal: "Réaliste", stDigital: "Illustration numérique", stAnime: "Anime", st3d: "3D", stWater: "Aquarelle",
     imgSize: "Taille",
@@ -615,7 +596,7 @@ const I18N = {
     heroTitle: "Get more done, smarter",
     heroText: "QueryMix gives you a complete suite of AI tools to write, create, analyze and make better decisions, quickly and easily.",
     heroCta1: "Get started", heroCta2: "Explore tools",
-    tEditT: "Text editing", tEditD: "Fix, polish and rephrase your writing with clarity.",
+    tEditT: "Compare models", tEditD: "Ask one question and compare answers from several models side by side.",
     tImgT: "Image generation", tImgD: "Turn your ideas into striking images in a range of styles.",
     tDataT: "Data analysis", tDataD: "Analyze your tables, spot patterns and get useful insights.",
     tSumT: "Document summarizing", tSumD: "Summarize long documents and pull out the key points, fast and accurately.",
@@ -623,10 +604,7 @@ const I18N = {
     modelsLabel: "Models — pick one or more and compare results side by side",
     copyBtn: "Copy", copiedBtn: "Copied",
     guestLabel: "Log in to start your free trial",
-    editKind: "Edit type",
-    actFix: "Fix spelling & grammar", actImprove: "Improve style", actRephrase: "Rephrase",
-    actShort: "Make shorter", actLong: "Expand", actFormal: "Formal tone", actFriendly: "Friendly tone",
-    editPh: "Paste the text you want to edit here...", editRun: "Edit text",
+    editPh: "Type your question here...", editRun: "Compare answers",
     imgPh: "Describe the image you want in detail... (English descriptions often work best)",
     imgStyle: "Style", stNone: "None", stReal: "Realistic", stDigital: "Digital art", stAnime: "Anime", st3d: "3D", stWater: "Watercolor",
     imgSize: "Size",
@@ -1243,25 +1221,13 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
   refreshUsage();
 }
 
-// ---------- Tool 1: تحرير النصوص ----------
-const EDIT_INSTRUCTIONS = {
-  fix: "Fix spelling, grammar and punctuation only. Keep the original wording and meaning.",
-  improve: "Improve the clarity, flow and style of the text while keeping its meaning.",
-  rephrase: "Rewrite the text using different wording while keeping the same meaning.",
-  shorter: "Make the text shorter and more concise while keeping the key points.",
-  longer: "Expand the text with more detail and smoother flow, without inventing facts.",
-  formal: "Rewrite the text in a formal, professional tone.",
-  friendly: "Rewrite the text in a warm, friendly, conversational tone."
-};
-
+// ---------- Tool 1: مقارنة النماذج (سؤال عام، بلا تعليمات تحرير) ----------
 $("editRun").onclick = () => {
   if (!guard(true)) return;
   const raw = $("editText").value.trim();
   if (!raw) { alert(t("emptyTextAlert")); return; }
   const { text, cut } = clip(raw, MAX_TEXT_CHARS);
-  const instr = EDIT_INSTRUCTIONS[$("editAction").value];
-  const prompt = `${instr}\nReply in the same language as the text. Return only the edited text, with no explanations or comments.\n\nText:\n"""\n${text}\n"""`;
-  runOnModels(prompt, $("editResults"), $("editRun"), cut ? t("truncated") : "");
+  runOnModels(text, $("editResults"), $("editRun"), cut ? t("truncated") : "");
 };
 
 // ---------- Tool 2: تلخيص النصوص ----------
