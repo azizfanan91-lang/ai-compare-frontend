@@ -5,44 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="hT2FDh9OExjZR-fDaO2KDz0Flq1Nl5_4GmiH-NgwvW0" />
 <title id="pageTitle">QueryMix</title>
+<meta name="description" content="QueryMix منصة أدوات ذكاء اصطناعي: تحرير النصوص، توليد الصور، تحليل البيانات وتلخيص المستندات، بالعربية والفرنسية والإنجليزية.">
+<link rel="canonical" href="https://usequerymix.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://usequerymix.com/">
+<meta property="og:title" content="QueryMix — أدوات ذكاء اصطناعي">
+<meta property="og:description" content="تحرير النصوص، توليد الصور، تحليل البيانات وتلخيص المستندات، بأدوات ذكاء اصطناعي في مكان واحد.">
+<meta property="og:image" content="https://usequerymix.com/images/hero-network.jpg">
+<meta property="og:locale" content="ar_AR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QueryMix — أدوات ذكاء اصطناعي">
+<meta name="twitter:description" content="تحرير النصوص، توليد الصور، تحليل البيانات وتلخيص المستندات، بأدوات ذكاء اصطناعي في مكان واحد.">
+<meta name="twitter:image" content="https://usequerymix.com/images/hero-network.jpg">
+<meta name="theme-color" content="#7c3aed">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f8f7fd; --card:#ffffff; --ink:#1f2340; --muted:#6b7090; --line:#ebe8f7;
-  --p1:#8b6be0; --p2:#6444c7; --blue:#4b8df2; --soft:#efeafc; --ok:#1f9d6b; --err:#d64550;
-  --shadow:0 6px 24px rgba(100,68,199,.09);
+  --bg:#fbf7ff; --card:#ffffff; --ink:#140f2b; --muted:#6a6478; --line:#ece2fb;
+  --p1:#8b5cf6; --p2:#7c3aed; --blue:#06b6d4; --soft:#f1e9ff; --ok:#16a34a; --err:#e11d48;
+  --violet:#7c3aed; --magenta:#ec4899; --cyan:#06b6d4; --amber:#f59e0b;
+  --brand:linear-gradient(120deg,var(--violet),var(--magenta) 55%,var(--amber));
+  --shadow:0 10px 30px rgba(20,15,43,.12);
+  --display:"Cairo","IBM Plex Sans Arabic",Tahoma,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{font-family:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;
-  background-image:radial-gradient(900px 400px at 85% -5%,#e9e2fb 0,transparent 70%),radial-gradient(700px 400px at 0% 30%,#e4edfd 0,transparent 70%);
+  background-image:radial-gradient(900px 440px at 90% -8%,rgba(124,58,237,.16) 0,transparent 70%),
+                    radial-gradient(760px 420px at 0% 15%,rgba(236,72,153,.13) 0,transparent 70%),
+                    radial-gradient(640px 380px at 50% 100%,rgba(245,158,11,.10) 0,transparent 70%);
   background-repeat:no-repeat}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer}
 button:disabled{opacity:.55;cursor:default}
-:focus-visible{outline:3px solid #b9a6f3;outline-offset:2px}
+:focus-visible{outline:3px solid var(--magenta);outline-offset:2px}
 .hidden{display:none!important}
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
 /* Navbar */
 .nav{position:sticky;top:12px;z-index:50;margin:12px auto 0;max-width:1180px;padding:0 20px}
-.nav-in{background:var(--card);border-radius:18px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;padding:14px 26px;gap:16px;position:relative}
-.logo{font-size:26px;font-weight:700;display:flex;gap:6px;align-items:baseline;direction:ltr}
-.logo b{color:var(--p2)}
-.links{display:flex;gap:30px;font-weight:500}
+.nav-in{background:var(--card);border-radius:18px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;padding:14px 26px;gap:16px;position:relative;border-top:3px solid transparent;border-image:var(--brand) 1}
+.logo{font-family:var(--display);font-size:26px;font-weight:800;display:flex;gap:6px;align-items:baseline;direction:ltr}
+.logo b{background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent}
+.links{display:flex;gap:30px;font-weight:600}
 .links a{padding:6px 2px;border-bottom:2px solid transparent}
-.links a:hover{color:var(--p2);border-color:var(--p2)}
+.links a:hover{color:var(--magenta);border-color:var(--magenta)}
 .nav-end{display:flex;align-items:center;gap:12px}
 .lang{display:flex;gap:2px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:3px}
-.lang button{border:0;background:transparent;color:var(--muted);font-weight:600;font-size:12px;padding:4px 10px;border-radius:999px}
-.lang button.active{background:var(--p2);color:#fff}
-.btn{border:0;border-radius:12px;padding:12px 24px;font-weight:600;font-size:16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,box-shadow .15s}
-.btn-p{background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;box-shadow:0 8px 20px rgba(100,68,199,.28)}
+.lang button{border:0;background:transparent;color:var(--muted);font-weight:700;font-size:12px;padding:4px 10px;border-radius:999px}
+.lang button.active{background:var(--violet);color:#fff}
+.btn{border:0;border-radius:12px;padding:12px 24px;font-weight:700;font-size:16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,box-shadow .15s}
+.btn-p{background:var(--brand);color:#fff;box-shadow:0 10px 24px rgba(124,58,237,.35)}
 .btn-p:hover:not(:disabled){transform:translateY(-2px)}
-.btn-w{background:#fff;color:var(--ink);border:1px solid var(--line)}
-.btn-w:hover{border-color:var(--p1)}
+.btn-w{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.btn-w:hover{border-color:var(--violet)}
 .btn-sm{padding:9px 18px;font-size:15px}
 .arrow::before{content:"‹"}
 html[dir="ltr"] .arrow::before{content:"›"}
@@ -50,64 +68,62 @@ html[dir="ltr"] .arrow::before{content:"›"}
 
 /* Hero */
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:64px 0 34px}
-.hero h1{font-size:clamp(36px,5.4vw,62px);line-height:1.25;font-weight:700}
+.hero h1{font-family:var(--display);font-size:clamp(36px,5.4vw,64px);line-height:1.22;font-weight:900}
 .hero p{color:var(--muted);font-size:19px;margin:20px 0 30px;max-width:540px}
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap}
 .visual{position:relative;min-height:340px}
-.win{background:#fff;border-radius:22px;box-shadow:0 20px 50px rgba(100,68,199,.16);padding:18px;position:absolute;inset-block:20px;inset-inline:30px 10px;display:flex;flex-direction:column}
-.dots{display:flex;gap:6px;margin-bottom:14px}.dots i{width:9px;height:9px;border-radius:50%;background:#e4defa}
-.tiles{flex:1;display:grid;grid-template-columns:1.1fr 1fr;grid-template-rows:1fr 1fr;gap:12px}
-.tile{background:var(--bg);border-radius:14px;padding:12px}
-.t-text{grid-row:span 2;display:flex;flex-direction:column;gap:9px}
-.t-text u{display:block;height:8px;border-radius:4px;background:#dcd5f6}
-.t-text u:nth-child(2){width:85%}.t-text u:nth-child(3){width:95%}.t-text u:nth-child(4){width:60%}.t-text u:nth-child(5){width:78%}.t-text u:nth-child(6){width:70%}
-.t-img{display:grid;place-items:center;color:#b7a5ee}
-.t-bars{display:flex;align-items:flex-end;gap:8px}
-.t-bars i{flex:1;border-radius:6px 6px 0 0;background:linear-gradient(180deg,var(--blue),#8fb9f7)}
-.float{position:absolute;width:54px;height:54px;border-radius:15px;display:grid;place-items:center;color:#fff;font-size:24px;box-shadow:0 10px 24px rgba(100,68,199,.25)}
-.f1{top:0;inset-inline-end:0;background:linear-gradient(135deg,#c78af0,#8b6be0)}
-.f2{bottom:0;inset-inline-end:10px;background:linear-gradient(135deg,#5aa0ff,#3d78e0)}
-.f3{top:120px;inset-inline-start:-6px;background:linear-gradient(135deg,#66b6ff,#4b8df2)}
+.hero-media{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 25px 60px rgba(124,58,237,.3);aspect-ratio:3/2;padding:5px;background:var(--brand)}
+.hero-media img{width:100%;height:100%;object-fit:cover;display:block;border-radius:24px}
+.hero-media::after{content:"";position:absolute;inset:5px;border-radius:24px;background:linear-gradient(200deg,rgba(124,58,237,.3),transparent 55%);pointer-events:none}
+.float{position:absolute;width:56px;height:56px;border-radius:16px;display:grid;place-items:center;color:#fff;font-size:24px;box-shadow:0 12px 26px rgba(20,15,43,.28)}
+.f1{top:0;inset-inline-end:0;background:linear-gradient(135deg,var(--magenta),var(--violet))}
+.f2{bottom:0;inset-inline-end:10px;background:linear-gradient(135deg,var(--cyan),#0891b2)}
+.f3{top:120px;inset-inline-start:-6px;background:linear-gradient(135deg,var(--amber),#d97706)}
 
-/* Tool cards */
+/* Tool cards — كل أداة بلونها: تحرير=بنفسجي، صور=وردي، بيانات=سماوي، تلخيص=كهرماني */
 .feats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:24px 0 40px}
-.feat{background:var(--card);border:0;border-radius:18px;padding:22px;box-shadow:var(--shadow);display:flex;gap:16px;align-items:flex-start;text-align:start;color:var(--ink);transition:transform .15s}
-.feat:hover{transform:translateY(-3px)}
-.ico{flex:none;width:54px;height:54px;border-radius:14px;display:grid;place-items:center;color:#fff;font-size:24px}
-.feat h3{font-size:18px;margin-bottom:4px}
+.feat{background:var(--card);border:0;border-top:4px solid var(--violet);border-radius:18px;padding:22px;box-shadow:var(--shadow);display:flex;gap:16px;align-items:flex-start;text-align:start;color:var(--ink);transition:transform .15s}
+.feat:hover{transform:translateY(-4px)}
+.feat:nth-child(1){border-top-color:var(--violet)}
+.feat:nth-child(2){border-top-color:var(--magenta)}
+.feat:nth-child(3){border-top-color:var(--cyan)}
+.feat:nth-child(4){border-top-color:var(--amber)}
+.ico{flex:none;width:54px;height:54px;border-radius:14px;display:grid;place-items:center;color:#fff;font-size:24px;overflow:hidden}
+.ico img{width:100%;height:100%;object-fit:cover}
+.feat h3{font-family:var(--display);font-size:18px;margin-bottom:4px;font-weight:800}
 .feat p{color:var(--muted);font-size:14.5px;line-height:1.65}
 
 /* Tools workspace */
-.section-title{font-size:28px;font-weight:700;text-align:center;margin-bottom:8px}
+.section-title{font-family:var(--display);font-size:28px;font-weight:800;text-align:center;margin-bottom:8px}
 .section-sub{text-align:center;color:var(--muted);margin-bottom:28px}
 .tool{background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:28px;margin-bottom:56px}
 .status{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:14.5px;margin-bottom:16px}
-.pill{background:var(--soft);color:var(--p2);font-weight:600;border-radius:999px;padding:4px 14px}
+.pill{background:var(--soft);color:var(--violet);font-weight:700;border-radius:999px;padding:4px 14px}
 .email{color:var(--muted);font-size:14px;direction:ltr}
 .banner{background:#fdecee;border:1px solid var(--err);color:var(--err);padding:12px 16px;border-radius:12px;font-size:14px;margin-bottom:16px}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--line);padding-bottom:16px}
-.tab{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 18px;font-weight:600;font-size:15px;color:var(--muted)}
-.tab[aria-selected="true"]{background:var(--soft);color:var(--p2);border-color:var(--p1)}
+.tab{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:9px 18px;font-weight:700;font-size:15px;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--brand);color:#fff;border-color:transparent}
 .models-label{font-size:14px;color:var(--muted);margin-bottom:8px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;padding:2px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:14px;color:var(--muted)}
-.chip[aria-pressed="true"]{background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;border-color:transparent}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:14px;color:var(--muted);font-weight:600}
+.chip[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:transparent}
 .ta{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;font:inherit;font-size:16px;resize:vertical;min-height:130px;background:var(--bg);color:var(--ink)}
-.ta:focus,.sel:focus,.inp:focus{outline:none;border-color:var(--p1);background:#fff}
+.ta:focus,.sel:focus,.inp:focus{outline:none;border-color:var(--violet);background:#fff}
 .inp{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;font:inherit;background:var(--bg);color:var(--ink);margin-top:10px}
 .opts{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin:12px 0}
-.opt{display:grid;gap:4px;font-size:13.5px;color:var(--muted)}
+.opt{display:grid;gap:4px;font-size:13.5px;color:var(--muted);font-weight:600}
 .sel{border:1.5px solid var(--line);border-radius:12px;padding:9px 12px;font:inherit;font-size:15px;background:var(--bg);color:var(--ink);min-width:150px}
 .file input{display:none}
 .file{cursor:pointer}
 .run{margin-top:4px}
 .hint{color:var(--muted);font-size:13.5px;margin-top:10px}
 .results{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:22px}
-.res{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff}
+.res{border:1.5px solid var(--line);border-radius:16px;padding:16px;background:#fff}
 .res-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
-.res h4{font-size:15px;color:var(--p2)}
-.copy{border:1px solid var(--line);background:#fff;border-radius:8px;font-size:12.5px;padding:3px 10px;color:var(--muted)}
-.copy:hover{border-color:var(--p1);color:var(--p2)}
+.res h4{font-size:15px;color:var(--violet);font-weight:700}
+.copy{border:1.5px solid var(--line);background:#fff;border-radius:8px;font-size:12.5px;padding:3px 10px;color:var(--muted)}
+.copy:hover{border-color:var(--violet);color:var(--violet)}
 .res .body{white-space:pre-wrap;font-size:15px;line-height:1.75;max-height:460px;overflow:auto}
 .res .body.muted{color:var(--muted)}
 .muted{color:var(--muted);font-size:14px}
@@ -116,46 +132,47 @@ html[dir="ltr"] .arrow::before{content:"›"}
 .res .body.bad{color:var(--err)}
 .res .ph{min-height:120px;display:grid;place-items:center;text-align:center}
 .img-out{margin-top:20px;display:grid;gap:12px;justify-items:center}
-.img-frame{width:100%;max-width:560px;background:var(--bg);border:1px solid var(--line);border-radius:18px;display:grid;place-items:center;overflow:hidden;min-height:180px;text-align:center;padding:10px}
+.img-frame{width:100%;max-width:560px;background:var(--bg);border:1.5px solid var(--line);border-radius:18px;display:grid;place-items:center;overflow:hidden;min-height:180px;text-align:center;padding:10px}
 .img-frame img{width:100%;height:auto;border-radius:12px;display:block}
 
 /* Steps */
 .steps-box{background:var(--card);border-radius:22px;padding:28px;box-shadow:var(--shadow);margin-bottom:40px}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
 .step{background:var(--bg);border-radius:16px;padding:18px}
-.num{width:30px;height:30px;border-radius:50%;background:var(--p1);color:#fff;font-weight:700;display:grid;place-items:center;margin-bottom:10px}
-.step:nth-child(2) .num{background:var(--blue)}.step:nth-child(3) .num{background:var(--p2)}.step:nth-child(4) .num{background:#37b5a3}
-.step h4{font-size:17px}.step p{color:var(--muted);font-size:14.5px}
+.num{width:32px;height:32px;border-radius:50%;background:var(--violet);color:#fff;font-weight:800;display:grid;place-items:center;margin-bottom:10px}
+.step:nth-child(2) .num{background:var(--magenta)}.step:nth-child(3) .num{background:var(--cyan)}.step:nth-child(4) .num{background:var(--amber)}
+.step h4{font-family:var(--display);font-size:17px;font-weight:800}.step p{color:var(--muted);font-size:14.5px}
 
 /* Pricing */
 .plans{display:grid;grid-template-columns:repeat(2,minmax(0,360px));gap:22px;justify-content:center;margin-bottom:56px}
 .plan{background:var(--card);border-radius:22px;padding:28px;box-shadow:var(--shadow);border:2px solid transparent;display:flex;flex-direction:column}
-.plan.hot{border-color:var(--p1)}
-.plan h3{font-size:20px}
-.price{font-size:40px;font-weight:700;margin:8px 0}.price small{font-size:16px;color:var(--muted);font-weight:500}
+.plan.hot{border-image:var(--brand) 1}
+.plan h3{font-family:var(--display);font-size:20px;font-weight:800}
+.price{font-family:var(--display);font-size:40px;font-weight:900;margin:8px 0}.price small{font-size:16px;color:var(--muted);font-weight:500;font-family:"IBM Plex Sans Arabic",sans-serif}
 .plan ul{list-style:none;margin:16px 0 22px;display:grid;gap:8px;color:var(--muted);flex:1}
 .plan li::before{content:"✓";color:var(--ok);font-weight:700;margin-inline-end:8px}
 .plan .btn{width:100%}
 .sub-actions{display:grid;gap:8px}
 .sub-status{font-size:13.5px;margin-top:10px;min-height:20px;color:var(--muted)}
 .sub-status.success{color:var(--ok)}.sub-status.error{color:var(--err)}
-.prem-ok{background:var(--soft);color:var(--p2);font-weight:600;text-align:center;border-radius:12px;padding:12px}
+.prem-ok{background:var(--soft);color:var(--violet);font-weight:700;text-align:center;border-radius:12px;padding:12px}
 
 /* CTA */
-.cta{background:linear-gradient(120deg,#ddd5fa,#dbe7fd);border-radius:22px;padding:30px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:34px}
-.cta h2{font-size:26px}.cta p{opacity:.8}
+.cta{background:var(--brand);border-radius:22px;padding:30px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:34px;color:#fff}
+.cta h2{font-family:var(--display);font-size:26px;font-weight:800}.cta p{opacity:.92}
+.cta .btn-p{background:#fff;color:var(--violet);box-shadow:0 10px 24px rgba(0,0,0,.2)}
 footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
 
 /* Modal */
-.modal{position:fixed;inset:0;background:rgba(31,35,64,.5);display:none;place-items:center;z-index:100;padding:20px}
+.modal{position:fixed;inset:0;background:rgba(20,15,43,.55);display:none;place-items:center;z-index:100;padding:20px}
 .modal.open{display:grid}
-.box{background:#fff;border-radius:22px;padding:28px;width:100%;max-width:400px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
-.box h3{font-size:22px;margin-bottom:6px}
+.box{background:#fff;border-radius:22px;padding:28px;width:100%;max-width:400px;box-shadow:0 30px 80px rgba(0,0,0,.3);border-top:4px solid transparent;border-image:var(--brand) 1}
+.box h3{font-family:var(--display);font-size:22px;margin-bottom:6px;font-weight:800}
 .box input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;background:var(--bg);margin-top:12px;color:var(--ink)}
-.box input:focus{outline:none;border-color:var(--p1);background:#fff}
+.box input:focus{outline:none;border-color:var(--violet);background:#fff}
 .box .btn{width:100%;margin-top:14px}
 .switch{text-align:center;margin-top:14px;font-size:14px;color:var(--muted)}
-.switch a{color:var(--p2);font-weight:600;cursor:pointer;text-decoration:underline}
+.switch a{color:var(--violet);font-weight:700;cursor:pointer;text-decoration:underline}
 .err{color:var(--err);font-size:14px;margin-top:10px;min-height:20px}
 .close{float:inline-end;background:none;border:0;font-size:22px;color:var(--muted)}
 
@@ -190,9 +207,9 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
     </nav>
     <div class="nav-end">
       <div class="lang" role="group" aria-label="Language">
-        <button class="lang-btn" data-lang="ar">ع</button>
-        <button class="lang-btn" data-lang="fr">FR</button>
-        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ar" aria-label="العربية" aria-pressed="true">ع</button>
+        <button class="lang-btn" data-lang="fr" aria-label="Français" aria-pressed="false">FR</button>
+        <button class="lang-btn" data-lang="en" aria-label="English" aria-pressed="false">EN</button>
       </div>
       <button class="btn btn-p btn-sm" id="authBtn"></button>
       <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
@@ -212,15 +229,8 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
       </div>
     </div>
     <div class="visual" aria-hidden="true">
-      <div class="win">
-        <div class="dots"><i></i><i></i><i></i></div>
-        <div class="tiles">
-          <div class="tile t-text"><u></u><u></u><u></u><u></u><u></u><u></u></div>
-          <div class="tile t-img">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="6" y="10" width="52" height="44" rx="8" stroke="currentColor" stroke-width="4"/><circle cx="22" cy="26" r="5" fill="currentColor"/><path d="M10 48l16-14 10 8 10-10 10 12" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="tile t-bars"><i style="height:35%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:85%"></i></div>
-        </div>
+      <div class="hero-media">
+        <img src="images/hero-network.jpg" alt="" loading="lazy">
       </div>
       <div class="float f1">✎</div>
       <div class="float f2">◔</div>
@@ -229,11 +239,11 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
   </section>
 
   <section class="feats" id="toolcards">
-    <button class="feat" data-tool="edit"><div class="ico" style="background:linear-gradient(135deg,#a582ee,#7a55d6)">✎</div>
+    <button class="feat" data-tool="edit"><div class="ico"><img src="images/tool-edit-touch.jpg" alt="" loading="lazy"></div>
       <div><h3 data-i18n="tEditT"></h3><p data-i18n="tEditD"></p></div></button>
-    <button class="feat" data-tool="image"><div class="ico" style="background:linear-gradient(135deg,#66b6ff,#3d78e0)">▣</div>
+    <button class="feat" data-tool="image"><div class="ico"><img src="images/tool-image-hand.jpg" alt="" loading="lazy"></div>
       <div><h3 data-i18n="tImgT"></h3><p data-i18n="tImgD"></p></div></button>
-    <button class="feat" data-tool="data"><div class="ico" style="background:linear-gradient(135deg,#9a7ae8,#6f4fd0)">▥</div>
+    <button class="feat" data-tool="data"><div class="ico"><img src="images/tool-data-code.jpg" alt="" loading="lazy"></div>
       <div><h3 data-i18n="tDataT"></h3><p data-i18n="tDataD"></p></div></button>
     <button class="feat" data-tool="summary"><div class="ico" style="background:linear-gradient(135deg,#4fa2f0,#2f7ad8)">≡</div>
       <div><h3 data-i18n="tSumT"></h3><p data-i18n="tSumD"></p></div></button>
@@ -259,24 +269,11 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
 
       <div id="modelsBox">
         <div class="models-label" data-i18n="modelsLabel"></div>
-        <div class="chips" id="modelChips"></div>
+        <div class="chips" id="modelChips" role="group" aria-label="النماذج"></div>
       </div>
 
       <!-- تحرير النصوص -->
       <div data-panel="edit">
-        <div class="opts">
-          <label class="opt"><span data-i18n="editKind"></span>
-            <select class="sel" id="editAction">
-              <option value="fix" data-i18n="actFix"></option>
-              <option value="improve" data-i18n="actImprove"></option>
-              <option value="rephrase" data-i18n="actRephrase"></option>
-              <option value="shorter" data-i18n="actShort"></option>
-              <option value="longer" data-i18n="actLong"></option>
-              <option value="formal" data-i18n="actFormal"></option>
-              <option value="friendly" data-i18n="actFriendly"></option>
-            </select>
-          </label>
-        </div>
         <textarea class="ta" id="editText" data-i18n-ph="editPh"></textarea>
         <button class="btn btn-p run" id="editRun" data-i18n="editRun" style="margin-top:12px"></button>
         <div class="results" id="editResults" aria-live="polite"></div>
@@ -285,7 +282,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
       <!-- توليد الصور -->
       <div data-panel="image" class="hidden">
         <div class="models-label" data-i18n="imgModelsLabel"></div>
-        <div class="chips" id="imgModelChips"></div>
+        <div class="chips" id="imgModelChips" role="group" aria-label="نماذج توليد الصور"></div>
         <textarea class="ta" id="imgPrompt" data-i18n-ph="imgPh" maxlength="500" style="min-height:100px"></textarea>
         <div class="opts">
           <label class="opt"><span data-i18n="imgStyle"></span>
@@ -298,15 +295,11 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
               <option value="water" data-i18n="stWater"></option>
             </select>
           </label>
-          <label class="opt"><span data-i18n="imgSize"></span>
-            <select class="sel" id="imgSizeSel">
-              <option value="1024x1024" data-i18n="szSquare"></option>
-              <option value="1280x720" data-i18n="szWide"></option>
-              <option value="720x1280" data-i18n="szTall"></option>
-            </select>
-          </label>
         </div>
-        <button class="btn btn-p run" id="imgRun" data-i18n="imgRun"></button>
+        <div class="status" style="margin-bottom:0">
+          <span class="pill" id="imgUsagePill"></span>
+        </div>
+        <button class="btn btn-p run" id="imgRun" data-i18n="imgRun" style="margin-top:12px"></button>
         <p class="hint" data-i18n="imgNote"></p>
         <div class="results" id="imgResults" aria-live="polite"></div>
       </div>
@@ -431,7 +424,7 @@ const I18N = {
     heroTitle: "أنجز المزيد بذكاء",
     heroText: "منصة QueryMix تمنحك مجموعة متكاملة من أدوات الذكاء الاصطناعي لمساعدتك على الكتابة، الإبداع، التحليل، واتخاذ قرارات أفضل بسرعة وسهولة.",
     heroCta1: "ابدأ الآن", heroCta2: "استكشف الأدوات",
-    tEditT: "تحرير النصوص", tEditD: "أنشئ وصحّح ونصوصاً بجودة عالية وأسلوب واضح في ثوانٍ.",
+    tEditT: "مقارنة النماذج", tEditD: "اسأل سؤالاً واحداً واحصل على إجابات عدة نماذج جنباً إلى جنب.",
     tImgT: "توليد الصور", tImgD: "حوّل أفكارك إلى صور مذهلة بذكاء اصطناعي وبأساليب متنوعة.",
     tDataT: "تحليل البيانات", tDataD: "حلّل بياناتك واكتشف الأنماط واحصل على رؤى دقيقة تدعم قراراتك.",
     tSumT: "تلخيص المستندات", tSumD: "لخّص المستندات الطويلة واستخرج أهم النقاط بسرعة ودقة.",
@@ -439,14 +432,12 @@ const I18N = {
     modelsLabel: "النماذج — اختر نموذجاً أو أكثر وقارن النتائج جنب بعض",
     copyBtn: "نسخ", copiedBtn: "تم النسخ",
     guestLabel: "سجّل الدخول لبدء التجربة المجانية",
-    editKind: "نوع التحرير",
-    actFix: "تصحيح لغوي", actImprove: "تحسين الأسلوب", actRephrase: "إعادة صياغة",
-    actShort: "تقصير", actLong: "توسيع", actFormal: "نبرة رسمية", actFriendly: "نبرة ودية",
-    editPh: "الصق النص الذي تريد تحريره هنا...", editRun: "حرّر النص",
+    editPh: "اكتب سؤالك هنا...", editRun: "قارن الإجابات",
     imgPh: "صف الصورة التي تريدها بالتفصيل... (الوصف بالإنجليزية يعطي غالباً نتائج أدق)",
     imgStyle: "الأسلوب", stNone: "بدون", stReal: "واقعي", stDigital: "رسم رقمي", stAnime: "أنمي", st3d: "ثلاثي الأبعاد", stWater: "ألوان مائية",
-    imgSize: "الحجم", szSquare: "مربع", szWide: "أفقي", szTall: "عمودي",
+    imgSize: "الحجم",
     imgRun: "ولّد الصورة", imgOpen: "فتح الصورة", imgLoading: "كنولدو الصورة...",
+    imgRemainingLabel: (r, l) => `باقي ${r} من ${l} صور اليوم`,
     imgError: "تعذّر توليد الصورة. جرّب وصفاً آخر أو أعد المحاولة.",
     imgNote: "الصور تُولَّد على السيرفر عبر خدمة Pollinations، والوصف الذي تكتبه يُرسل إليها. بعض النماذج أبطأ من غيرها.",
     imgModelsLabel: "نماذج توليد الصور — اختر نموذجاً أو أكثر وقارن النتائج",
@@ -478,7 +469,7 @@ const I18N = {
     freeBtn: "ابدأ مجاناً",
     premPer: "/ الشهر",
     premLi1: "أسئلة بلا حدود مع كل النماذج", premLi2: "كل الأدوات الأربع", premLi3: "الدفع الآمن عبر Gumroad",
-    ctaTitle: "جاهز للانطلاق؟", ctaText: "انضم إلى آلاف المستخدمين الذين ينجزون أعمالهم بسرعة وذكاء مع QueryMix.",
+    ctaTitle: "جاهز للانطلاق؟", ctaText: "انضم إلى المستخدمين الذين ينجزون أعمالهم بسرعة وذكاء مع QueryMix.",
     ctaBtnText: "ابدأ الآن مجاناً",
     loginTitle: "تسجيل الدخول",
     signupTitle: "صاوب حساب جديد",
@@ -504,7 +495,6 @@ const I18N = {
     errorPrefix: "خطأ: ",
     connErrorPrefix: "خطأ فـ الاتصال: ",
     loadingModels: "كنحملو النماذج المجانية...",
-    retrying: "عاود المحاولة...",
     subscribeTitle: "الاشتراك الشهري",
     subscribeLinkText: "اشترك الآن",
     checkSubText: "تحققت من الدفع؟ اضغط هنا",
@@ -520,7 +510,7 @@ const I18N = {
     heroTitle: "Faites plus, avec intelligence",
     heroText: "QueryMix vous offre une suite complète d'outils d'IA pour écrire, créer, analyser et prendre de meilleures décisions, simplement et rapidement.",
     heroCta1: "Commencer", heroCta2: "Explorer les outils",
-    tEditT: "Édition de textes", tEditD: "Corrigez, améliorez et reformulez vos textes clairement.",
+    tEditT: "Comparer les modèles", tEditD: "Posez une question et comparez les réponses de plusieurs modèles.",
     tImgT: "Génération d'images", tImgD: "Transformez vos idées en images surprenantes, dans divers styles.",
     tDataT: "Analyse de données", tDataD: "Analysez vos tableaux, repérez les tendances et obtenez des pistes utiles.",
     tSumT: "Résumé de documents", tSumD: "Résumez de longs documents et extrayez l'essentiel, rapidement et avec précision.",
@@ -528,14 +518,12 @@ const I18N = {
     modelsLabel: "Modèles — choisissez-en un ou plusieurs et comparez les résultats côte à côte",
     copyBtn: "Copier", copiedBtn: "Copié",
     guestLabel: "Connectez-vous pour démarrer l'essai gratuit",
-    editKind: "Type d'édition",
-    actFix: "Correction", actImprove: "Améliorer le style", actRephrase: "Reformuler",
-    actShort: "Raccourcir", actLong: "Développer", actFormal: "Ton formel", actFriendly: "Ton amical",
-    editPh: "Collez ici le texte à éditer...", editRun: "Éditer le texte",
+    editPh: "Écrivez votre question ici...", editRun: "Comparer les réponses",
     imgPh: "Décrivez l'image souhaitée en détail... (une description en anglais donne souvent de meilleurs résultats)",
     imgStyle: "Style", stNone: "Aucun", stReal: "Réaliste", stDigital: "Illustration numérique", stAnime: "Anime", st3d: "3D", stWater: "Aquarelle",
-    imgSize: "Taille", szSquare: "Carré", szWide: "Paysage", szTall: "Portrait",
+    imgSize: "Taille",
     imgRun: "Générer l'image", imgOpen: "Ouvrir l'image", imgLoading: "Génération de l'image...",
+    imgRemainingLabel: (r, l) => `${r} sur ${l} images restantes aujourd'hui`,
     imgError: "Impossible de générer l'image. Essayez une autre description ou réessayez.",
     imgNote: "Les images sont générées côté serveur via le service Pollinations ; votre description lui est envoyée. Certains modèles sont plus lents que d'autres.",
     imgModelsLabel: "Modèles d'image — choisissez-en un ou plusieurs et comparez",
@@ -567,7 +555,7 @@ const I18N = {
     freeBtn: "Commencer gratuitement",
     premPer: "/ mois",
     premLi1: "Questions illimitées avec tous les modèles", premLi2: "Les quatre outils", premLi3: "Paiement sécurisé via Gumroad",
-    ctaTitle: "Prêt à démarrer ?", ctaText: "Rejoignez des milliers d'utilisateurs qui avancent plus vite avec QueryMix.",
+    ctaTitle: "Prêt à démarrer ?", ctaText: "Rejoignez les utilisateurs qui avancent plus vite avec QueryMix.",
     ctaBtnText: "Commencer gratuitement",
     loginTitle: "Connexion",
     signupTitle: "Créer un compte",
@@ -593,7 +581,6 @@ const I18N = {
     errorPrefix: "Erreur : ",
     connErrorPrefix: "Erreur de connexion : ",
     loadingModels: "Chargement des modèles gratuits...",
-    retrying: "Nouvelle tentative...",
     subscribeTitle: "Abonnement mensuel",
     subscribeLinkText: "S'abonner maintenant",
     checkSubText: "Vous avez payé ? Cliquez ici",
@@ -609,7 +596,7 @@ const I18N = {
     heroTitle: "Get more done, smarter",
     heroText: "QueryMix gives you a complete suite of AI tools to write, create, analyze and make better decisions, quickly and easily.",
     heroCta1: "Get started", heroCta2: "Explore tools",
-    tEditT: "Text editing", tEditD: "Fix, polish and rephrase your writing with clarity.",
+    tEditT: "Compare models", tEditD: "Ask one question and compare answers from several models side by side.",
     tImgT: "Image generation", tImgD: "Turn your ideas into striking images in a range of styles.",
     tDataT: "Data analysis", tDataD: "Analyze your tables, spot patterns and get useful insights.",
     tSumT: "Document summarizing", tSumD: "Summarize long documents and pull out the key points, fast and accurately.",
@@ -617,14 +604,12 @@ const I18N = {
     modelsLabel: "Models — pick one or more and compare results side by side",
     copyBtn: "Copy", copiedBtn: "Copied",
     guestLabel: "Log in to start your free trial",
-    editKind: "Edit type",
-    actFix: "Fix spelling & grammar", actImprove: "Improve style", actRephrase: "Rephrase",
-    actShort: "Make shorter", actLong: "Expand", actFormal: "Formal tone", actFriendly: "Friendly tone",
-    editPh: "Paste the text you want to edit here...", editRun: "Edit text",
+    editPh: "Type your question here...", editRun: "Compare answers",
     imgPh: "Describe the image you want in detail... (English descriptions often work best)",
     imgStyle: "Style", stNone: "None", stReal: "Realistic", stDigital: "Digital art", stAnime: "Anime", st3d: "3D", stWater: "Watercolor",
-    imgSize: "Size", szSquare: "Square", szWide: "Landscape", szTall: "Portrait",
+    imgSize: "Size",
     imgRun: "Generate image", imgOpen: "Open image", imgLoading: "Generating your image...",
+    imgRemainingLabel: (r, l) => `${r} of ${l} images left today`,
     imgError: "Couldn't generate the image. Try a different description or try again.",
     imgNote: "Images are generated on the server through the Pollinations service; your description is sent to it. Some models are slower than others.",
     imgModelsLabel: "Image models — pick one or more and compare",
@@ -656,7 +641,7 @@ const I18N = {
     freeBtn: "Start free",
     premPer: "/ month",
     premLi1: "Unlimited questions with every model", premLi2: "All four tools", premLi3: "Secure payment via Gumroad",
-    ctaTitle: "Ready to start?", ctaText: "Join thousands of users getting more done, faster, with QueryMix.",
+    ctaTitle: "Ready to start?", ctaText: "Join the users getting more done, faster, with QueryMix.",
     ctaBtnText: "Start free now",
     loginTitle: "Log In",
     signupTitle: "Create Account",
@@ -682,7 +667,6 @@ const I18N = {
     errorPrefix: "Error: ",
     connErrorPrefix: "Connection error: ",
     loadingModels: "Loading free models...",
-    retrying: "Retrying...",
     subscribeTitle: "Monthly subscription",
     subscribeLinkText: "Subscribe now",
     checkSubText: "Already paid? Click here",
@@ -725,17 +709,25 @@ function setLanguage(lang) {
     if (el.classList.contains("run") && running) return;
     el.textContent = t(el.dataset.i18n);
   });
-  document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+    const txt = t(el.dataset.i18nPh);
+    el.placeholder = txt;
+    el.setAttribute("aria-label", txt);
+  });
   $("authEmail").placeholder = t("emailPlaceholder");
+  $("authEmail").setAttribute("aria-label", t("emailPlaceholder"));
   $("authPassword").placeholder = t("passwordPlaceholder");
+  $("authPassword").setAttribute("aria-label", t("passwordPlaceholder"));
 
   document.querySelectorAll(".lang-btn").forEach(b => {
     b.classList.toggle("active", b.dataset.lang === lang);
+    b.setAttribute("aria-pressed", b.dataset.lang === lang ? "true" : "false");
   });
 
   renderAuthMode();
   updateNav();
   renderUsage();
+  renderImgUsage(lastImgUsage);
   if (!MODELS.length) {
     $("modelChips").innerHTML = `<span class="muted">${t("loadingModels")}</span>`;
   }
@@ -880,6 +872,7 @@ function logout() {
   clearSession();
   updateNav();
   renderUsage();
+  renderImgUsage(null);
 }
 
 // ---------- Models ----------
@@ -906,7 +899,7 @@ const FAMOUS_PREFIXES = [
   "meta-llama/", "google/", "qwen/", "nvidia/", "mistralai/",
   "moonshotai/", "deepseek/", "microsoft/", "openrouter/"
 ];
-const EXCLUDE_KEYWORDS = ["lyria", "whisper", "tts", "embed", "moderation", "dall-e", "musicgen", "nano-omni", "3-super"];
+const EXCLUDE_KEYWORDS = ["lyria", "whisper", "tts", "embed", "moderation", "dall-e", "musicgen", "nano-omni", "3-super", "safety", "guard", "rerank", "reward", "classif"];
 
 async function loadFreeModels() {
   modelChips.innerHTML = `<span class="muted">${t("loadingModels")}</span>`;
@@ -930,16 +923,9 @@ async function loadFreeModels() {
     MODELS = free
       .map(m => ({ id: m.id, label: (m.name || m.id).replace(/\s*\(free\)\s*$/i, "") }))
       .sort((a, b) => {
-        // الأولوية للمزودين الأكثر استقرارا حاليا (deepseek, meta-llama, qwen, mistralai)،
-        // وتأخير google/nvidia اللي كيطيحو بزاف فالأوقات اللي الطلب كيزيد فيها
-        const PRIORITY = ["deepseek/", "meta-llama/", "qwen/", "mistralai/", "moonshotai/", "microsoft/", "openrouter/", "nvidia/", "google/"];
-        const rank = (id) => {
-          const i = PRIORITY.findIndex(pfx => id.startsWith(pfx));
-          return i === -1 ? PRIORITY.length : i;
-        };
-        const aRank = rank(a.id);
-        const bRank = rank(b.id);
-        if (aRank !== bRank) return aRank - bRank;
+        const aTop = a.id.startsWith("deepseek/") ? 0 : 1;
+        const bTop = b.id.startsWith("deepseek/") ? 0 : 1;
+        if (aTop !== bTop) return aTop - bTop;
         return a.label.localeCompare(b.label);
       })
       .slice(0, 8);
@@ -956,6 +942,7 @@ function showApp() {
   closeAuth();
   updateNav();
   refreshUsage();
+  refreshImageUsage();
 }
 
 function sessionExpired() {
@@ -1120,6 +1107,17 @@ function clip(text, max) {
   return text.length > max ? { text: text.slice(0, max), cut: true } : { text, cut: false };
 }
 
+// fetch بمهلة زمنية باش الطلب ما يبقاش معلق للأبد إلا تعطل السيرفر
+async function fetchWithTimeout(url, options = {}, ms = 60000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function bindFile(inputId, areaId) {
   $(inputId).addEventListener("change", () => {
     const f = $(inputId).files[0];
@@ -1178,60 +1176,42 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
 
   for (const m of activeModels) {
     const { body, copy } = cards.get(m.id);
-    const MAX_ATTEMPTS = 2; // محاولة + إعادة محاولة وحدة كي يكون "overloaded"
-    let attempt = 0;
-    let done = false;
+    try {
+      const res = await fetchWithTimeout(BACKEND_URL + "/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ model: m.id, prompt })
+      }, 60000);
+      const data = await res.json();
 
-    while (attempt < MAX_ATTEMPTS && !done) {
-      attempt++;
-      try {
-        const res = await fetch(BACKEND_URL + "/api/chat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-          },
-          body: JSON.stringify({ model: m.id, prompt })
-        });
-        const data = await res.json();
+      if (res.status === 401) { sessionExpired(); break; }
 
-        if (res.status === 401) { sessionExpired(); done = true; break; }
-
-        if (res.status === 429) {
-          body.textContent = t("limitReachedShort");
-          limitBanner.textContent = data.error;
-          limitBanner.classList.remove("hidden");
-          done = true;
-          continue;
-        }
-
-        if (data.error) {
-          // كي يكون المزود "محمل" (overloaded) وباقي عندنا محاولة، نعاودو بعد تأخير قصير
-          const isOverload = /overload|rate.?limit|temporarily|try again/i.test(data.error);
-          if (isOverload && attempt < MAX_ATTEMPTS) {
-            body.textContent = t("working") + " (" + t("retrying") + ")";
-            await new Promise(r => setTimeout(r, 2500));
-            continue;
-          }
-          body.textContent = t("errorPrefix") + data.error;
-          done = true;
-        } else {
-          body.textContent = data.text;
-          body.classList.remove("muted");
-          copy.classList.remove("hidden");
-          copy.onclick = async () => {
-            try {
-              await navigator.clipboard.writeText(body.textContent);
-              copy.textContent = t("copiedBtn");
-              setTimeout(() => { copy.textContent = t("copyBtn"); }, 1500);
-            } catch (e) {}
-          };
-          done = true;
-        }
-      } catch (err) {
-        body.textContent = t("connErrorPrefix") + err.message;
-        done = true;
+      if (res.status === 429) {
+        body.textContent = t("limitReachedShort");
+        limitBanner.textContent = data.error;
+        limitBanner.classList.remove("hidden");
+        continue;
       }
+
+      if (data.error) {
+        body.textContent = t("errorPrefix") + data.error;
+      } else {
+        body.textContent = data.text;
+        body.classList.remove("muted");
+        copy.classList.remove("hidden");
+        copy.onclick = async () => {
+          try {
+            await navigator.clipboard.writeText(body.textContent);
+            copy.textContent = t("copiedBtn");
+            setTimeout(() => { copy.textContent = t("copyBtn"); }, 1500);
+          } catch (e) {}
+        };
+      }
+    } catch (err) {
+      body.textContent = t("connErrorPrefix") + err.message;
     }
   }
 
@@ -1241,25 +1221,13 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
   refreshUsage();
 }
 
-// ---------- Tool 1: تحرير النصوص ----------
-const EDIT_INSTRUCTIONS = {
-  fix: "Fix spelling, grammar and punctuation only. Keep the original wording and meaning.",
-  improve: "Improve the clarity, flow and style of the text while keeping its meaning.",
-  rephrase: "Rewrite the text using different wording while keeping the same meaning.",
-  shorter: "Make the text shorter and more concise while keeping the key points.",
-  longer: "Expand the text with more detail and smoother flow, without inventing facts.",
-  formal: "Rewrite the text in a formal, professional tone.",
-  friendly: "Rewrite the text in a warm, friendly, conversational tone."
-};
-
+// ---------- Tool 1: مقارنة النماذج (سؤال عام، بلا تعليمات تحرير) ----------
 $("editRun").onclick = () => {
   if (!guard(true)) return;
   const raw = $("editText").value.trim();
   if (!raw) { alert(t("emptyTextAlert")); return; }
   const { text, cut } = clip(raw, MAX_TEXT_CHARS);
-  const instr = EDIT_INSTRUCTIONS[$("editAction").value];
-  const prompt = `${instr}\nReply in the same language as the text. Return only the edited text, with no explanations or comments.\n\nText:\n"""\n${text}\n"""`;
-  runOnModels(prompt, $("editResults"), $("editRun"), cut ? t("truncated") : "");
+  runOnModels(text, $("editResults"), $("editRun"), cut ? t("truncated") : "");
 };
 
 // ---------- Tool 2: تلخيص النصوص ----------
@@ -1313,6 +1281,7 @@ ${text}
 
 // ---------- Tool 4: توليد الصور (عدة نماذج، عبر السيرفر) ----------
 // المفتاح السري لخدمة الصور يبقى فـ السيرفر (Render) ولا يظهر أبداً فـ المتصفح.
+// ---------- Tool 4: توليد الصور (عبر السيرفر، نماذج بعدة مزودين مع fallback تلقائي) ----------
 const IMG_STYLES = {
   none: "",
   real: "photorealistic, high detail, natural lighting",
@@ -1321,17 +1290,15 @@ const IMG_STYLES = {
   "3d": "3D render, soft lighting, high quality",
   water: "watercolor painting, soft textures"
 };
-const MAX_IMG_MODELS = 4;
-const DEFAULT_IMG_SELECTED = 2;
-// تُستعمل فقط إذا تعذّر الوصول لـ /api/image/models فـ السيرفر، باش الأداة تبقى خدامة
+const MAX_IMG_MODELS = 3;
+// تُستعمل فقط إذا تعذّر الوصول لـ /api/images/models فـ السيرفر، باش الأداة تبقى خدامة
 const FALLBACK_IMAGE_MODELS = [
-  { id: "flux", label: "Flux" },
+  { id: "flux", label: "FLUX.1 Schnell" },
   { id: "turbo", label: "Turbo" },
-  { id: "qwen/qwen-image", label: "Qwen Image" }
+  { id: "qwen", label: "Qwen Image" }
 ];
 let IMAGE_MODELS = [];
 let selectedImgModels = new Set();
-let imgObjectUrls = [];
 
 function renderImgChips() {
   const box = $("imgModelChips");
@@ -1353,19 +1320,42 @@ function renderImgChips() {
 }
 
 async function loadImageModels() {
-  const box = $("imgModelChips");
   try {
-    const res = await fetch(BACKEND_URL + "/api/image/models");
+    const res = await fetch(BACKEND_URL + "/api/images/models");
     if (!res.ok) throw new Error("no image service");
     const data = await res.json();
-    IMAGE_MODELS = (data.models || []).filter(m => m && m.id);
+    IMAGE_MODELS = (data.models || [])
+      .filter(m => m && m.key)
+      .map(m => ({ id: m.key, label: m.name || m.key }));
     if (!IMAGE_MODELS.length) throw new Error("empty");
   } catch (e) {
     // السيرفر ما عندوش هاد المسار بعد (أو تعطل)، نستعملو قائمة احتياطية باش الأداة تخدم
     IMAGE_MODELS = FALLBACK_IMAGE_MODELS;
   }
-  selectedImgModels = new Set(IMAGE_MODELS.slice(0, DEFAULT_IMG_SELECTED).map(m => m.id));
+  selectedImgModels = new Set(IMAGE_MODELS.slice(0, 2).map(m => m.id));
   renderImgChips();
+}
+
+let lastImgUsage = null;
+
+function renderImgUsage(d) {
+  lastImgUsage = d;
+  const pill = $("imgUsagePill");
+  if (!token) { pill.textContent = t("guestLabel"); return; }
+  if (!d) { pill.textContent = "..."; return; }
+  pill.textContent = t("imgRemainingLabel", d.remaining, d.limit);
+}
+
+async function refreshImageUsage() {
+  if (!token) { renderImgUsage(null); return; }
+  try {
+    const res = await fetch(BACKEND_URL + "/api/images/usage", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    if (res.status === 401) { renderImgUsage(null); return; }
+    const data = await res.json();
+    renderImgUsage(data);
+  } catch (e) { /* صامت */ }
 }
 
 $("imgRun").onclick = async () => {
@@ -1376,11 +1366,8 @@ $("imgRun").onclick = async () => {
   if (models.length === 0) { alert(t("noModelAlert")); return; }
 
   const style = IMG_STYLES[$("imgStyleSel").value] || "";
-  const [w, h] = $("imgSizeSel").value.split("x").map(Number);
   const full = style ? `${p}, ${style}` : p;
 
-  imgObjectUrls.forEach(u => URL.revokeObjectURL(u));
-  imgObjectUrls = [];
   const out = $("imgResults");
   out.innerHTML = "";
 
@@ -1410,39 +1397,37 @@ $("imgRun").onclick = async () => {
     cards.set(m.id, { body, save });
   });
 
+  let lastUsage = null;
   for (const m of models) {
     const { body, save } = cards.get(m.id);
     try {
-      const res = await fetch(BACKEND_URL + "/api/image", {
+      const res = await fetchWithTimeout(BACKEND_URL + "/api/images/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
-        body: JSON.stringify({ model: m.id, prompt: full, width: w, height: h })
-      });
+        body: JSON.stringify({ model: m.id, prompt: full })
+      }, 90000);
+
+      const data = await res.json().catch(() => ({}));
+
       if (res.status === 401) { sessionExpired(); break; }
-      if (!res.ok) {
-        let msg = "";
-        try { msg = (await res.json()).error; } catch (e) {}
-        throw new Error(msg || t("imgError"));
-      }
-      const blob = await res.blob();
-      if (!blob.type.startsWith("image/")) throw new Error(t("imgError"));
-      const url = URL.createObjectURL(blob);
-      imgObjectUrls.push(url);
+      if (!res.ok) throw new Error(data.error || t("imgError"));
+      if (!data.image) throw new Error(t("imgError"));
+
       const img = document.createElement("img");
-      img.src = url;
+      img.src = data.image;
       img.alt = p;
       body.className = "body";
       body.replaceChildren(img);
-      const ext = (blob.type.split("/")[1] || "png").replace("jpeg", "jpg").split("+")[0];
       save.classList.remove("hidden");
       save.onclick = () => {
         const a = document.createElement("a");
-        a.href = url;
-        a.download = `querymix-${Date.now()}.${ext}`;
+        a.href = data.image;
+        a.download = `querymix-${Date.now()}.png`;
         document.body.appendChild(a);
         a.click();
         a.remove();
       };
+      if (typeof data.remaining === "number") lastUsage = { remaining: data.remaining };
     } catch (err) {
       body.className = "body ph bad";
       body.textContent = err.message || t("imgError");
@@ -1452,13 +1437,16 @@ $("imgRun").onclick = async () => {
   running = false;
   btn.textContent = t("imgRun");
   syncButtons();
+  if (lastUsage) refreshImageUsage();
 };
+
 
 // ---------- Init ----------
 setTool("edit");
 setLanguage("ar");
 loadFreeModels();
 loadImageModels();
+refreshImageUsage();
 </script>
 </body>
 </html>
