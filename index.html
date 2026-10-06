@@ -243,6 +243,10 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
       <div><h3 data-i18n="tEditT"></h3><p data-i18n="tEditD"></p></div></button>
     <button class="feat" data-tool="image"><div class="ico"><img src="images/tool-image-hand.jpg" alt="" loading="lazy"></div>
       <div><h3 data-i18n="tImgT"></h3><p data-i18n="tImgD"></p></div></button>
+    <button class="feat" data-tool="data"><div class="ico"><img src="images/tool-data-code.jpg" alt="" loading="lazy"></div>
+      <div><h3 data-i18n="tDataT"></h3><p data-i18n="tDataD"></p></div></button>
+    <button class="feat" data-tool="summary"><div class="ico" style="background:linear-gradient(135deg,#4fa2f0,#2f7ad8)">≡</div>
+      <div><h3 data-i18n="tSumT"></h3><p data-i18n="tSumD"></p></div></button>
   </section>
 
   <section id="tools">
@@ -259,6 +263,8 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" data-tool="edit" data-i18n="tEditT"></button>
         <button class="tab" role="tab" data-tool="image" data-i18n="tImgT"></button>
+        <button class="tab" role="tab" data-tool="data" data-i18n="tDataT"></button>
+        <button class="tab" role="tab" data-tool="summary" data-i18n="tSumT"></button>
       </div>
 
       <div id="modelsBox">
@@ -397,12 +403,10 @@ const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
 
 // Used only if the free-models fetch below fails, so the app still works.
 const FALLBACK_MODELS = [
-  { id: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3 70B" },
-  { id: "deepseek/deepseek-r1:free", label: "DeepSeek R1" },
-  { id: "google/gemini-2.0-flash-exp:free", label: "Gemini 2.0 Flash" },
-  { id: "qwen/qwen3-235b-a22b:free", label: "Qwen3 235B" },
-  { id: "mistralai/mistral-7b-instruct:free", label: "Mistral 7B" },
-  { id: "microsoft/phi-4-reasoning-plus:free", label: "Microsoft Phi-4" }
+  { id: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3" },
+  { id: "qwen/qwen3-coder:free", label: "Qwen3" },
+  { id: "google/gemma-2-9b-it:free", label: "Gemma 2" },
+  { id: "openrouter/free", label: "Auto (Free)" }
 ];
 
 const MAX_TEXT_CHARS = 12000;   // حد النص المرسل للنموذج (تحرير/تلخيص)
@@ -891,40 +895,37 @@ function renderModelChips() {
   });
 }
 
-const FAMOUS_PREFIXES = [
-  "meta-llama/", "google/", "qwen/", "nvidia/", "mistralai/",
-  "moonshotai/", "deepseek/", "microsoft/", "openrouter/"
+// قائمة مختارة يدوياً من نماذج معروفة بالاستقرار (ماشي اكتشاف تلقائي)
+// باش ما يتزادش نموذج جديد غريب أو فاشل بلا ما نتحققو منه حنا قبل
+// الترتيب هنا هو ترتيب الأولوية فالعرض
+const PREFERRED_MODELS = [
+  { id: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3 70B" },
+  { id: "deepseek/deepseek-chat-v3.1:free", label: "DeepSeek Chat V3.1" },
+  { id: "qwen/qwen3-235b-a22b:free", label: "Qwen3 235B" },
+  { id: "qwen/qwen3-coder:free", label: "Qwen3 Coder" },
+  { id: "google/gemma-3-27b-it:free", label: "Gemma 3 27B" },
+  { id: "google/gemma-2-9b-it:free", label: "Gemma 2 9B" },
+  { id: "mistralai/mistral-small-3.2-24b-instruct:free", label: "Mistral Small 3.2" },
+  { id: "nvidia/nemotron-nano-9b-v2:free", label: "Nemotron Nano 9B" }
 ];
-const EXCLUDE_KEYWORDS = ["lyria", "whisper", "tts", "embed", "moderation", "dall-e", "musicgen", "nano-omni", "3-super", "safety", "guard", "rerank", "reward", "classif"];
 
 async function loadFreeModels() {
   modelChips.innerHTML = `<span class="muted">${t("loadingModels")}</span>`;
   try {
     const res = await fetch("https://openrouter.ai/api/v1/models");
     const data = await res.json();
+    const live = new Map((data.data || []).map(m => [m.id, m]));
 
-    const free = (data.data || []).filter(m => {
+    // كنقبلو غير النماذج اللي فالقائمة المختارة، وبشرط تكون مازالت مجانية وخدامة فـ OpenRouter
+    const matched = PREFERRED_MODELS.filter(pm => {
+      const m = live.get(pm.id);
+      if (!m) return false;
       const p = m.pricing || {};
-      const isFree = parseFloat(p.prompt || "0") === 0 && parseFloat(p.completion || "0") === 0;
-      const arch = m.architecture || {};
-      const outputs = Array.isArray(arch.output_modalities) ? arch.output_modalities : ["text"];
-      const isChatText = outputs.includes("text");
-      const isFamous = FAMOUS_PREFIXES.some(pfx => m.id.startsWith(pfx));
-      const isExcluded = EXCLUDE_KEYWORDS.some(k => m.id.toLowerCase().includes(k));
-      return isFree && isChatText && isFamous && !isExcluded;
+      return parseFloat(p.prompt || "0") === 0 && parseFloat(p.completion || "0") === 0;
     });
 
-    if (free.length === 0) throw new Error("no free models returned");
-
-    MODELS = free
-      .map(m => ({ id: m.id, label: (m.name || m.id).replace(/\s*\(free\)\s*$/i, "") }))
-      .sort((a, b) => {
-        const aTop = a.id.startsWith("deepseek/") ? 0 : 1;
-        const bTop = b.id.startsWith("deepseek/") ? 0 : 1;
-        if (aTop !== bTop) return aTop - bTop;
-        return a.label.localeCompare(b.label);
-      })
-      .slice(0, 8);
+    if (matched.length === 0) throw new Error("no preferred models available");
+    MODELS = matched;
   } catch (err) {
     MODELS = FALLBACK_MODELS;
   }
@@ -1289,8 +1290,9 @@ const IMG_STYLES = {
 const MAX_IMG_MODELS = 3;
 // تُستعمل فقط إذا تعذّر الوصول لـ /api/images/models فـ السيرفر، باش الأداة تبقى خدامة
 const FALLBACK_IMAGE_MODELS = [
-  { id: "sdxl", label: "Stable Diffusion XL", description: "تفاصيل دقيقة" },
-  { id: "dreamshaper", label: "DreamShaper", description: "إبداعي وسلس" }
+  { id: "flux", label: "FLUX.1 Schnell" },
+  { id: "turbo", label: "Turbo" },
+  { id: "qwen", label: "Qwen Image" }
 ];
 let IMAGE_MODELS = [];
 let selectedImgModels = new Set();
