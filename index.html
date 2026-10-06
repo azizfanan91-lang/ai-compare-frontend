@@ -401,11 +401,10 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
 <script>
 const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
 
-// Used only if the free-models fetch below fails, so the app still works.
+// تُستعمل فقط إذا تعذّر جلب القائمة الحية من OpenRouter بالكامل (مشكل شبكة مثلاً).
+// معرّف وحيد عام (الموجه التلقائي) حيت معرّفات نماذج معينة كتبطل بسرعة
+// عند OpenRouter ونفضّلو ما نثبتوش أسماء قد تكون ماعادتش موجودة.
 const FALLBACK_MODELS = [
-  { id: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3" },
-  { id: "qwen/qwen3-coder:free", label: "Qwen3" },
-  { id: "google/gemma-2-9b-it:free", label: "Gemma 2" },
   { id: "openrouter/free", label: "Auto (Free)" }
 ];
 
@@ -895,37 +894,48 @@ function renderModelChips() {
   });
 }
 
-// قائمة مختارة يدوياً من نماذج معروفة بالاستقرار (ماشي اكتشاف تلقائي)
-// باش ما يتزادش نموذج جديد غريب أو فاشل بلا ما نتحققو منه حنا قبل
-// الترتيب هنا هو ترتيب الأولوية فالعرض
-const PREFERRED_MODELS = [
-  { id: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3 70B" },
-  { id: "deepseek/deepseek-chat-v3.1:free", label: "DeepSeek Chat V3.1" },
-  { id: "qwen/qwen3-235b-a22b:free", label: "Qwen3 235B" },
-  { id: "qwen/qwen3-coder:free", label: "Qwen3 Coder" },
-  { id: "google/gemma-3-27b-it:free", label: "Gemma 3 27B" },
-  { id: "google/gemma-2-9b-it:free", label: "Gemma 2 9B" },
-  { id: "mistralai/mistral-small-3.2-24b-instruct:free", label: "Mistral Small 3.2" },
-  { id: "nvidia/nemotron-nano-9b-v2:free", label: "Nemotron Nano 9B" }
+// اكتشاف تلقائي حي: القائمة المختارة يدوياً كتبطل بسرعة حيت OpenRouter كيبدّل
+// النماذج المجانية باستمرار (كيحيد قدام وكيزيد جداد). فبدّلنا القائمة الثابتة
+// بفحص حي + فلترة للنماذج الغير مخصصة للدردشة (حماية/ترتيب/تضمين...).
+const FAMOUS_PREFIXES = [
+  "meta-llama/", "google/", "qwen/", "nvidia/", "mistralai/",
+  "moonshotai/", "deepseek/", "microsoft/", "openrouter/"
 ];
+const EXCLUDE_KEYWORDS = [
+  "lyria", "whisper", "tts", "embed", "moderation", "dall-e", "musicgen",
+  "nano-omni", "3-super", "safety", "guard", "rerank", "reward", "classif"
+];
+// أولوية ترتيب تقريبية: أول من يطابق بادئة فهاد اللائحة كيطلع فالقمة
+const SORT_PRIORITY = ["deepseek/", "meta-llama/", "qwen/", "google/", "mistralai/"];
 
 async function loadFreeModels() {
   modelChips.innerHTML = `<span class="muted">${t("loadingModels")}</span>`;
   try {
     const res = await fetch("https://openrouter.ai/api/v1/models");
     const data = await res.json();
-    const live = new Map((data.data || []).map(m => [m.id, m]));
 
-    // كنقبلو غير النماذج اللي فالقائمة المختارة، وبشرط تكون مازالت مجانية وخدامة فـ OpenRouter
-    const matched = PREFERRED_MODELS.filter(pm => {
-      const m = live.get(pm.id);
-      if (!m) return false;
+    const free = (data.data || []).filter(m => {
       const p = m.pricing || {};
-      return parseFloat(p.prompt || "0") === 0 && parseFloat(p.completion || "0") === 0;
+      const isFree = parseFloat(p.prompt || "0") === 0 && parseFloat(p.completion || "0") === 0;
+      const arch = m.architecture || {};
+      const outputs = Array.isArray(arch.output_modalities) ? arch.output_modalities : ["text"];
+      const isChatText = outputs.includes("text");
+      const isFamous = FAMOUS_PREFIXES.some(pfx => m.id.startsWith(pfx));
+      const isExcluded = EXCLUDE_KEYWORDS.some(k => m.id.toLowerCase().includes(k));
+      return isFree && isChatText && isFamous && !isExcluded;
     });
 
-    if (matched.length === 0) throw new Error("no preferred models available");
-    MODELS = matched;
+    if (free.length === 0) throw new Error("no free models returned");
+
+    MODELS = free
+      .map(m => ({ id: m.id, label: (m.name || m.id).replace(/\s*\(free\)\s*$/i, "") }))
+      .sort((a, b) => {
+        const rank = (id) => { const i = SORT_PRIORITY.findIndex(p => id.startsWith(p)); return i === -1 ? 99 : i; };
+        const r = rank(a.id) - rank(b.id);
+        if (r !== 0) return r;
+        return a.label.localeCompare(b.label);
+      })
+      .slice(0, 8);
   } catch (err) {
     MODELS = FALLBACK_MODELS;
   }
