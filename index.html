@@ -906,7 +906,9 @@ const EXCLUDE_KEYWORDS = [
   "nano-omni", "3-super", "safety", "guard", "rerank", "reward", "classif"
 ];
 // أولوية ترتيب تقريبية: أول من يطابق بادئة فهاد اللائحة كيطلع فالقمة
-const SORT_PRIORITY = ["deepseek/", "meta-llama/", "qwen/", "google/", "mistralai/"];
+// openrouter/free (الموجه التلقائي) فالقمة حيت كيوجّه تلقائياً لأي نموذج
+// خدام فتلك اللحظة، فهو أثبت استقراراً من تثبيت نموذج معين قد يكون مزدحم
+const SORT_PRIORITY = ["openrouter/", "deepseek/", "meta-llama/", "qwen/", "google/", "mistralai/"];
 
 async function loadFreeModels() {
   modelChips.innerHTML = `<span class="muted">${t("loadingModels")}</span>`;
@@ -941,6 +943,8 @@ async function loadFreeModels() {
   }
 
   selectedModels = new Set(MODELS.slice(0, DEFAULT_SELECTED).map(m => m.id));
+  const autoRouter = MODELS.find(m => m.id === "openrouter/free");
+  if (autoRouter) selectedModels.add(autoRouter.id); // الأكثر استقراراً، نضمنو وجوده دائماً
   renderModelChips();
 }
 
