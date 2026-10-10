@@ -487,6 +487,7 @@ const I18N = {
     connError: "خطأ فـ الاتصال بالسيرفر. يمكن السيرفر كيبدا (جرب مرة أخرى بعد 30 ثانية).",
     logoutBtn: "خروج",
     premiumLabel: "مشترك — بلا حدود",
+    chatUsageLabel: (r, l) => `المحادثات: باقي ${r} من ${l} اليوم`,
     trialLabel: (d) => d === 1 ? "باقي يوم واحد فـ التجربة المجانية" : `باقي ${d} أيام فـ التجربة المجانية`,
     trialEndedLabel: "خلصات التجربة المجانية — اشترك باش تكمل",
     runningBtn: "كيخدم...",
@@ -573,6 +574,7 @@ const I18N = {
     connError: "Erreur de connexion au serveur. Le serveur démarre peut-être (réessayez dans 30 secondes).",
     logoutBtn: "Déconnexion",
     premiumLabel: "Abonné — illimité",
+    chatUsageLabel: (r, l) => `${r} conversations restantes sur ${l} aujourd'hui`,
     trialLabel: (d) => d === 1 ? "1 jour restant dans l'essai gratuit" : `${d} jours restants dans l'essai gratuit`,
     trialEndedLabel: "Essai gratuit terminé — abonnez-vous pour continuer",
     runningBtn: "Chargement...",
@@ -659,6 +661,7 @@ const I18N = {
     connError: "Server connection error. The server may be waking up (try again in 30 seconds).",
     logoutBtn: "Log out",
     premiumLabel: "Subscribed — unlimited",
+    chatUsageLabel: (r, l) => `${r} of ${l} chats left today`,
     trialLabel: (d) => d === 1 ? "1 day left in your free trial" : `${d} days left in your free trial`,
     trialEndedLabel: "Free trial ended — subscribe to continue",
     runningBtn: "Working...",
@@ -994,7 +997,9 @@ function renderUsage() {
     actions.classList.add("hidden");
     premOk.classList.remove("hidden");
   } else if (d.in_trial) {
-    pill.textContent = t("trialLabel", d.trial_days_left);
+    pill.textContent = d.chat_limit == null
+      ? t("trialLabel", d.trial_days_left)
+      : t("chatUsageLabel", d.chat_remaining, d.chat_limit);
     actions.classList.remove("hidden");
     premOk.classList.add("hidden");
   } else {
