@@ -106,6 +106,14 @@ html[dir="ltr"] .arrow::before{content:"›"}
 .workflow-card:hover{transform:translateY(-2px);border-color:var(--violet);box-shadow:0 8px 18px rgba(124,58,237,.12)}
 .workflow-card strong{display:block;font-size:14.5px;margin-bottom:2px}
 .workflow-card span{display:block;color:var(--muted);font-size:12.5px;line-height:1.45}
+.saved-box{border:1px solid var(--line);border-radius:18px;padding:18px;margin:0 0 22px;background:#fff}
+.saved-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.saved-head h3{font-family:var(--display);font-size:19px}
+.saved-list{display:grid;gap:8px}
+.saved-item{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--bg)}
+.saved-item strong{display:block;font-size:14px}.saved-item small{color:var(--muted);font-size:12px}
+.saved-actions{display:flex;gap:6px;flex-wrap:wrap}.saved-actions button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:5px 9px;font:inherit;font-size:12px}
+.saved-empty{color:var(--muted);font-size:13.5px}
 @media(max-width:760px){.workflow-grid{grid-template-columns:repeat(2,1fr)}.workflow-head{display:block}.workflow-head p{margin-top:3px}}
 .status{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:14.5px;margin-bottom:16px}
 .pill{background:var(--soft);color:var(--violet);font-weight:700;border-radius:999px;padding:4px 14px}
@@ -287,6 +295,17 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
         </div>
       </div>
 
+      <div class="saved-box">
+        <div class="saved-head">
+          <div>
+            <h3 data-i18n="savedTitle"></h3>
+            <p class="hint" data-i18n="savedSub"></p>
+          </div>
+          <button class="btn btn-w btn-sm" type="button" id="loadSavedBtn" data-i18n="loadSavedBtn"></button>
+        </div>
+        <div class="saved-list" id="savedList" aria-live="polite"></div>
+      </div>
+
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" data-tool="edit" data-i18n="tEditT"></button>
         <button class="tab" role="tab" data-tool="image" data-i18n="tImgT"></button>
@@ -464,6 +483,8 @@ const I18N = {
     wfExcelT: "تحليل البيانات", wfExcelD: "رؤى من CSV أو Excel",
     wfTranslateT: "ترجمة احترافية", wfTranslateD: "ترجمة مع الحفاظ على الأسلوب",
     wfSocialT: "منشور سوشيال", wfSocialD: "منشور جاهز للنشر",
+    savedTitle: "نتائجي المحفوظة", savedSub: "رجع للنتائج المهمة أو عاود استعملها.",
+    loadSavedBtn: "تحديث", savedEmpty: "مازال ما حفظتي حتى نتيجة.", saveBtn: "حفظ", savedBtn: "تم الحفظ", useSavedBtn: "استعمال", deleteSavedBtn: "حذف", saveError: "تعذّر حفظ النتيجة.",
     modelsLabel: "النماذج — اختر نموذجاً أو أكثر وقارن النتائج جنب بعض",
     copyBtn: "نسخ", copiedBtn: "تم النسخ",
     guestLabel: "سجّل الدخول لبدء التجربة المجانية",
@@ -558,6 +579,8 @@ const I18N = {
     wfExcelT: "Analyse de données", wfExcelD: "Des insights depuis CSV ou Excel",
     wfTranslateT: "Traduction pro", wfTranslateD: "Traduire en gardant le style",
     wfSocialT: "Post réseaux sociaux", wfSocialD: "Un post prêt à publier",
+    savedTitle: "Mes résultats enregistrés", savedSub: "Retrouvez et réutilisez vos meilleurs résultats.",
+    loadSavedBtn: "Actualiser", savedEmpty: "Aucun résultat enregistré.", saveBtn: "Enregistrer", savedBtn: "Enregistré", useSavedBtn: "Utiliser", deleteSavedBtn: "Supprimer", saveError: "Impossible d'enregistrer le résultat.",
     modelsLabel: "Modèles — choisissez-en un ou plusieurs et comparez les résultats côte à côte",
     copyBtn: "Copier", copiedBtn: "Copié",
     guestLabel: "Connectez-vous pour démarrer l'essai gratuit",
@@ -652,6 +675,8 @@ const I18N = {
     wfExcelT: "Analyze data", wfExcelD: "Insights from CSV or Excel",
     wfTranslateT: "Professional translation", wfTranslateD: "Translate while keeping the style",
     wfSocialT: "Social media post", wfSocialD: "A post ready to publish",
+    savedTitle: "My saved results", savedSub: "Return to important results and reuse them.",
+    loadSavedBtn: "Refresh", savedEmpty: "No saved results yet.", saveBtn: "Save", savedBtn: "Saved", useSavedBtn: "Use", deleteSavedBtn: "Delete", saveError: "Couldn't save this result.",
     modelsLabel: "Models — pick one or more and compare results side by side",
     copyBtn: "Copy", copiedBtn: "Copied",
     guestLabel: "Log in to start your free trial",
@@ -1037,12 +1062,109 @@ function showApp() {
   updateNav();
   refreshUsage();
   refreshImageUsage();
+  loadSavedResults();
 }
 
 function sessionExpired() {
   logout();
   openAuth(false);
 }
+
+function renderSavedResults(results) {
+  const box = $("savedList");
+  box.replaceChildren();
+  if (!token) {
+    const empty = document.createElement("div");
+    empty.className = "saved-empty";
+    empty.textContent = t("guestLabel");
+    box.appendChild(empty);
+    return;
+  }
+  if (!results.length) {
+    const empty = document.createElement("div");
+    empty.className = "saved-empty";
+    empty.textContent = t("savedEmpty");
+    box.appendChild(empty);
+    return;
+  }
+  results.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "saved-item";
+    const info = document.createElement("div");
+    const title = document.createElement("strong");
+    title.textContent = item.title || t("savedTitle");
+    const meta = document.createElement("small");
+    meta.textContent = `${item.model || item.kind || "AI"} · ${new Date(item.created_at).toLocaleDateString()}`;
+    info.append(title, meta);
+    const actions = document.createElement("div");
+    actions.className = "saved-actions";
+    const use = document.createElement("button");
+    use.type = "button";
+    use.textContent = t("useSavedBtn");
+    use.onclick = () => {
+      setTool("edit");
+      $("editText").value = item.content || "";
+      $("tools").scrollIntoView({ behavior: "smooth", block: "start" });
+      $("editText").focus();
+    };
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.textContent = t("deleteSavedBtn");
+    remove.onclick = async () => {
+      remove.disabled = true;
+      const res = await fetch(BACKEND_URL + "/api/saved-results/" + encodeURIComponent(item.id), {
+        method: "DELETE",
+        headers: { "Authorization": "Bearer " + token }
+      });
+      if (res.status === 401) return sessionExpired();
+      if (res.ok) loadSavedResults(); else remove.disabled = false;
+    };
+    actions.append(use, remove);
+    row.append(info, actions);
+    box.appendChild(row);
+  });
+}
+
+async function loadSavedResults() {
+  const box = $("savedList");
+  if (!token) return renderSavedResults([]);
+  try {
+    const res = await fetch(BACKEND_URL + "/api/saved-results", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    if (res.status === 401) return sessionExpired();
+    const data = await res.json();
+    renderSavedResults(data.results || []);
+  } catch (err) {
+    box.replaceChildren();
+    const note = document.createElement("div");
+    note.className = "saved-empty";
+    note.textContent = t("genericError");
+    box.appendChild(note);
+  }
+}
+
+async function saveResultToLibrary(result, button) {
+  if (!token) return openAuth(true);
+  button.disabled = true;
+  try {
+    const res = await fetch(BACKEND_URL + "/api/saved-results", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+      body: JSON.stringify(result)
+    });
+    if (res.status === 401) return sessionExpired();
+    if (!res.ok) throw new Error("save failed");
+    button.textContent = t("savedBtn");
+    button.classList.add("saved-state");
+    loadSavedResults();
+  } catch (err) {
+    button.disabled = false;
+    alert(t("saveError"));
+  }
+}
+
+$("loadSavedBtn").onclick = loadSavedResults;
 
 function isLocked() {
   return !!token && !!lastUsage && !lastUsage.is_premium && !lastUsage.in_trial;
@@ -1282,17 +1404,21 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
     copy.type = "button";
     copy.className = "copy hidden";
     copy.textContent = t("copyBtn");
-    head.append(h, copy);
+    const save = document.createElement("button");
+    save.type = "button";
+    save.className = "copy hidden";
+    save.textContent = t("saveBtn");
+    head.append(h, copy, save);
     const body = document.createElement("div");
     body.className = "body muted";
     body.textContent = t("working");
     card.append(head, body);
     resultsEl.appendChild(card);
-    cards.set(m.id, { body, copy });
+    cards.set(m.id, { body, copy, save });
   });
 
   for (const m of activeModels) {
-    const { body, copy } = cards.get(m.id);
+    const { body, copy, save } = cards.get(m.id);
     try {
       const res = await fetchWithTimeout(BACKEND_URL + "/api/chat", {
         method: "POST",
@@ -1326,6 +1452,13 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
             setTimeout(() => { copy.textContent = t("copyBtn"); }, 1500);
           } catch (e) {}
         };
+        save.classList.remove("hidden");
+        save.onclick = () => saveResultToLibrary({
+          kind: "chat",
+          title: m.label,
+          content: data.text,
+          model: m.id
+        }, save);
       }
     } catch (err) {
       body.textContent = t("connErrorPrefix") + err.message;
