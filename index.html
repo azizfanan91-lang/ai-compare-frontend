@@ -97,6 +97,16 @@ html[dir="ltr"] .arrow::before{content:"›"}
 .section-title{font-family:var(--display);font-size:28px;font-weight:800;text-align:center;margin-bottom:8px}
 .section-sub{text-align:center;color:var(--muted);margin-bottom:28px}
 .tool{background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:28px;margin-bottom:56px}
+.workflow-box{background:linear-gradient(135deg,#faf7ff,#fff7fb);border:1px solid var(--line);border-radius:18px;padding:18px;margin:0 0 22px}
+.workflow-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.workflow-head h3{font-family:var(--display);font-size:20px}
+.workflow-head p{color:var(--muted);font-size:13.5px;margin:0}
+.workflow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.workflow-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;text-align:start;color:var(--ink);transition:transform .15s,border-color .15s,box-shadow .15s}
+.workflow-card:hover{transform:translateY(-2px);border-color:var(--violet);box-shadow:0 8px 18px rgba(124,58,237,.12)}
+.workflow-card strong{display:block;font-size:14.5px;margin-bottom:2px}
+.workflow-card span{display:block;color:var(--muted);font-size:12.5px;line-height:1.45}
+@media(max-width:760px){.workflow-grid{grid-template-columns:repeat(2,1fr)}.workflow-head{display:block}.workflow-head p{margin-top:3px}}
 .status{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:14.5px;margin-bottom:16px}
 .pill{background:var(--soft);color:var(--violet);font-weight:700;border-radius:999px;padding:4px 14px}
 .email{color:var(--muted);font-size:14px;direction:ltr}
@@ -260,6 +270,23 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
       <div id="trialBanner" class="banner hidden"></div>
       <div id="limitBanner" class="banner hidden"></div>
 
+      <div class="workflow-box">
+        <div class="workflow-head">
+          <div>
+            <h3 data-i18n="workflowsTitle"></h3>
+            <p data-i18n="workflowsSub"></p>
+          </div>
+        </div>
+        <div class="workflow-grid" role="list">
+          <button class="workflow-card" type="button" data-workflow="product" role="listitem"><strong data-i18n="wfProductT"></strong><span data-i18n="wfProductD"></span></button>
+          <button class="workflow-card" type="button" data-workflow="ad" role="listitem"><strong data-i18n="wfAdT"></strong><span data-i18n="wfAdD"></span></button>
+          <button class="workflow-card" type="button" data-workflow="pdf" role="listitem"><strong data-i18n="wfPdfT"></strong><span data-i18n="wfPdfD"></span></button>
+          <button class="workflow-card" type="button" data-workflow="excel" role="listitem"><strong data-i18n="wfExcelT"></strong><span data-i18n="wfExcelD"></span></button>
+          <button class="workflow-card" type="button" data-workflow="translate" role="listitem"><strong data-i18n="wfTranslateT"></strong><span data-i18n="wfTranslateD"></span></button>
+          <button class="workflow-card" type="button" data-workflow="social" role="listitem"><strong data-i18n="wfSocialT"></strong><span data-i18n="wfSocialD"></span></button>
+        </div>
+      </div>
+
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" data-tool="edit" data-i18n="tEditT"></button>
         <button class="tab" role="tab" data-tool="image" data-i18n="tImgT"></button>
@@ -316,7 +343,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
 
       <!-- تلخيص النصوص -->
       <div data-panel="summary" class="hidden">
-        <label class="btn btn-w btn-sm file"><input type="file" id="sumFile" accept=".txt,.md,.csv,.json"><span data-i18n="uploadTxt"></span></label>
+        <label class="btn btn-w btn-sm file"><input type="file" id="sumFile" accept=".txt,.md,.csv,.json,.pdf,application/pdf"><span data-i18n="uploadTxt"></span></label>
         <textarea class="ta" id="sumText" data-i18n-ph="sumPh" style="margin-top:12px"></textarea>
         <div class="opts">
           <label class="opt"><span data-i18n="sumLen"></span>
@@ -398,6 +425,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
 
@@ -429,6 +457,13 @@ const I18N = {
     tDataT: "تحليل البيانات", tDataD: "حلّل بياناتك واكتشف الأنماط واحصل على رؤى دقيقة تدعم قراراتك.",
     tSumT: "تلخيص المستندات", tSumD: "لخّص المستندات الطويلة واستخرج أهم النقاط بسرعة ودقة.",
     toolsTitle: "الأدوات", toolsSub: "اختر أداة وابدأ العمل.",
+    workflowsTitle: "Workflows جاهزة", workflowsSub: "اختار مهمة، عمر المعلومات، وخلي الذكاء الاصطناعي يكمل الباقي.",
+    wfProductT: "وصف منتج", wfProductD: "وصف مقنع جاهز للبيع",
+    wfAdT: "إعلان تسويقي", wfAdD: "إعلان لـ Facebook أو Instagram",
+    wfPdfT: "تلخيص PDF", wfPdfD: "استخراج أهم الأفكار والنقاط",
+    wfExcelT: "تحليل البيانات", wfExcelD: "رؤى من CSV أو Excel",
+    wfTranslateT: "ترجمة احترافية", wfTranslateD: "ترجمة مع الحفاظ على الأسلوب",
+    wfSocialT: "منشور سوشيال", wfSocialD: "منشور جاهز للنشر",
     modelsLabel: "النماذج — اختر نموذجاً أو أكثر وقارن النتائج جنب بعض",
     copyBtn: "نسخ", copiedBtn: "تم النسخ",
     guestLabel: "سجّل الدخول لبدء التجربة المجانية",
@@ -456,7 +491,7 @@ const I18N = {
     sumRun: "لخّص النص",
     emptyTextAlert: "الصق النص أولاً",
     fileTooBig: "الملف كبير جداً (الحد 500 كيلوبايت)",
-    fileReadErr: "تعذّرت قراءة الملف",
+    fileReadErr: "تعذّرت قراءة الملف", pdfNoText: "هذا الـPDF ما فيهش نص قابل للاستخراج. جرّب ملفاً آخر.",
     truncated: "النص طويل، تمت معالجة الجزء الأول منه فقط.",
     howTitle: "كيف تبدأ",
     s1t: "أنشئ حسابك", s1d: "سجّل دخولك وابدأ رحلتك مع QueryMix مجاناً لمدة 7 أيام.",
@@ -516,6 +551,13 @@ const I18N = {
     tDataT: "Analyse de données", tDataD: "Analysez vos tableaux, repérez les tendances et obtenez des pistes utiles.",
     tSumT: "Résumé de documents", tSumD: "Résumez de longs documents et extrayez l'essentiel, rapidement et avec précision.",
     toolsTitle: "Outils", toolsSub: "Choisissez un outil et lancez-vous.",
+    workflowsTitle: "Workflows prêts", workflowsSub: "Choisissez une tâche, ajoutez vos informations et laissez l'IA faire le reste.",
+    wfProductT: "Description produit", wfProductD: "Une description qui vend",
+    wfAdT: "Publicité marketing", wfAdD: "Annonce pour Facebook ou Instagram",
+    wfPdfT: "Résumé PDF", wfPdfD: "Les idées et points essentiels",
+    wfExcelT: "Analyse de données", wfExcelD: "Des insights depuis CSV ou Excel",
+    wfTranslateT: "Traduction pro", wfTranslateD: "Traduire en gardant le style",
+    wfSocialT: "Post réseaux sociaux", wfSocialD: "Un post prêt à publier",
     modelsLabel: "Modèles — choisissez-en un ou plusieurs et comparez les résultats côte à côte",
     copyBtn: "Copier", copiedBtn: "Copié",
     guestLabel: "Connectez-vous pour démarrer l'essai gratuit",
@@ -543,7 +585,7 @@ const I18N = {
     sumRun: "Résumer le texte",
     emptyTextAlert: "Collez d'abord un texte",
     fileTooBig: "Fichier trop volumineux (limite 500 Ko)",
-    fileReadErr: "Impossible de lire le fichier",
+    fileReadErr: "Impossible de lire le fichier", pdfNoText: "Ce PDF ne contient pas de texte extractible. Essayez un autre fichier.",
     truncated: "Texte long : seule la première partie a été traitée.",
     howTitle: "Comment ça marche",
     s1t: "Créez votre compte", s1d: "Inscrivez-vous et démarrez votre parcours avec QueryMix, gratuitement pendant 7 jours.",
@@ -603,6 +645,13 @@ const I18N = {
     tDataT: "Data analysis", tDataD: "Analyze your tables, spot patterns and get useful insights.",
     tSumT: "Document summarizing", tSumD: "Summarize long documents and pull out the key points, fast and accurately.",
     toolsTitle: "Tools", toolsSub: "Pick a tool and get to work.",
+    workflowsTitle: "Ready-made workflows", workflowsSub: "Choose a task, add your information, and let AI do the rest.",
+    wfProductT: "Product description", wfProductD: "A description that sells",
+    wfAdT: "Marketing ad", wfAdD: "An ad for Facebook or Instagram",
+    wfPdfT: "Summarize PDF", wfPdfD: "Extract the key ideas and points",
+    wfExcelT: "Analyze data", wfExcelD: "Insights from CSV or Excel",
+    wfTranslateT: "Professional translation", wfTranslateD: "Translate while keeping the style",
+    wfSocialT: "Social media post", wfSocialD: "A post ready to publish",
     modelsLabel: "Models — pick one or more and compare results side by side",
     copyBtn: "Copy", copiedBtn: "Copied",
     guestLabel: "Log in to start your free trial",
@@ -630,7 +679,7 @@ const I18N = {
     sumRun: "Summarize text",
     emptyTextAlert: "Paste some text first",
     fileTooBig: "File is too large (500 KB limit)",
-    fileReadErr: "Couldn't read the file",
+    fileReadErr: "Couldn't read the file", pdfNoText: "This PDF has no extractable text. Try another file.",
     truncated: "Long text: only the first part was processed.",
     howTitle: "How it works",
     s1t: "Create your account", s1d: "Sign up and start your journey with QueryMix, free for 7 days.",
@@ -762,6 +811,36 @@ document.querySelectorAll(".tab").forEach(b => b.onclick = () => setTool(b.datas
 document.querySelectorAll(".feat").forEach(b => b.onclick = () => {
   setTool(b.dataset.tool);
   $("tools").scrollIntoView();
+});
+
+const WORKFLOW_PROMPTS = {
+  product: "Act as an ecommerce copywriter. Create a persuasive product description in the user's language. Include: a short headline, 5 benefits, key features, ideal customer, a clear call to action, and SEO keywords. Do not invent facts. Replace the bracketed fields with the real product information:\n\nProduct name: [write here]\nFeatures and specifications: [write here]\nTarget customer: [write here]\nPrice or offer: [optional]",
+  ad: "Create 3 marketing ad variations in the user's language for the product or service below. For each variation include: primary text, headline, short description, call to action, and a suggested audience. Keep the tone clear and persuasive without making unsupported claims.\n\nProduct/service: [write here]\nMain benefit: [write here]\nPlatform: Facebook / Instagram / TikTok\nTarget audience: [write here]",
+  translate: "Translate the text below from [source language] to [target language]. Preserve the meaning, tone, names, numbers, formatting, and cultural nuance. Return only the polished translation, followed by a short note listing any ambiguous terms.\n\nText:\n[write or paste text here]",
+  social: "Write 5 ready-to-publish social media posts in the user's language about the topic below. Give each a different hook, a concise body, a call to action, and 3 relevant hashtags. Avoid clickbait and unsupported claims.\n\nTopic or product: [write here]\nAudience: [write here]\nPlatform: Instagram / Facebook / LinkedIn\nTone: [professional, friendly, educational, etc.]"
+};
+
+function applyWorkflow(kind) {
+  if (!guard(false)) return;
+  $("tools").scrollIntoView({ behavior: "smooth", block: "start" });
+  if (kind === "pdf") {
+    setTool("summary");
+    $("sumFmtSel").value = "bullets";
+    setTimeout(() => $("sumFile").click(), 250);
+    return;
+  }
+  if (kind === "excel") {
+    setTool("data");
+    $("dataQ").value = "Give a clear executive summary, key statistics, trends, anomalies, and 3 practical actions based only on the uploaded data.";
+    setTimeout(() => $("dataFile").click(), 250);
+    return;
+  }
+  setTool("edit");
+  $("editText").value = WORKFLOW_PROMPTS[kind] || "";
+  $("editText").focus();
+}
+document.querySelectorAll("[data-workflow]").forEach(b => {
+  b.addEventListener("click", () => applyWorkflow(b.dataset.workflow));
 });
 
 // ---------- Auth modal ----------
@@ -1136,10 +1215,31 @@ async function fetchWithTimeout(url, options = {}, ms = 60000) {
 }
 
 function bindFile(inputId, areaId) {
-  $(inputId).addEventListener("change", () => {
+  $(inputId).addEventListener("change", async () => {
     const f = $(inputId).files[0];
     if (!f) return;
     if (f.size > MAX_FILE_BYTES) { alert(t("fileTooBig")); $(inputId).value = ""; return; }
+    const isPdf = inputId === "sumFile" && (f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf"));
+    if (isPdf) {
+      try {
+        if (!window.pdfjsLib) throw new Error("PDF.js unavailable");
+        pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+        const pdf = await pdfjsLib.getDocument({ data: await f.arrayBuffer() }).promise;
+        const pages = [];
+        for (let pageNo = 1; pageNo <= pdf.numPages; pageNo++) {
+          const page = await pdf.getPage(pageNo);
+          const content = await page.getTextContent();
+          pages.push(content.items.map(item => item.str).join(" "));
+        }
+        $(areaId).value = pages.join("\n\n").trim();
+        if (!$(areaId).value) alert(t("pdfNoText"));
+      } catch (err) {
+        alert(t("fileReadErr"));
+      } finally {
+        $(inputId).value = "";
+      }
+      return;
+    }
     const r = new FileReader();
     r.onload = () => { $(areaId).value = String(r.result); };
     r.onerror = () => alert(t("fileReadErr"));
