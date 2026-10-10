@@ -402,10 +402,11 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
 const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
 
 // تُستعمل فقط إذا تعذّر جلب القائمة الحية من OpenRouter بالكامل (مشكل شبكة مثلاً).
-// معرّف وحيد عام (الموجه التلقائي) حيت معرّفات نماذج معينة كتبطل بسرعة
-// عند OpenRouter ونفضّلو ما نثبتوش أسماء قد تكون ماعادتش موجودة.
+// نماذج مجانية احتياطية صالحة؛ الخادم عنده fallback إضافي إذا كان أحدها مزدحما.
 const FALLBACK_MODELS = [
-  { id: "openrouter/free", label: "Auto (Free)" }
+  { id: "openrouter/free", label: "Auto (Free)" },
+  { id: "google/gemma-4-31b-it:free", label: "Gemma 4 31B" },
+  { id: "nvidia/nemotron-3.5-lightning:free", label: "Nemotron Lightning" }
 ];
 
 const MAX_TEXT_CHARS = 12000;   // حد النص المرسل للنموذج (تحرير/تلخيص)
@@ -1305,8 +1306,8 @@ const MAX_IMG_MODELS = 3;
 // تُستعمل فقط إذا تعذّر الوصول لـ /api/images/models فـ السيرفر، باش الأداة تبقى خدامة
 const FALLBACK_IMAGE_MODELS = [
   { id: "flux", label: "FLUX.1 Schnell" },
-  { id: "turbo", label: "Turbo" },
-  { id: "qwen", label: "Qwen Image" }
+  { id: "sdxl", label: "Stable Diffusion XL" },
+  { id: "dreamshaper", label: "DreamShaper" }
 ];
 let IMAGE_MODELS = [];
 let selectedImgModels = new Set();
