@@ -193,6 +193,13 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
 .switch a{color:var(--violet);font-weight:700;cursor:pointer;text-decoration:underline}
 .err{color:var(--err);font-size:14px;margin-top:10px;min-height:20px}
 .close{float:inline-end;background:none;border:0;font-size:22px;color:var(--muted)}
+.welcome-box{max-width:680px}.welcome-box>p{color:var(--muted);margin:0 0 18px}
+.welcome-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.welcome-choice{border:1.5px solid var(--line);background:var(--bg);border-radius:14px;padding:15px 12px;text-align:start;color:var(--ink);font:inherit;font-weight:700;transition:.15s}
+.welcome-choice:hover{border-color:var(--violet);background:#fff;transform:translateY(-2px)}
+.welcome-choice small{display:block;color:var(--muted);font-weight:400;font-size:12px;margin-top:3px}
+.welcome-skip{border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer}
+@media(max-width:560px){.welcome-grid{grid-template-columns:repeat(2,1fr)}.welcome-box{padding:22px}}
 
 @media (max-width:980px){
   .hero{grid-template-columns:1fr;padding-top:40px}.visual{min-height:280px;order:-1}
@@ -444,6 +451,23 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
   </div>
 </div>
 
+<div class="modal" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+  <div class="box welcome-box">
+    <button class="close" id="welcomeClose" aria-label="Close">✕</button>
+    <h3 id="welcomeTitle" data-i18n="welcomeTitle"></h3>
+    <p data-i18n="welcomeText"></p>
+    <div class="welcome-grid">
+      <button class="welcome-choice" type="button" data-welcome-workflow="product"><span data-i18n="wfProductT"></span><small data-i18n="wfProductD"></small></button>
+      <button class="welcome-choice" type="button" data-welcome-workflow="ad"><span data-i18n="wfAdT"></span><small data-i18n="wfAdD"></small></button>
+      <button class="welcome-choice" type="button" data-welcome-workflow="pdf"><span data-i18n="wfPdfT"></span><small data-i18n="wfPdfD"></small></button>
+      <button class="welcome-choice" type="button" data-welcome-workflow="excel"><span data-i18n="wfExcelT"></span><small data-i18n="wfExcelD"></small></button>
+      <button class="welcome-choice" type="button" data-welcome-workflow="translate"><span data-i18n="wfTranslateT"></span><small data-i18n="wfTranslateD"></small></button>
+      <button class="welcome-choice" type="button" data-welcome-workflow="social"><span data-i18n="wfSocialT"></span><small data-i18n="wfSocialD"></small></button>
+    </div>
+    <button class="welcome-skip" type="button" id="welcomeSkip" data-i18n="welcomeSkip"></button>
+  </div>
+</div>
+
 <script>
 const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
 
@@ -484,6 +508,7 @@ const I18N = {
     wfSocialT: "منشور سوشيال", wfSocialD: "منشور جاهز للنشر",
     savedTitle: "نتائجي المحفوظة", savedSub: "رجع للنتائج المهمة أو عاود استعملها.",
     loadSavedBtn: "تحديث", savedEmpty: "مازال ما حفظتي حتى نتيجة.", saveBtn: "حفظ", savedBtn: "تم الحفظ", useSavedBtn: "استعمال", deleteSavedBtn: "حذف", saveError: "تعذّر حفظ النتيجة.",
+    welcomeTitle: "مرحبا بك في QueryMix", welcomeText: "شنو بغيتي تنجز اليوم؟ اختار مهمة ونبدأو مباشرة.", welcomeSkip: "تخطي واستكشف الأدوات",
     modelsLabel: "النماذج — اختر نموذجاً أو أكثر وقارن النتائج جنب بعض",
     copyBtn: "نسخ", copiedBtn: "تم النسخ",
     guestLabel: "سجّل الدخول لبدء التجربة المجانية",
@@ -580,6 +605,7 @@ const I18N = {
     wfSocialT: "Post réseaux sociaux", wfSocialD: "Un post prêt à publier",
     savedTitle: "Mes résultats enregistrés", savedSub: "Retrouvez et réutilisez vos meilleurs résultats.",
     loadSavedBtn: "Actualiser", savedEmpty: "Aucun résultat enregistré.", saveBtn: "Enregistrer", savedBtn: "Enregistré", useSavedBtn: "Utiliser", deleteSavedBtn: "Supprimer", saveError: "Impossible d'enregistrer le résultat.",
+    welcomeTitle: "Bienvenue sur QueryMix", welcomeText: "Que voulez-vous accomplir aujourd'hui ? Choisissez une tâche pour commencer.", welcomeSkip: "Passer et explorer les outils",
     modelsLabel: "Modèles — choisissez-en un ou plusieurs et comparez les résultats côte à côte",
     copyBtn: "Copier", copiedBtn: "Copié",
     guestLabel: "Connectez-vous pour démarrer l'essai gratuit",
@@ -676,6 +702,7 @@ const I18N = {
     wfSocialT: "Social media post", wfSocialD: "A post ready to publish",
     savedTitle: "My saved results", savedSub: "Return to important results and reuse them.",
     loadSavedBtn: "Refresh", savedEmpty: "No saved results yet.", saveBtn: "Save", savedBtn: "Saved", useSavedBtn: "Use", deleteSavedBtn: "Delete", saveError: "Couldn't save this result.",
+    welcomeTitle: "Welcome to QueryMix", welcomeText: "What would you like to accomplish today? Choose a task to get started.", welcomeSkip: "Skip and explore the tools",
     modelsLabel: "Models — pick one or more and compare results side by side",
     copyBtn: "Copy", copiedBtn: "Copied",
     guestLabel: "Log in to start your free trial",
@@ -865,6 +892,30 @@ function applyWorkflow(kind) {
 }
 document.querySelectorAll("[data-workflow]").forEach(b => {
   b.addEventListener("click", () => applyWorkflow(b.dataset.workflow));
+});
+
+const WELCOME_KEY = "querymix_welcome_seen_v1";
+function closeWelcome(markSeen = true) {
+  if (markSeen) {
+    try { localStorage.setItem(WELCOME_KEY, "1"); } catch (e) {}
+  }
+  $("welcomeModal").classList.remove("open");
+}
+function maybeShowWelcome() {
+  if (!token) return;
+  let seen = false;
+  try { seen = localStorage.getItem(WELCOME_KEY) === "1"; } catch (e) {}
+  if (!seen) $("welcomeModal").classList.add("open");
+}
+$("welcomeClose").onclick = () => closeWelcome();
+$("welcomeSkip").onclick = () => closeWelcome();
+$("welcomeModal").onclick = e => { if (e.target.id === "welcomeModal") closeWelcome(); };
+document.querySelectorAll("[data-welcome-workflow]").forEach(b => {
+  b.addEventListener("click", () => {
+    const kind = b.dataset.welcomeWorkflow;
+    closeWelcome();
+    applyWorkflow(kind);
+  });
 });
 
 // ---------- Auth modal ----------
@@ -1062,6 +1113,7 @@ function showApp() {
   refreshUsage();
   refreshImageUsage();
   loadSavedResults();
+  setTimeout(maybeShowWelcome, 350);
 }
 
 function sessionExpired() {
