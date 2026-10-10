@@ -248,7 +248,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
     </div>
     <div class="visual" aria-hidden="true">
       <div class="hero-media">
-        <img src="images/hero-network.jpg" alt="" loading="lazy">
+        <img src="images/hero-network.jpg" alt="" loading="eager" fetchpriority="high" decoding="async">
       </div>
       <div class="float f1">✎</div>
       <div class="float f2">◔</div>
@@ -444,7 +444,6 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
 
@@ -1336,6 +1335,20 @@ async function fetchWithTimeout(url, options = {}, ms = 60000) {
   }
 }
 
+let pdfJsPromise = null;
+function loadPdfJs() {
+  if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  if (pdfJsPromise) return pdfJsPromise;
+  pdfJsPromise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    script.onload = () => window.pdfjsLib ? resolve(window.pdfjsLib) : reject(new Error("PDF.js unavailable"));
+    script.onerror = () => reject(new Error("PDF.js failed to load"));
+    document.head.appendChild(script);
+  });
+  return pdfJsPromise;
+}
+
 function bindFile(inputId, areaId) {
   $(inputId).addEventListener("change", async () => {
     const f = $(inputId).files[0];
@@ -1344,9 +1357,9 @@ function bindFile(inputId, areaId) {
     const isPdf = inputId === "sumFile" && (f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf"));
     if (isPdf) {
       try {
-        if (!window.pdfjsLib) throw new Error("PDF.js unavailable");
-        pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-        const pdf = await pdfjsLib.getDocument({ data: await f.arrayBuffer() }).promise;
+        const pdfLib = await loadPdfJs();
+        pdfLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+        const pdf = await pdfLib.getDocument({ data: await f.arrayBuffer() }).promise;
         const pages = [];
         for (let pageNo = 1; pageNo <= pdf.numPages; pageNo++) {
           const page = await pdf.getPage(pageNo);
