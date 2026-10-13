@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>إحصائيات Admin - QueryMix</title>
+<style>
+  :root { --bg:#f8f5ff; --card:#fff; --ink:#171329; --muted:#6b647b; --line:#e7dcf7; --brand:#7c3aed; --ok:#16803c; --err:#b42318; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:24px; background:var(--bg); color:var(--ink); font-family:Arial,"Segoe UI",Tahoma,sans-serif; }
+  .container { max-width:980px; margin:auto; }
+  h1 { margin:0 0 8px; }
+  .subtitle { color:var(--muted); margin:0 0 24px; }
+  .auth { background:var(--card); padding:18px; border:1px solid var(--line); border-radius:16px; }
+  input, button { width:100%; padding:12px 14px; border-radius:10px; font:inherit; }
+  input { border:1px solid var(--line); margin-bottom:10px; }
+  button { border:0; background:var(--brand); color:#fff; cursor:pointer; font-weight:700; }
+  button:disabled { opacity:.6; cursor:wait; }
+  .message { min-height:24px; margin-top:12px; color:var(--muted); }
+  .message.error { color:var(--err); }
+  .message.success { color:var(--ok); }
+  .cards { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; margin-top:22px; }
+  .card { background:var(--card); padding:18px 12px; border:1px solid var(--line); border-radius:16px; text-align:center; box-shadow:0 5px 18px rgba(37,16,77,.08); }
+  .card span { display:block; color:var(--muted); font-size:14px; }
+  .card strong { display:block; font-size:30px; color:var(--brand); margin-top:6px; }
+  .panel { margin-top:26px; }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  th, td { padding:12px 10px; border-bottom:1px solid var(--line); text-align:right; }
+  th { background:#f1e9ff; }
+  tr:last-child td { border-bottom:0; }
+  .premium { color:var(--ok); font-weight:700; }
+  .free { color:var(--muted); }
+  @media (max-width:720px) { body { padding:16px; } .cards { grid-template-columns:repeat(2,minmax(0,1fr)); } .card:last-child { grid-column:span 2; } table { font-size:13px; } th,td { padding:9px 6px; } }
+</style>
+</head>
+<body>
+<main class="container">
+  <h1>إحصائيات QueryMix</h1>
+  <p class="subtitle">صفحة خاصة بالإدارة — المعطيات محمية بكلمة سر Admin</p>
+
+  <section class="auth">
+    <input id="adminSecret" type="password" placeholder="دخل كلمة السر ديال Admin" autocomplete="current-password">
+    <button id="loadBtn">عرض الإحصائيات</button>
+    <div id="message" class="message" aria-live="polite"></div>
+  </section>
+
+  <section class="cards" aria-label="ملخص الإحصائيات">
+    <div class="card"><span>مجموع المستخدمين</span><strong id="totalUsers">—</strong></div>
+    <div class="card"><span>Premium</span><strong id="premiumUsers">—</strong></div>
+    <div class="card"><span>فالتجربة</span><strong id="trialUsers">—</strong></div>
+    <div class="card"><span>الأسئلة اليوم</span><strong id="chatsToday">—</strong></div>
+    <div class="card"><span>الصور اليوم</span><strong id="imagesToday">—</strong></div>
+  </section>
+
+  <section class="panel">
+    <h2>آخر المستخدمين</h2>
+    <table>
+      <thead><tr><th>الإيميل</th><th>الحالة</th><th>تاريخ التسجيل</th></tr></thead>
+      <tbody id="usersBody"><tr><td colspan="3">دخل كلمة السر واضغط عرض الإحصائيات</td></tr></tbody>
+    </table>
+  </section>
+</main>
+<script>
+const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
+const $ = id => document.getElementById(id);
+
+function setMessage(text, type = '') {
+  const el = $('message');
+  el.textContent = text;
+  el.className = 'message ' + type;
+}
+
+function formatDate(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleString('ar-MA');
+}
+
+$('loadBtn').addEventListener('click', async () => {
+  const secret = $('adminSecret').value.trim();
+  if (!secret) {
+    setMessage('دخل كلمة السر ديال Admin', 'error');
+    return;
+  }
+
+  const button = $('loadBtn');
+  button.disabled = true;
+  setMessage('كنحمل الإحصائيات...');
+
+  try {
+    const response = await fetch(BACKEND_URL + '/api/admin/stats', {
+      headers: { 'x-admin-secret': secret }
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'وقع مشكل فالسيرفر');
+
+    $('totalUsers').textContent = data.users.total_users;
+    $('premiumUsers').textContent = data.users.premium_users;
+    $('trialUsers').textContent = data.users.trial_users;
+    $('chatsToday').textContent = data.usage.chats_today;
+    $('imagesToday').textContent = data.usage.images_today;
+
+    const tbody = $('usersBody');
+    tbody.textContent = '';
+    data.recent_users.forEach(user => {
+      const row = document.createElement('tr');
+      const email = document.createElement('td');
+      const status = document.createElement('td');
+      const date = document.createElement('td');
+      email.textContent = user.email;
+      status.textContent = user.is_premium ? 'Premium' : 'مجاني';
+      status.className = user.is_premium ? 'premium' : 'free';
+      date.textContent = formatDate(user.created_at);
+      row.append(email, status, date);
+      tbody.appendChild(row);
+    });
+
+    setMessage('تم تحميل الإحصائيات بنجاح', 'success');
+  } catch (error) {
+    setMessage(error.message || 'تعذر الاتصال بالسيرفر', 'error');
+  } finally {
+    button.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
