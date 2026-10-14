@@ -169,6 +169,11 @@ html[dir="ltr"] .arrow::before{content:"›"}
 .share:hover{border-color:var(--magenta);color:var(--magenta)}
 .res-head .copy,.res-head .share{white-space:nowrap}
 @media(max-width:720px){.preview-box{padding:18px}.preview-head{display:block}.preview-badge{display:inline-block;margin-top:10px}.preview-results{grid-template-columns:1fr}}
+
+/* Model comparison polish */
+.compare-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:-4px 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(90deg,#fff,#faf7ff)}
+.compare-controls strong{font-size:13px}.compare-presets{display:flex;gap:6px;flex-wrap:wrap}.compare-presets button{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:9px;padding:5px 10px;font:inherit;font-size:12px;font-weight:700}.compare-presets button:hover{border-color:var(--violet);color:var(--violet);background:var(--soft)}
+.results.compare-layout{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.res{position:relative;transition:transform .18s,box-shadow .18s,border-color .18s}.res:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(20,15,43,.1);border-color:#d9c5f5}.res.loading{border-top:3px solid var(--cyan)}.res.done{border-top:3px solid var(--ok)}.res.failed{border-top:3px solid var(--err)}.res-meta{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;margin:-3px 0 10px}.res-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);display:inline-block}.res.done .res-dot{background:var(--ok)}.res.failed .res-dot{background:var(--err)}.model-count{color:var(--muted);font-size:12px}@media(max-width:720px){.results.compare-layout{grid-template-columns:1fr}.compare-controls{align-items:flex-start;flex-direction:column}}
 /* Steps */
 .steps-box{background:var(--card);border-radius:22px;padding:28px;box-shadow:var(--shadow);margin-bottom:40px}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
@@ -360,6 +365,14 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
 
       <div id="modelsBox">
         <div class="models-label" data-i18n="modelsLabel"></div>
+        <div class="compare-controls">
+          <strong data-i18n="compareSelectedLabel"></strong>
+          <span class="model-count" id="modelCount"></span>
+          <div class="compare-presets">
+            <button type="button" id="selectTwoBtn" data-i18n="selectTwo"></button>
+            <button type="button" id="selectThreeBtn" data-i18n="selectThree"></button>
+          </div>
+        </div>
         <div class="chips" id="modelChips" role="group" aria-label="النماذج"></div>
       </div>
 
@@ -367,7 +380,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
       <div data-panel="edit">
         <textarea class="ta" id="editText" data-i18n-ph="editPh"></textarea>
         <button class="btn btn-p run" id="editRun" data-i18n="editRun" style="margin-top:12px"></button>
-        <div class="results" id="editResults" aria-live="polite"></div>
+        <div class="results compare-layout" id="editResults" aria-live="polite"></div>
       </div>
 
       <!-- توليد الصور -->
@@ -402,7 +415,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
         <input class="inp" id="dataQ" data-i18n-ph="dataQPh" maxlength="300">
         <button class="btn btn-p run" id="dataRun" data-i18n="dataRun" style="margin-top:12px"></button>
         <p class="hint" data-i18n="dataNote"></p>
-        <div class="results" id="dataResults" aria-live="polite"></div>
+        <div class="results compare-layout" id="dataResults" aria-live="polite"></div>
       </div>
 
       <!-- تلخيص النصوص -->
@@ -425,7 +438,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px}
           </label>
         </div>
         <button class="btn btn-p run" id="sumRun" data-i18n="sumRun"></button>
-        <div class="results" id="sumResults" aria-live="polite"></div>
+        <div class="results compare-layout" id="sumResults" aria-live="polite"></div>
       </div>
     </div>
   </section>
@@ -547,7 +560,7 @@ const I18N = {
     savedTitle: "نتائجي المحفوظة", savedSub: "رجع للنتائج المهمة أو عاود استعملها.",
     loadSavedBtn: "تحديث", savedEmpty: "مازال ما حفظتي حتى نتيجة.", saveBtn: "حفظ", savedBtn: "تم الحفظ", useSavedBtn: "استعمال", deleteSavedBtn: "حذف", saveError: "تعذّر حفظ النتيجة.",
     welcomeTitle: "مرحبا بك في QueryMix", welcomeText: "شنو بغيتي تنجز اليوم؟ اختار مهمة ونبدأو مباشرة.", welcomeSkip: "تخطي واستكشف الأدوات",
-    modelsLabel: "النماذج — اختر نموذجاً أو أكثر وقارن النتائج جنب بعض",
+    modelsLabel: "النماذج — اختر نموذجاً أو أكثر وقارن النتائج جنب بعض", compareSelectedLabel: "عدد النماذج المختارة", selectTwo: "اختيار جوج", selectThree: "اختيار ثلاثة", responseWorking: "كيجاوب...", responseReady: "جاهز", responseFailed: "ماخدمش", responseTime: (ms) => `${(ms / 1000).toFixed(1)} ث`, 
     previewTitle: "جرب QueryMix بلا تسجيل", previewSub: "كتب سؤال واحد وشوف الجواب ديال جوج نماذج جنباً إلى جنب.", previewBadge: "تجربة مجانية", previewPh: "مثال: شرح الفرق بين الذكاء الاصطناعي والتعلم الآلي في 3 نقاط.", previewModelsLabel: "اختار النماذج", previewRun: "جرب المقارنة", previewHint: "سؤال واحد بلا تسجيل", previewGateText: "عجباتك المقارنة؟ صاوب حساب باش تسول أسئلة أخرى وتحفظ النتائج.", previewSignup: "سجّل مجاناً", shareBtn: "مشاركة", sharedBtn: "تمت المشاركة",
     copyBtn: "نسخ", copiedBtn: "تم النسخ",
     guestLabel: "سجّل الدخول لبدء التجربة المجانية",
@@ -645,7 +658,7 @@ const I18N = {
     savedTitle: "Mes résultats enregistrés", savedSub: "Retrouvez et réutilisez vos meilleurs résultats.",
     loadSavedBtn: "Actualiser", savedEmpty: "Aucun résultat enregistré.", saveBtn: "Enregistrer", savedBtn: "Enregistré", useSavedBtn: "Utiliser", deleteSavedBtn: "Supprimer", saveError: "Impossible d'enregistrer le résultat.",
     welcomeTitle: "Bienvenue sur QueryMix", welcomeText: "Que voulez-vous accomplir aujourd'hui ? Choisissez une tâche pour commencer.", welcomeSkip: "Passer et explorer les outils",
-    modelsLabel: "Modèles — choisissez-en un ou plusieurs et comparez les résultats côte à côte",
+    modelsLabel: "Modèles — choisissez-en un ou plusieurs et comparez les résultats côte à côte", compareSelectedLabel: "Modèles sélectionnés", selectTwo: "Choisir 2", selectThree: "Choisir 3", responseWorking: "Réponse en cours...", responseReady: "Terminé", responseFailed: "Échec", responseTime: (ms) => `${(ms / 1000).toFixed(1)} s`, 
     previewTitle: "Essayez QueryMix sans inscription", previewSub: "Posez une question et comparez deux modèles côte à côte.", previewBadge: "Essai gratuit", previewPh: "Exemple : expliquez la différence entre IA et apprentissage automatique en 3 points.", previewModelsLabel: "Choisissez les modèles", previewRun: "Essayer la comparaison", previewHint: "Une question sans inscription", previewGateText: "Vous aimez la comparaison ? Créez un compte pour poser d’autres questions et enregistrer vos résultats.", previewSignup: "Créer un compte", shareBtn: "Partager", sharedBtn: "Partagé",
     copyBtn: "Copier", copiedBtn: "Copié",
     guestLabel: "Connectez-vous pour démarrer l'essai gratuit",
@@ -743,7 +756,7 @@ const I18N = {
     savedTitle: "My saved results", savedSub: "Return to important results and reuse them.",
     loadSavedBtn: "Refresh", savedEmpty: "No saved results yet.", saveBtn: "Save", savedBtn: "Saved", useSavedBtn: "Use", deleteSavedBtn: "Delete", saveError: "Couldn't save this result.",
     welcomeTitle: "Welcome to QueryMix", welcomeText: "What would you like to accomplish today? Choose a task to get started.", welcomeSkip: "Skip and explore the tools",
-    modelsLabel: "Models — pick one or more and compare results side by side",
+    modelsLabel: "Models — pick one or more and compare results side by side", compareSelectedLabel: "Selected models", selectTwo: "Pick 2", selectThree: "Pick 3", responseWorking: "Responding...", responseReady: "Ready", responseFailed: "Failed", responseTime: (ms) => `${(ms / 1000).toFixed(1)}s`, 
     previewTitle: "Try QueryMix without signing up", previewSub: "Ask one question and compare two models side by side.", previewBadge: "Free preview", previewPh: "Example: explain the difference between AI and machine learning in 3 points.", previewModelsLabel: "Choose models", previewRun: "Try the comparison", previewHint: "One question, no sign-up", previewGateText: "Like the comparison? Create an account to ask more questions and save your results.", previewSignup: "Sign up free", shareBtn: "Share", sharedBtn: "Shared",
     copyBtn: "Copy", copiedBtn: "Copied",
     guestLabel: "Log in to start your free trial",
@@ -1090,10 +1103,22 @@ function renderModelChips() {
       if (selectedModels.has(m.id)) selectedModels.delete(m.id);
       else selectedModels.add(m.id);
       chip.setAttribute("aria-pressed", selectedModels.has(m.id));
+      updateModelCount();
     };
     modelChips.appendChild(chip);
   });
+  updateModelCount();
 }
+function updateModelCount() {
+  const count = $("modelCount");
+  if (count) count.textContent = `${selectedModels.size}/3`;
+}
+function selectModelPreset(amount) {
+  selectedModels = new Set(MODELS.slice(0, Math.min(amount, MODELS.length)).map(m => m.id));
+  renderModelChips();
+}
+$("selectTwoBtn").onclick = () => selectModelPreset(2);
+$("selectThreeBtn").onclick = () => selectModelPreset(3);
 
 // اكتشاف تلقائي حي: القائمة المختارة يدوياً كتبطل بسرعة حيت OpenRouter كيبدّل
 // النماذج المجانية باستمرار (كيحيد قدام وكيزيد جداد). فبدّلنا القائمة الثابتة
@@ -1592,16 +1617,20 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
     share.className = "share hidden";
     share.textContent = t("shareBtn");
     head.append(h, copy, share, save);
+    const meta = document.createElement("div");
+    meta.className = "res-meta";
+    meta.innerHTML = `<span class="res-dot"></span><span>${t("responseWorking")}</span>`;
     const body = document.createElement("div");
     body.className = "body muted";
     body.textContent = t("working");
-    card.append(head, body);
+    card.classList.add("loading");
+    card.append(head, meta, body);
     resultsEl.appendChild(card);
-    cards.set(m.id, { body, copy, share, save });
+    cards.set(m.id, { card, meta, body, copy, share, save, startedAt: performance.now() });
   });
 
   for (const m of activeModels) {
-    const { body, copy, save } = cards.get(m.id);
+    const { card, meta, body, copy, share, save, startedAt } = cards.get(m.id);
     try {
       const res = await fetchWithTimeout(BACKEND_URL + "/api/chat", {
         method: "POST",
@@ -1617,6 +1646,8 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
 
       if (res.status === 429) {
         body.textContent = t("limitReachedShort");
+        card.classList.remove("loading"); card.classList.add("failed");
+        meta.innerHTML = `<span class="res-dot"></span><span>${t("responseFailed")}</span>`;
         limitBanner.textContent = data.error;
         limitBanner.classList.remove("hidden");
         continue;
@@ -1624,9 +1655,13 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
 
       if (data.error) {
         body.textContent = t("errorPrefix") + data.error;
+        card.classList.remove("loading"); card.classList.add("failed");
+        meta.innerHTML = `<span class="res-dot"></span><span>${t("responseFailed")}</span>`;
       } else {
         body.textContent = data.text;
         body.classList.remove("muted");
+        card.classList.remove("loading"); card.classList.add("done");
+        meta.innerHTML = `<span class="res-dot"></span><span>${t("responseReady")} · ${t("responseTime")(performance.now() - startedAt)}</span>`;
         copy.classList.remove("hidden");
         share.classList.remove("hidden");
         addShareButton(share, () => `${m.label}\n\n${data.text}\n\n— QueryMix`);
@@ -1647,6 +1682,8 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
       }
     } catch (err) {
       body.textContent = t("connErrorPrefix") + err.message;
+      card.classList.remove("loading"); card.classList.add("failed");
+      meta.innerHTML = `<span class="res-dot"></span><span>${t("responseFailed")}</span>`;
     }
   }
 
