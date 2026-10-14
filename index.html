@@ -1661,7 +1661,7 @@ async function runOnModels(prompt, resultsEl, btn, noteText) {
         body.textContent = data.text;
         body.classList.remove("muted");
         card.classList.remove("loading"); card.classList.add("done");
-        meta.innerHTML = `<span class="res-dot"></span><span>${t("responseReady")} · ${t("responseTime")(performance.now() - startedAt)}</span>`;
+        meta.innerHTML = `<span class="res-dot"></span><span>${t("responseReady")} · ${t("responseTime", performance.now() - startedAt)}</span>`;
         copy.classList.remove("hidden");
         share.classList.remove("hidden");
         addShareButton(share, () => `${m.label}\n\n${data.text}\n\n— QueryMix`);
