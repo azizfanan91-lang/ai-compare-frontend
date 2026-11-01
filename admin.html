@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>لوحة التحكم - Admin</title>
 <style>
@@ -115,11 +116,18 @@ document.getElementById("loadUsersBtn").onclick = async () => {
     tbody.innerHTML = "";
     data.users.forEach(u => {
       const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${u.email}</td>
-        <td class="${u.is_premium ? 'premium-yes' : 'premium-no'}">${u.is_premium ? 'مشترك' : 'مجاني'}</td>
-        <td>${u.created_at}</td>
-      `;
+
+      const tdEmail = document.createElement("td");
+      tdEmail.textContent = u.email; // textContent بدل innerHTML: ما كيدير parse لأي HTML/script
+
+      const tdStatus = document.createElement("td");
+      tdStatus.className = u.is_premium ? "premium-yes" : "premium-no";
+      tdStatus.textContent = u.is_premium ? "مشترك" : "مجاني";
+
+      const tdDate = document.createElement("td");
+      tdDate.textContent = u.created_at;
+
+      tr.append(tdEmail, tdStatus, tdDate);
       tbody.appendChild(tr);
     });
     document.getElementById("usersTable").style.display = "table";
