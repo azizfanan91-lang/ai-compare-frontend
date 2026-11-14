@@ -1,6 +1,5 @@
+# ملاحظة: ما كنمنعوش admin.html هنا، باش Google يقدر يقرا <meta noindex> ديالو
 User-agent: *
-Disallow: /admin.html
-Disallow: /admin-stats.html
 Allow: /
 
 Sitemap: https://usequerymix.com/sitemap.xml
