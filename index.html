@@ -1,23 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" id="htmlRoot">
 <head>
-<script>
-/* QM-DEBUG: يعرض أي خطأ جافاسكريبت فوق الصفحة (للتشخيص) */
-(function(){
-  function show(m){
-    try{
-      var d=document.getElementById("qmErr");
-      if(!d){d=document.createElement("div");d.id="qmErr";
-        d.style.cssText="position:fixed;z-index:99999;top:0;left:0;right:0;background:#b00020;color:#fff;font:12px/1.4 monospace;padding:8px 10px;direction:ltr;white-space:pre-wrap;max-height:40vh;overflow:auto";
-        (document.body||document.documentElement).appendChild(d);}
-      d.textContent+=m+"\n";
-    }catch(e){}
-  }
-  window.addEventListener("error",function(e){show("ERR: "+(e.message||"")+" @"+(e.lineno||"?")+":"+(e.colno||"?"));});
-  window.addEventListener("unhandledrejection",function(e){show("PROMISE: "+(e.reason&&e.reason.message||e.reason));});
-})();
-</script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="hT2FDh9OExjZR-fDaO2KDz0Flq1Nl5_4GmiH-NgwvW0" />
@@ -380,7 +363,6 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
         <button class="tab" role="tab" data-tool="image" data-i18n="tImgT"></button>
         <button class="tab" role="tab" data-tool="data" data-i18n="tDataT"></button>
         <button class="tab" role="tab" data-tool="summary" data-i18n="tSumT"></button>
-        <button class="tab" role="tab" data-tool="agents" data-i18n="tAgentT"></button>
       </div>
 
       <div id="modelsBox">
@@ -459,19 +441,6 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
         </div>
         <button class="btn btn-p run" id="sumRun" data-i18n="sumRun"></button>
         <div class="results compare-layout" id="sumResults" aria-live="polite"></div>
-      </div>
-
-      <!-- الوكلاء الجاهزون -->
-      <div data-panel="agents" class="hidden">
-        <div class="opts">
-          <label class="opt"><span data-i18n="agentLabel"></span>
-            <select class="sel" id="agentSel"></select>
-          </label>
-        </div>
-        <p class="hint" id="agentDesc"></p>
-        <textarea class="ta" id="agentText" data-i18n-ph="agentPh" maxlength="20000" style="margin-top:12px"></textarea>
-        <button class="btn btn-p run" id="agentRun" data-i18n="agentRun"></button>
-        <div class="results compare-layout" id="agentResults" aria-live="polite"></div>
       </div>
     </div>
   </section>
@@ -619,9 +588,6 @@ const I18N = {
     sumLen: "الطول", lenShort: "قصير", lenMedium: "متوسط", lenLong: "مفصّل",
     sumFmt: "الشكل", fmtPara: "فقرة", fmtBullets: "نقاط",
     sumRun: "لخّص النص",
-    tAgentT: "وكلاء ذكيون", tAgentD: "اختر وكيلاً متخصصاً (مترجم، كاتب، مبرمج...) وقارن إجابات النماذج.",
-    agentLabel: "الوكيل", agentPh: "اكتب طلبك للوكيل هنا...", agentRun: "اسأل الوكيل",
-    emptyAgentAlert: "اكتب طلبك أولاً",
     emptyTextAlert: "الصق النص أولاً",
     fileTooBig: "الملف كبير جداً (الحد 500 كيلوبايت)",
     fileReadErr: "تعذّرت قراءة الملف", pdfNoText: "هذا الـPDF ما فيهش نص قابل للاستخراج. جرّب ملفاً آخر.",
@@ -721,9 +687,6 @@ const I18N = {
     sumLen: "Longueur", lenShort: "Court", lenMedium: "Moyen", lenLong: "Détaillé",
     sumFmt: "Format", fmtPara: "Paragraphe", fmtBullets: "Puces",
     sumRun: "Résumer le texte",
-    tAgentT: "Agents IA", tAgentD: "Choisissez un agent spécialisé (traducteur, rédacteur, développeur...) et comparez les réponses.",
-    agentLabel: "Agent", agentPh: "Écrivez votre demande à l'agent ici...", agentRun: "Demander à l'agent",
-    emptyAgentAlert: "Écrivez d'abord votre demande",
     emptyTextAlert: "Collez d'abord un texte",
     fileTooBig: "Fichier trop volumineux (limite 500 Ko)",
     fileReadErr: "Impossible de lire le fichier", pdfNoText: "Ce PDF ne contient pas de texte extractible. Essayez un autre fichier.",
@@ -823,9 +786,6 @@ const I18N = {
     sumLen: "Length", lenShort: "Short", lenMedium: "Medium", lenLong: "Detailed",
     sumFmt: "Format", fmtPara: "Paragraph", fmtBullets: "Bullet points",
     sumRun: "Summarize text",
-    tAgentT: "AI agents", tAgentD: "Pick a specialist agent (translator, writer, coder...) and compare the models' answers.",
-    agentLabel: "Agent", agentPh: "Write your request to the agent here...", agentRun: "Ask the agent",
-    emptyAgentAlert: "Write your request first",
     emptyTextAlert: "Paste some text first",
     fileTooBig: "File is too large (500 KB limit)",
     fileReadErr: "Couldn't read the file", pdfNoText: "This PDF has no extractable text. Try another file.",
@@ -901,44 +861,6 @@ function t(key, ...args) {
   return typeof val === "function" ? val(...args) : val;
 }
 
-// ---------- وكلاء جاهزون: تعليمات مخصصة تتبعت مع كل طلب ----------
-const AGENTS = [
-  { id: "translator", n: { ar: "مترجم محترف", fr: "Traducteur pro", en: "Pro translator" },
-    d: { ar: "يترجم النص مع الحفاظ على المعنى والأسلوب. اذكر اللغة المطلوبة في طلبك.", fr: "Traduit en gardant le sens et le style. Indiquez la langue cible.", en: "Translates while keeping meaning and tone. State the target language." },
-    i: "You are a professional translator. Translate the user's text into the language they ask for (if none is specified, translate Arabic or French to English, and anything else to Arabic). Preserve meaning, tone and formatting. Output only the translation, then at most one short note if a phrase is ambiguous." },
-  { id: "writer", n: { ar: "كاتب محتوى", fr: "Rédacteur", en: "Content writer" },
-    d: { ar: "يكتب مقالات ومنشورات وإيميلات واضحة وجذابة.", fr: "Rédige articles, posts et emails clairs et engageants.", en: "Writes clear, engaging articles, posts and emails." },
-    i: "You are an experienced content writer. Write clear, engaging, well-structured text that fits the requested purpose and audience. If key details are missing, make reasonable assumptions and state them in one line at the end." },
-  { id: "coder", n: { ar: "مبرمج مساعد", fr: "Assistant développeur", en: "Coding assistant" },
-    d: { ar: "يكتب ويشرح ويصلح الكود. أرسل الكود أو الخطأ مع اللغة المستعملة.", fr: "Écrit, explique et corrige du code. Envoyez le code ou l'erreur.", en: "Writes, explains and debugs code. Send the code or error." },
-    i: "You are a senior software engineer. Give correct, minimal, working code in fenced code blocks, then a brief explanation. When debugging, identify the root cause first. Never invent APIs; say so if unsure." },
-  { id: "tutor", n: { ar: "معلم شخصي", fr: "Tuteur personnel", en: "Personal tutor" },
-    d: { ar: "يشرح أي موضوع بخطوات بسيطة وأمثلة.", fr: "Explique tout sujet pas à pas avec des exemples.", en: "Explains any topic step by step with examples." },
-    i: "You are a patient tutor. Explain the topic simply, step by step, with one or two concrete examples, then end with a short question that checks understanding. Adapt the level to the user's wording." },
-  { id: "marketer", n: { ar: "خبير تسويق", fr: "Expert marketing", en: "Marketing expert" },
-    d: { ar: "يقترح أفكار إعلانات وعناوين وخطط محتوى لمشروعك.", fr: "Propose idées de pubs, titres et plans de contenu.", en: "Suggests ad ideas, headlines and content plans." },
-    i: "You are a practical digital-marketing consultant. Give concrete, actionable ideas (headlines, hooks, channels, a simple plan) tailored to the user's product and audience. Be concise and avoid generic advice." },
-  { id: "career", n: { ar: "مستشار مهني", fr: "Conseiller carrière", en: "Career advisor" },
-    d: { ar: "يساعدك فـ السيرة الذاتية ورسائل التحفيز ومقابلات العمل.", fr: "Aide pour CV, lettres de motivation et entretiens.", en: "Helps with CVs, cover letters and interviews." },
-    i: "You are a career advisor and recruiter. Help with CVs, cover letters and interview preparation. Be specific, honest and professional, and never invent experience or qualifications the user did not mention." }
-];
-
-function renderAgents() {
-  const sel = $("agentSel");
-  if (!sel) return;
-  const cur = sel.value || AGENTS[0].id;
-  sel.innerHTML = "";
-  AGENTS.forEach(a => {
-    const o = document.createElement("option");
-    o.value = a.id;
-    o.textContent = a.n[currentLang] || a.n.en;
-    sel.appendChild(o);
-  });
-  sel.value = cur;
-  const a = AGENTS.find(x => x.id === sel.value) || AGENTS[0];
-  $("agentDesc").textContent = a.d[currentLang] || a.d.en;
-}
-
 function setLanguage(lang) {
   if (!I18N[lang]) return;
   currentLang = lang;
@@ -956,7 +878,6 @@ function setLanguage(lang) {
     el.placeholder = txt;
     el.setAttribute("aria-label", txt);
   });
-  renderAgents();
   $("authEmail").placeholder = t("emailPlaceholder");
   $("authEmail").setAttribute("aria-label", t("emailPlaceholder"));
   $("authPassword").placeholder = t("passwordPlaceholder");
@@ -1817,18 +1738,6 @@ $("sumRun").onclick = () => {
   runOnModels(prompt, $("sumResults"), $("sumRun"), cut ? t("truncated") : "");
 };
 
-// ---------- الوكلاء ----------
-$("agentSel").onchange = renderAgents;
-$("agentRun").onclick = () => {
-  if (!guard(true)) return;
-  const raw = $("agentText").value.trim();
-  if (!raw) { alert(t("emptyAgentAlert")); return; }
-  const a = AGENTS.find(x => x.id === $("agentSel").value) || AGENTS[0];
-  const { text, cut } = clip(raw, MAX_TEXT_CHARS);
-  const prompt = `${a.i}\nUnless the user asks otherwise, reply in the same language as the user's request.\n\nUser request:\n"""\n${text}\n"""`;
-  runOnModels(prompt, $("agentResults"), $("agentRun"), cut ? t("truncated") : "");
-};
-
 // ---------- Tool 3: تحليل البيانات ----------
 function describeData(text) {
   const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
@@ -1857,4 +1766,182 @@ Data:
 """
 ${text}
 """`;
-  runOnModels(prompt, 
+  runOnModels(prompt, $("dataResults"), $("dataRun"), cut ? t("truncated") : "");
+};
+
+// ---------- Tool 4: توليد الصور (عدة نماذج، عبر السيرفر) ----------
+// المفتاح السري لخدمة الصور يبقى فـ السيرفر (Render) ولا يظهر أبداً فـ المتصفح.
+// ---------- Tool 4: توليد الصور (عبر السيرفر، نماذج بعدة مزودين مع fallback تلقائي) ----------
+const IMG_STYLES = {
+  none: "",
+  real: "photorealistic, high detail, natural lighting",
+  digital: "digital illustration, vibrant colors, detailed",
+  anime: "anime style, clean lines, expressive",
+  "3d": "3D render, soft lighting, high quality",
+  water: "watercolor painting, soft textures"
+};
+const MAX_IMG_MODELS = 3;
+// تُستعمل فقط إذا تعذّر الوصول لـ /api/images/models فـ السيرفر، باش الأداة تبقى خدامة
+const FALLBACK_IMAGE_MODELS = [
+  { id: "flux", label: "FLUX.1 Schnell" },
+  { id: "sdxl", label: "Stable Diffusion XL" },
+  { id: "dreamshaper", label: "DreamShaper" },
+  { id: "pollinations-flux", label: "Flux (Free)" },
+  { id: "zimage", label: "Z-Image Turbo" },
+  { id: "sana", label: "Sana" },
+  { id: "flux-klein", label: "FLUX Klein" },
+  { id: "sdxl-lightning", label: "SDXL Lightning" }
+];
+let IMAGE_MODELS = [];
+let selectedImgModels = new Set();
+
+function renderImgChips() {
+  const box = $("imgModelChips");
+  box.innerHTML = "";
+  IMAGE_MODELS.forEach(m => {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "chip";
+    chip.textContent = m.label || m.id;
+    chip.setAttribute("aria-pressed", selectedImgModels.has(m.id));
+    chip.onclick = () => {
+      if (selectedImgModels.has(m.id)) selectedImgModels.delete(m.id);
+      else if (selectedImgModels.size < MAX_IMG_MODELS) selectedImgModels.add(m.id);
+      else return;
+      chip.setAttribute("aria-pressed", selectedImgModels.has(m.id));
+    };
+    box.appendChild(chip);
+  });
+}
+
+async function loadImageModels() {
+  try {
+    const res = await fetch(BACKEND_URL + "/api/images/models");
+    if (!res.ok) throw new Error("no image service");
+    const data = await res.json();
+    IMAGE_MODELS = (data.models || [])
+      .filter(m => m && m.key)
+      .map(m => ({ id: m.key, label: m.name || m.key }));
+    if (!IMAGE_MODELS.length) throw new Error("empty");
+  } catch (e) {
+    // السيرفر ما عندوش هاد المسار بعد (أو تعطل)، نستعملو قائمة احتياطية باش الأداة تخدم
+    IMAGE_MODELS = FALLBACK_IMAGE_MODELS;
+  }
+  selectedImgModels = new Set(IMAGE_MODELS.slice(0, 2).map(m => m.id));
+  renderImgChips();
+}
+
+let lastImgUsage = null;
+
+function renderImgUsage(d) {
+  lastImgUsage = d;
+  const pill = $("imgUsagePill");
+  if (!token) { pill.textContent = t("guestLabel"); return; }
+  if (!d) { pill.textContent = "..."; return; }
+  pill.textContent = t("imgRemainingLabel", d.remaining, d.limit);
+}
+
+async function refreshImageUsage() {
+  if (!token) { renderImgUsage(null); return; }
+  try {
+    const res = await fetch(BACKEND_URL + "/api/images/usage", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    if (res.status === 401) { renderImgUsage(null); return; }
+    const data = await res.json();
+    renderImgUsage(data);
+  } catch (e) { /* صامت */ }
+}
+
+$("imgRun").onclick = async () => {
+  if (!guard(false)) return;
+  const p = $("imgPrompt").value.trim();
+  if (!p) { alert(t("emptyImgAlert")); return; }
+  const models = IMAGE_MODELS.filter(m => selectedImgModels.has(m.id));
+  if (models.length === 0) { alert(t("noModelAlert")); return; }
+
+  const style = IMG_STYLES[$("imgStyleSel").value] || "";
+  const full = style ? `${p}, ${style}` : p;
+
+  const out = $("imgResults");
+  out.innerHTML = "";
+
+  const btn = $("imgRun");
+  running = true;
+  syncButtons();
+  btn.textContent = t("runningBtn");
+
+  const cards = new Map();
+  models.forEach(m => {
+    const card = document.createElement("div");
+    card.className = "res";
+    const head = document.createElement("div");
+    head.className = "res-head";
+    const title = document.createElement("h4");
+    title.textContent = m.label || m.id;
+    const save = document.createElement("button");
+    save.type = "button";
+    save.className = "copy hidden";
+    save.textContent = t("imgSave");
+    head.append(title, save);
+    const body = document.createElement("div");
+    body.className = "body ph muted";
+    body.textContent = t("imgLoading");
+    card.append(head, body);
+    out.appendChild(card);
+    cards.set(m.id, { body, save });
+  });
+
+  let lastUsage = null;
+  for (const m of models) {
+    const { body, save } = cards.get(m.id);
+    try {
+      const res = await fetchWithTimeout(BACKEND_URL + "/api/images/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+        body: JSON.stringify({ model: m.id, prompt: full })
+      }, 90000);
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.status === 401) { sessionExpired(); break; }
+      if (!res.ok) throw new Error(data.error || t("imgError"));
+      if (!data.image) throw new Error(t("imgError"));
+
+      const img = document.createElement("img");
+      img.src = data.image;
+      img.alt = p;
+      body.className = "body";
+      body.replaceChildren(img);
+      save.classList.remove("hidden");
+      save.onclick = () => {
+        const a = document.createElement("a");
+        a.href = data.image;
+        a.download = `querymix-${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      };
+      if (typeof data.remaining === "number") lastUsage = { remaining: data.remaining };
+    } catch (err) {
+      body.className = "body ph bad";
+      body.textContent = err.message || t("imgError");
+    }
+  }
+
+  running = false;
+  btn.textContent = t("imgRun");
+  syncButtons();
+  if (lastUsage) refreshImageUsage();
+};
+
+
+// ---------- Init ----------
+setTool("edit");
+setLanguage("ar");
+loadFreeModels();
+loadImageModels();
+refreshImageUsage();
+</script>
+</body>
+</html>
