@@ -388,6 +388,7 @@ function renderAgents() {
 function setLanguage(lang) {
   if (!I18N[lang]) return;
   currentLang = lang;
+  try { localStorage.setItem("qm_lang", lang); } catch (e) {}
   const root = $("htmlRoot");
   root.lang = lang;
   root.dir = lang === "ar" ? "rtl" : "ltr";
@@ -1475,7 +1476,18 @@ $("imgRun").onclick = async () => {
 
 // ---------- Init ----------
 setTool("edit");
-setLanguage("ar");
+(function () {
+  let initial = "ar";
+  try {
+    const saved = localStorage.getItem("qm_lang");
+    if (saved && I18N[saved]) initial = saved;
+    else {
+      const n = (navigator.language || "").slice(0, 2);
+      if (n === "fr" || n === "en") initial = n;
+    }
+  } catch (e) {}
+  setLanguage(initial);
+})();
 loadFreeModels();
 loadImageModels();
 refreshImageUsage();
