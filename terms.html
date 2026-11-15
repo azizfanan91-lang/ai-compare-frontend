@@ -10,10 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f7f5fa; --card:#ffffff; --ink:#1c0b33; --muted:#5b5370; --line:#d9d4e0;
-  --violet:#4B0082; --magenta:#D4AF37; --silver:#C0C0C0;
-  --brand:linear-gradient(120deg,#4B0082 0%,#D4AF37 100%);
-  --shadow:0 10px 30px rgba(75,0,130,.14);
+  --bg:#f5f3fc; --card:#ffffff; --ink:#1a1038; --muted:#554d78; --line:#d8d3ea;
+  --violet:#4A2490; --magenta:#E2AE62; --silver:#4FB8EE;
+  --brand:linear-gradient(120deg,#4A2490 0%,#4FB8EE 55%,#E2AE62 100%);
+  --shadow:0 10px 30px rgba(74,36,144,.14);
   --display:"Cairo","IBM Plex Sans Arabic",Tahoma,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -36,13 +36,16 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
 <div class="wrap">
   <a class="back" href="/">‹ رجوع للرئيسية</a>
   <h1>شروط الاستخدام</h1>
-  <p class="updated">آخر تحديث: 24 أكتوبر 2026</p>
+  <p class="updated">آخر تحديث: 15 نونبر 2026</p>
 
   <div class="card">
     <p>بوصولك لـQueryMix (usequerymix.com) أو استعمالك ليه، كتوافق على الشروط هادو. إلا ماكنتيش موافق، ما تستعملش الموقع.</p>
 
     <h2>1. وصف الخدمة</h2>
-    <p>QueryMix منصة كتوفر أدوات ذكاء اصطناعي (مقارنة نماذج، توليد صور، تحليل بيانات، تلخيص مستندات) عبر الاتصال بخدمات طرف ثالث (OpenRouter، Cloudflare، Pollinations). الموقع كيدور كوسيط، وماشي هو اللي كيولّد الإجابات أو الصور بنفسو.</p>
+    <p>QueryMix منصة كتوفر أدوات ذكاء اصطناعي (مقارنة نماذج، توليد صور، تحليل بيانات، تلخيص مستندات) عبر الاتصال بخدمات طرف ثالث (OpenRouter، Groq، Cloudflare، Pollinations). الموقع كيدور كوسيط، وماشي هو اللي كيولّد الإجابات أو الصور بنفسو.</p>
+
+    <h2>1.1 الأهلية</h2>
+    <p>خاصك يكون عمرك 18 سنة ولا أكثر، وتعطي إيميل صحيح، وتحافظ على سرية كلمة السر ديالك. أنت المسؤول على كل شي كيتدار بحسابك.</p>
 
     <h2>2. التجربة المجانية والاشتراك</h2>
     <ul>
@@ -54,7 +57,8 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
     <h2>3. الإلغاء والاسترجاع</h2>
     <ul>
       <li>تقدر تلغي الاشتراك فأي وقت من لوحة التحكم ديالك فـGumroad.</li>
-      <li>الإلغاء كيوقف التجديد التلقائي، لكن ما كيرجعش الفلوس ديال المدة اللي خلصتيها.</li>
+      <li>الإلغاء كيوقف التجديد التلقائي، وكتبقى كتستافد من Premium حتى لنهاية المدة اللي خلصتيها، وما كيرجعش الفلوس ديال المدة اللي دازت.</li>
+      <li>الدفع والفواتير كتتعالج من طرف Gumroad، وماشي من عندنا.</li>
       <li>إلا كان عندك مشكل فالدفع ولا خصم غلط، راسلنا فـ48 ساعة من الدفع ونشوفو الحل.</li>
     </ul>
 
@@ -68,6 +72,9 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
     </ul>
     <p>عندنا الحق نوقف أي حساب كيخالف هاد الشروط بلا استرجاع.</p>
 
+    <h2>4.1 الحساب</h2>
+    <p>الحساب شخصي. ممنوع تبيعو ولا تشاركو مع ناس آخرين، ولا تستعمل الخدمة باش تعاود تبيعها.</p>
+
     <h2>5. إخلاء المسؤولية على المحتوى</h2>
     <div class="note">
       النماذج والصور اللي كتولد عبر QueryMix كتجي من ذكاء اصطناعي، وممكن تكون غالطة، ناقصة، ولا غير دقيقة. ما تعتمدش عليها بشكل كامل فقرارات مهمة (طبية، قانونية، مالية) بلا تحقق إضافي.
@@ -76,14 +83,19 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
     <h2>6. الملكية والمحتوى اللي كتولده</h2>
     <p>المحتوى اللي كتولد (نصوص، صور) ملك ليك باش تستعملو، لكن QueryMix ما كيضمنش أنو خالي من حقوق الملكية ديال طرف ثالث (خاصة الصور).</p>
 
-    <h2>7. تغيير الخدمة</h2>
+    <h2>7. حدود المسؤولية</h2>
+    <p>الخدمة كتتقدم "كما هي" وبدون ضمانات. ما كنضمنوش أنها تخدم بلا انقطاع، وما كنتحملوش مسؤولية على أي خسارة ناتجة على استعمال النتائج ولا على توقف الخدمة، فالحدود اللي كيسمح بها القانون.</p>
+
+    <h2>8. تغيير الخدمة</h2>
     <p>عندنا الحق نبدلو، نوقفو، ولا نعدلو أي جزء من الخدمة فأي وقت، بما فيه النماذج المتاحة والحدود.</p>
 
-    <h2>8. تواصل معانا</h2>
+    <h2>9. تواصل معانا</h2>
+    <p>الشروط ممكن تتحدث، وتاريخ آخر تحديث كيبان فالأعلى. استمرارك فالاستعمال من بعد التحديث كيعني موافقتك.</p>
     <p>لأي سؤال على هاد الشروط: <a href="mailto:support@usequerymix.com">support@usequerymix.com</a></p>
   </div>
 
   <footer>© 2026 QueryMix — usequerymix.com</footer>
 </div>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "458d2ed95f9a41f2aa0a43feeb40d1b5"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
