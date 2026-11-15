@@ -29,15 +29,17 @@ ul{padding-inline-start:22px;margin:8px 0}
 li{margin-bottom:6px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 28px;box-shadow:var(--shadow)}
 .note{background:var(--bg);border:1px dashed var(--magenta);border-radius:12px;padding:12px 16px;font-size:14.5px;margin:12px 0}
+.langbar{display:flex;gap:6px;justify-content:flex-end;margin-bottom:10px}.langbar button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:5px 14px;font:inherit;font-weight:700;color:var(--ink);cursor:pointer}.langbar button[aria-pressed="true"]{background:var(--violet);color:#fff;border-color:var(--violet)}.lang-block[hidden]{display:none}
 footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
 </style>
 </head>
 <body>
 <div class="wrap">
+<div class="langbar"><button data-lang="ar">ع</button><button data-lang="fr">FR</button><button data-lang="en">EN</button></div>
+<div class="lang-block" data-lang-block="ar" hidden>
   <a class="back" href="/">‹ رجوع للرئيسية</a>
   <h1>شروط الاستخدام</h1>
   <p class="updated">آخر تحديث: 15 نونبر 2026</p>
-
   <div class="card">
     <p>بوصولك لـQueryMix (usequerymix.com) أو استعمالك ليه، كتوافق على الشروط هادو. إلا ماكنتيش موافق، ما تستعملش الموقع.</p>
 
@@ -92,10 +94,120 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
     <h2>9. تواصل معانا</h2>
     <p>الشروط ممكن تتحدث، وتاريخ آخر تحديث كيبان فالأعلى. استمرارك فالاستعمال من بعد التحديث كيعني موافقتك.</p>
     <p>لأي سؤال على هاد الشروط: <a href="mailto:support@usequerymix.com">support@usequerymix.com</a></p>
+  
   </div>
+</div>
+<div class="lang-block" data-lang-block="fr" hidden>
+  <a class="back" href="/">‹ Retour à l'accueil</a>
+  <h1>Conditions d'utilisation</h1>
+  <p class="updated">Dernière mise à jour : 15 novembre 2026</p>
+  <div class="card">
+    <p>En accédant à QueryMix (usequerymix.com) ou en l'utilisant, vous acceptez ces conditions. Si vous n'êtes pas d'accord, n'utilisez pas le site.</p>
+    <h2>1. Description du service</h2>
+    <p>QueryMix propose des outils d'IA (comparaison de modèles, génération d'images, analyse de données, résumé de documents) via des services tiers (OpenRouter, Groq, Cloudflare, Pollinations). Le site agit comme intermédiaire ; ce n'est pas lui qui génère les réponses ou les images.</p>
+    <h2>1.1 Éligibilité</h2>
+    <p>Vous devez avoir 18 ans ou plus, fournir une adresse e-mail valide et garder votre mot de passe confidentiel. Vous êtes responsable de tout ce qui est fait avec votre compte.</p>
+    <h2>2. Essai gratuit et abonnement</h2>
+    <ul>
+      <li>Chaque nouveau compte bénéficie d'un essai gratuit de 7 jours à compter de l'inscription.</li>
+      <li>Après l'essai, l'usage continu nécessite un abonnement mensuel payant via Gumroad.</li>
+      <li>Les prix et les limites (nombre d'images/discussions par jour) peuvent changer ; tout changement sera indiqué sur la page d'accueil ou par e-mail.</li>
+    </ul>
+    <h2>3. Annulation et remboursement</h2>
+    <ul>
+      <li>Vous pouvez annuler votre abonnement à tout moment depuis votre espace Gumroad.</li>
+      <li>L'annulation arrête le renouvellement automatique ; vous gardez Premium jusqu'à la fin de la période payée, et la période écoulée n'est pas remboursée.</li>
+      <li>Le paiement et la facturation sont gérés par Gumroad, pas par nous.</li>
+      <li>En cas de problème de paiement ou de prélèvement erroné, écrivez-nous dans les 48 heures suivant le paiement et nous chercherons une solution.</li>
+    </ul>
+    <h2>4. Utilisation acceptable</h2>
+    <p>Il est interdit d'utiliser QueryMix pour :</p>
+    <ul>
+      <li>générer du contenu qui exploite ou nuit à des mineurs ;</li>
+      <li>générer du contenu pornographique ou extrêmement violent ;</li>
+      <li>attaquer ou abuser du service (bots, consommation excessive, contournement technique des limites) ;</li>
+      <li>tout usage illégal.</li>
+    </ul>
+    <p>Nous pouvons suspendre tout compte qui enfreint ces conditions, sans remboursement.</p>
+    <h2>4.1 Compte</h2>
+    <p>Le compte est personnel. Il est interdit de le vendre ou de le partager, ou d'utiliser le service pour le revendre.</p>
+    <h2>5. Avertissement sur le contenu</h2>
+    <div class="note">Les textes et images générés via QueryMix proviennent d'une intelligence artificielle et peuvent être erronés, incomplets ou inexacts. Ne vous y fiez pas entièrement pour des décisions importantes (médicales, juridiques, financières) sans vérification supplémentaire.</div>
+    <h2>6. Propriété et contenu généré</h2>
+    <p>Le contenu que vous générez (textes, images) vous appartient pour l'utiliser, mais QueryMix ne garantit pas qu'il soit exempt de droits de tiers (surtout les images).</p>
+    <h2>7. Limitation de responsabilité</h2>
+    <p>Le service est fourni « tel quel », sans garantie. Nous ne garantissons pas un fonctionnement sans interruption et déclinons toute responsabilité pour toute perte résultant de l'utilisation des résultats ou d'une interruption du service, dans les limites permises par la loi.</p>
+    <h2>8. Modification du service</h2>
+    <p>Nous pouvons modifier, suspendre ou ajuster toute partie du service à tout moment, y compris les modèles disponibles et les limites.</p>
+    <h2>9. Nous contacter</h2>
+    <p>Ces conditions peuvent être mises à jour ; la date de dernière mise à jour figure en haut. Continuer à utiliser le service après une mise à jour vaut acceptation.</p>
+    <p>Pour toute question : <a href="mailto:support@usequerymix.com">support@usequerymix.com</a></p>
+  </div>
+</div>
+<div class="lang-block" data-lang-block="en" hidden>
+  <a class="back" href="/">‹ Back to home</a>
+  <h1>Terms of Use</h1>
+  <p class="updated">Last updated: November 15, 2026</p>
+  <div class="card">
+    <p>By accessing or using QueryMix (usequerymix.com) you agree to these terms. If you do not agree, do not use the site.</p>
+    <h2>1. The service</h2>
+    <p>QueryMix provides AI tools (model comparison, image generation, data analysis, document summaries) by connecting to third-party services (OpenRouter, Groq, Cloudflare, Pollinations). The site acts as an intermediary; it does not generate the answers or images itself.</p>
+    <h2>1.1 Eligibility</h2>
+    <p>You must be 18 or older, provide a valid email, and keep your password confidential. You are responsible for everything done with your account.</p>
+    <h2>2. Free trial and subscription</h2>
+    <ul>
+      <li>Every new account gets a 7-day free trial from the sign-up date.</li>
+      <li>After the trial, continued use requires a paid monthly subscription through Gumroad.</li>
+      <li>Prices and limits (images/chats per day) may change; we will announce any change on the home page or by email.</li>
+    </ul>
+    <h2>3. Cancellation and refunds</h2>
+    <ul>
+      <li>You can cancel your subscription at any time from your Gumroad account.</li>
+      <li>Cancelling stops automatic renewal; you keep Premium until the end of the period you paid for, and the elapsed period is not refunded.</li>
+      <li>Payment and invoicing are handled by Gumroad, not by us.</li>
+      <li>If you have a payment problem or a wrong charge, contact us within 48 hours of payment and we will look for a solution.</li>
+    </ul>
+    <h2>4. Acceptable use</h2>
+    <p>You may not use QueryMix to:</p>
+    <ul>
+      <li>generate content that exploits or harms minors;</li>
+      <li>generate pornographic or extremely violent content;</li>
+      <li>attack or abuse the service (bots, excessive use, technically bypassing limits);</li>
+      <li>do anything illegal.</li>
+    </ul>
+    <p>We may suspend any account that violates these terms, without refund.</p>
+    <h2>4.1 Account</h2>
+    <p>The account is personal. You may not sell or share it, or use the service to resell it.</p>
+    <h2>5. Content disclaimer</h2>
+    <div class="note">Text and images generated through QueryMix come from artificial intelligence and may be wrong, incomplete or inaccurate. Do not rely on them fully for important decisions (medical, legal, financial) without additional verification.</div>
+    <h2>6. Ownership and generated content</h2>
+    <p>The content you generate (text, images) is yours to use, but QueryMix does not guarantee it is free of third-party rights (especially images).</p>
+    <h2>7. Limitation of liability</h2>
+    <p>The service is provided "as is", without warranties. We do not guarantee uninterrupted operation and are not liable for any loss resulting from use of the results or from service interruption, to the extent permitted by law.</p>
+    <h2>8. Changes to the service</h2>
+    <p>We may change, suspend or modify any part of the service at any time, including available models and limits.</p>
+    <h2>9. Contact us</h2>
+    <p>These terms may be updated; the last-updated date appears at the top. Continuing to use the service after an update means you accept it.</p>
+    <p>For any question: <a href="mailto:support@usequerymix.com">support@usequerymix.com</a></p>
+  </div>
+</div>
 
   <footer>© 2026 QueryMix — usequerymix.com</footer>
 </div>
+<script>
+(function(){
+  var L=["ar","fr","en"],lang="ar";
+  try{var s=localStorage.getItem("qm_lang");if(L.indexOf(s)>-1)lang=s;else if(navigator.language){var n=navigator.language.slice(0,2);if(n==="fr"||n==="en")lang=n;}}catch(e){}
+  function apply(l){
+    lang=l;var r=document.documentElement;r.lang=l;r.dir=l==="ar"?"rtl":"ltr";
+    document.querySelectorAll(".lang-block").forEach(function(b){b.hidden=b.dataset.langBlock!==l;});
+    document.querySelectorAll(".langbar button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.lang===l?"true":"false");});
+    try{localStorage.setItem("qm_lang",l);}catch(e){}
+  }
+  document.querySelectorAll(".langbar button").forEach(function(b){b.onclick=function(){apply(b.dataset.lang);};});
+  apply(lang);
+})();
+</script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "458d2ed95f9a41f2aa0a43feeb40d1b5"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
