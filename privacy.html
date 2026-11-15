@@ -10,10 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f7f5fa; --card:#ffffff; --ink:#1c0b33; --muted:#5b5370; --line:#d9d4e0;
-  --violet:#4B0082; --magenta:#D4AF37; --silver:#C0C0C0;
-  --brand:linear-gradient(120deg,#4B0082 0%,#D4AF37 100%);
-  --shadow:0 10px 30px rgba(75,0,130,.14);
+  --bg:#f5f3fc; --card:#ffffff; --ink:#1a1038; --muted:#554d78; --line:#d8d3ea;
+  --violet:#4A2490; --magenta:#E2AE62; --silver:#4FB8EE;
+  --brand:linear-gradient(120deg,#4A2490 0%,#4FB8EE 55%,#E2AE62 100%);
+  --shadow:0 10px 30px rgba(74,36,144,.14);
   --display:"Cairo","IBM Plex Sans Arabic",Tahoma,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,7 +38,7 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
 <div class="wrap">
   <a class="back" href="/">‹ رجوع للرئيسية</a>
   <h1>سياسة الخصوصية</h1>
-  <p class="updated">آخر تحديث: 24 أكتوبر 2026</p>
+  <p class="updated">آخر تحديث: 15 نونبر 2026</p>
 
   <div class="card">
     <p>QueryMix (usequerymix.com) منصة أدوات ذكاء اصطناعي. هاد الصفحة كتوضح شنو المعلومات اللي كنجمعو منك، علاش، وفين كتمشي.</p>
@@ -46,7 +46,11 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
     <h2>1. المعلومات اللي كنجمعوها</h2>
     <ul>
       <li><strong>معلومات الحساب:</strong> الإيميل وكلمة السر (مخزنة بشكل مشفّر، ماشي نص صريح).</li>
-      <li><strong>الاستخدام:</strong> عدد المحادثات والصور اللي درتي فكل يوم (باش نطبقو حدود التجربة/الاشتراك)، بلا تخزين محتوى الأسئلة نفسها بشكل دائم.</li>
+      <li><strong>الاستخدام:</strong> عدد المحادثات والصور اللي درتي فكل يوم (باش نطبقو حدود التجربة/الاشتراك). الأسئلة والأجوبة العادية ما كنخزنوهاش عندنا.</li>
+      <li><strong>النتائج المحفوظة:</strong> إلا ضغطتي على زر الحفظ، كنخزنو النص أو الصورة ديال النتيجة (مع العنوان والنموذج) فحسابك باش ترجع ليها. تقدر تمسحها فأي وقت من قسم "نتائجي المحفوظة".</li>
+      <li><strong>حالة الاشتراك:</strong> من Gumroad كنتوصلو بإشعار فيه الإيميل ديال الشراء وحالة الاشتراك (نشط/ملغى) غير باش نفعّلو ولا نوقفو Premium.</li>
+      <li><strong>إحصائيات الزيارات:</strong> كنستعملو Cloudflare Web Analytics لعدد الزيارات والصفحات الأكثر مشاهدة. هاد الأداة ما كتستعملش cookies وما كتتبعش الأشخاص بشكل فردي.</li>
+      <li><strong>معلومات تقنية:</strong> عنوان IP كيتعالج بشكل مؤقت باش نحميو الخدمة من الإساءة (تحديد عدد الطلبات)، وكنخزنو رمز الدخول فمتصفحك باش تبقى مسجل.</li>
       <li><strong>معلومات الدفع:</strong> كنستعملو Gumroad لمعالجة الدفع، وما كنخزنوش أرقام البطاقات البنكية عندنا أبداً.</li>
     </ul>
 
@@ -54,32 +58,41 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
     <p>باش نقدرو نقدمو الأدوات، النصوص والأوصاف اللي كتكتب كتتبعت لمزودين خارجيين باش يولدو الجواب أو الصورة:</p>
     <table>
       <tr><th>الخدمة</th><th>الاستعمال</th></tr>
-      <tr><td>OpenRouter</td><td>معالجة أسئلة الدردشة ومقارنة النماذج</td></tr>
+      <tr><td>OpenRouter / Groq / Cloudflare Workers AI</td><td>معالجة أسئلة الدردشة ومقارنة النماذج (واحد منهم كيجاوب، وإلا وقف كيتحول للتالي)</td></tr>
       <tr><td>Cloudflare Workers AI / Pollinations</td><td>توليد الصور</td></tr>
       <tr><td>Gumroad</td><td>معالجة الاشتراكات والدفع</td></tr>
       <tr><td>Supabase</td><td>تخزين قاعدة البيانات (الحسابات والاستخدام)</td></tr>
+      <tr><td>Cloudflare Web Analytics</td><td>إحصائيات زيارات مجهولة الهوية</td></tr>
       <tr><td>Render</td><td>استضافة الخادم (Backend)</td></tr>
     </table>
+    <p>ما كنبيعو ولا كنأجرو بياناتك لأي طرف. أي شي كتكتبو فالأسئلة ما دخلش فيه معلومات حساسة (كلمات سر، أرقام بنكية، معلومات طبية شخصية).</p>
     <p>كل واحد من هاد المزودين عندو سياسة خصوصية خاصة بيه، وكيفاش كيحتفظ بالبيانات ممكن يختلف من واحد للآخر.</p>
 
-    <h2>3. مدة الاحتفاظ بالبيانات</h2>
+    <h2>3. من هو المسؤول عن البيانات</h2>
+    <p>QueryMix كيتسير من المغرب. للتواصل: support@usequerymix.com.</p>
+
+    <h2>4. مدة الاحتفاظ بالبيانات</h2>
     <p>كنحتفظو بمعلومات الحساب والاستخدام طول ما الحساب نشط. إلا بغيتي تمسح الحساب ديالك والمعلومات المرتبطة بيه، تواصل معانا.</p>
 
-    <h2>4. حقوقك</h2>
+    <h2>5. حقوقك</h2>
     <ul>
       <li>تقدر تطلب نسخة من المعلومات اللي عندنا عليك.</li>
-      <li>تقدر تطلب حذف الحساب والبيانات ديالك.</li>
+      <li>تقدر تطلب حذف الحساب والبيانات ديالك (غادي نجاوبوك فأقرب وقت، فآجال معقولة).</li>
       <li>تقدر تصحح أي معلومة غالطة فالحساب ديالك.</li>
     </ul>
 
-    <h2>5. الأمان</h2>
+    <h2>6. الأمان</h2>
     <p>كنستعملو تشفير (HTTPS) فكل الاتصالات، وكلمات السر مخزنة بطريقة مشفّرة. مع ذلك، ماكاينش نظام آمن 100%، فكنحثّوك تستعمل كلمة سر قوية وما تشاركهاش.</p>
 
-    <h2>6. تواصل معانا</h2>
+    <h2>7. الأطفال</h2>
+    <p>الخدمة موجهة للأشخاص من 18 سنة فما فوق. ما كنجمعوش عن قصد معلومات من القاصرين.</p>
+
+    <h2>8. تواصل معانا</h2>
     <p>لأي سؤال على الخصوصية ولا طلب حذف بياناتك، راسلنا على: <a href="mailto:support@usequerymix.com">support@usequerymix.com</a></p>
   </div>
 
   <footer>© 2026 QueryMix — usequerymix.com</footer>
 </div>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "458d2ed95f9a41f2aa0a43feeb40d1b5"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
