@@ -31,15 +31,17 @@ li{margin-bottom:6px}
 table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14.5px}
 th,td{text-align:start;padding:8px 10px;border-bottom:1px solid var(--line)}
 th{color:var(--muted);font-weight:700}
+.langbar{display:flex;gap:6px;justify-content:flex-end;margin-bottom:10px}.langbar button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:5px 14px;font:inherit;font-weight:700;color:var(--ink);cursor:pointer}.langbar button[aria-pressed="true"]{background:var(--violet);color:#fff;border-color:var(--violet)}.lang-block[hidden]{display:none}
 footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
 </style>
 </head>
 <body>
 <div class="wrap">
+<div class="langbar"><button data-lang="ar">ع</button><button data-lang="fr">FR</button><button data-lang="en">EN</button></div>
+<div class="lang-block" data-lang-block="ar" hidden>
   <a class="back" href="/">‹ رجوع للرئيسية</a>
   <h1>سياسة الخصوصية</h1>
   <p class="updated">آخر تحديث: 15 نونبر 2026</p>
-
   <div class="card">
     <p>QueryMix (usequerymix.com) منصة أدوات ذكاء اصطناعي. هاد الصفحة كتوضح شنو المعلومات اللي كنجمعو منك، علاش، وفين كتمشي.</p>
 
@@ -89,10 +91,120 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:30px 0 0}
 
     <h2>8. تواصل معانا</h2>
     <p>لأي سؤال على الخصوصية ولا طلب حذف بياناتك، راسلنا على: <a href="mailto:support@usequerymix.com">support@usequerymix.com</a></p>
+  
   </div>
+</div>
+<div class="lang-block" data-lang-block="fr" hidden>
+  <a class="back" href="/">‹ Retour à l'accueil</a>
+  <h1>Politique de confidentialité</h1>
+  <p class="updated">Dernière mise à jour : 15 novembre 2026</p>
+  <div class="card">
+    <p>QueryMix (usequerymix.com) est une plateforme d'outils d'intelligence artificielle. Cette page explique quelles informations nous collectons, pourquoi, et où elles vont.</p>
+    <h2>1. Informations collectées</h2>
+    <ul>
+      <li><strong>Compte :</strong> adresse e-mail et mot de passe (stocké sous forme chiffrée/hachée, jamais en clair).</li>
+      <li><strong>Utilisation :</strong> nombre de discussions et d'images par jour (pour appliquer les limites de l'essai/de l'abonnement). Les questions et réponses ordinaires ne sont pas conservées chez nous.</li>
+      <li><strong>Résultats enregistrés :</strong> si vous cliquez sur « Enregistrer », nous stockons le texte ou l'image du résultat (avec son titre et le modèle) dans votre compte pour que vous puissiez le retrouver. Vous pouvez le supprimer à tout moment depuis « Mes résultats enregistrés ».</li>
+      <li><strong>Statut d'abonnement :</strong> Gumroad nous envoie une notification contenant l'e-mail d'achat et le statut (actif/annulé), uniquement pour activer ou désactiver Premium.</li>
+      <li><strong>Visites :</strong> nous utilisons Cloudflare Web Analytics pour compter les visites et les pages les plus vues. Cet outil n'utilise pas de cookies et ne suit pas les personnes individuellement.</li>
+      <li><strong>Données techniques :</strong> l'adresse IP est traitée temporairement pour protéger le service contre les abus (limitation du nombre de requêtes), et votre jeton de connexion est conservé dans votre navigateur pour rester connecté.</li>
+      <li><strong>Paiement :</strong> nous utilisons Gumroad ; nous ne stockons jamais de numéros de carte bancaire.</li>
+    </ul>
+    <h2>2. Prestataires avec lesquels nous partageons des données</h2>
+    <p>Pour fournir les outils, les textes et descriptions que vous saisissez sont envoyés à des prestataires externes qui génèrent la réponse ou l'image :</p>
+    <table>
+      <tr><th>Service</th><th>Usage</th></tr>
+      <tr><td>OpenRouter / Groq / Cloudflare Workers AI</td><td>Traitement des questions de chat et comparaison des modèles (l'un répond ; en cas de panne, on passe au suivant)</td></tr>
+      <tr><td>Cloudflare Workers AI / Pollinations</td><td>Génération d'images</td></tr>
+      <tr><td>Gumroad</td><td>Abonnements et paiement</td></tr>
+      <tr><td>Supabase</td><td>Base de données (comptes et utilisation)</td></tr>
+      <tr><td>Cloudflare Web Analytics</td><td>Statistiques de visites anonymes</td></tr>
+      <tr><td>Render</td><td>Hébergement du serveur (backend)</td></tr>
+    </table>
+    <p>Nous ne vendons ni ne louons vos données. N'incluez pas d'informations sensibles dans vos questions (mots de passe, numéros bancaires, données médicales personnelles).</p>
+    <p>Chaque prestataire a sa propre politique de confidentialité, et la durée de conservation peut varier de l'un à l'autre.</p>
+    <h2>3. Responsable des données</h2>
+    <p>QueryMix est exploité depuis le Maroc. Contact : support@usequerymix.com.</p>
+    <h2>4. Durée de conservation</h2>
+    <p>Nous conservons les informations de compte et d'utilisation tant que le compte est actif. Pour supprimer votre compte et les données associées, contactez-nous.</p>
+    <h2>5. Vos droits</h2>
+    <ul>
+      <li>Vous pouvez demander une copie des informations que nous détenons sur vous.</li>
+      <li>Vous pouvez demander la suppression de votre compte et de vos données (nous répondrons dans les meilleurs délais, sous un délai raisonnable).</li>
+      <li>Vous pouvez corriger toute information erronée de votre compte.</li>
+    </ul>
+    <h2>6. Sécurité</h2>
+    <p>Nous utilisons le chiffrement (HTTPS) pour toutes les communications et les mots de passe sont stockés de façon chiffrée. Aucun système n'est sûr à 100 %, nous vous conseillons donc d'utiliser un mot de passe fort et de ne pas le partager.</p>
+    <h2>7. Enfants</h2>
+    <p>Le service s'adresse aux personnes de 18 ans et plus. Nous ne collectons pas sciemment d'informations sur des mineurs.</p>
+    <h2>8. Nous contacter</h2>
+    <p>Pour toute question sur la confidentialité ou demande de suppression de vos données : <a href="mailto:support@usequerymix.com">support@usequerymix.com</a></p>
+  </div>
+</div>
+<div class="lang-block" data-lang-block="en" hidden>
+  <a class="back" href="/">‹ Back to home</a>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: November 15, 2026</p>
+  <div class="card">
+    <p>QueryMix (usequerymix.com) is an AI tools platform. This page explains what information we collect, why, and where it goes.</p>
+    <h2>1. Information we collect</h2>
+    <ul>
+      <li><strong>Account:</strong> your email and password (stored hashed/encrypted, never in plain text).</li>
+      <li><strong>Usage:</strong> the number of chats and images you use each day (to enforce trial/subscription limits). Ordinary questions and answers are not stored by us.</li>
+      <li><strong>Saved results:</strong> if you click Save, we store the result's text or image (with its title and model) in your account so you can come back to it. You can delete it at any time from "My saved results".</li>
+      <li><strong>Subscription status:</strong> Gumroad sends us a notification containing the purchase email and status (active/cancelled), only to activate or deactivate Premium.</li>
+      <li><strong>Visits:</strong> we use Cloudflare Web Analytics to count visits and most-viewed pages. It uses no cookies and does not track individuals.</li>
+      <li><strong>Technical data:</strong> your IP address is processed temporarily to protect the service from abuse (rate limiting), and your login token is kept in your browser so you stay signed in.</li>
+      <li><strong>Payment:</strong> we use Gumroad; we never store card numbers.</li>
+    </ul>
+    <h2>2. Service providers we share data with</h2>
+    <p>To provide the tools, the text and descriptions you type are sent to external providers that generate the answer or image:</p>
+    <table>
+      <tr><th>Service</th><th>Purpose</th></tr>
+      <tr><td>OpenRouter / Groq / Cloudflare Workers AI</td><td>Processing chat questions and model comparison (one answers; if it fails, the next is used)</td></tr>
+      <tr><td>Cloudflare Workers AI / Pollinations</td><td>Image generation</td></tr>
+      <tr><td>Gumroad</td><td>Subscriptions and payment</td></tr>
+      <tr><td>Supabase</td><td>Database (accounts and usage)</td></tr>
+      <tr><td>Cloudflare Web Analytics</td><td>Anonymous visit statistics</td></tr>
+      <tr><td>Render</td><td>Server (backend) hosting</td></tr>
+    </table>
+    <p>We do not sell or rent your data. Please do not put sensitive information in your questions (passwords, bank numbers, personal medical data).</p>
+    <p>Each provider has its own privacy policy, and how long they keep data may differ.</p>
+    <h2>3. Who is responsible for the data</h2>
+    <p>QueryMix is operated from Morocco. Contact: support@usequerymix.com.</p>
+    <h2>4. Retention</h2>
+    <p>We keep account and usage information while your account is active. To delete your account and related data, contact us.</p>
+    <h2>5. Your rights</h2>
+    <ul>
+      <li>You can request a copy of the information we hold about you.</li>
+      <li>You can request deletion of your account and data (we will respond as soon as possible, within a reasonable time).</li>
+      <li>You can correct any wrong information in your account.</li>
+    </ul>
+    <h2>6. Security</h2>
+    <p>We use encryption (HTTPS) for all communications and passwords are stored encrypted. No system is 100% secure, so please use a strong password and do not share it.</p>
+    <h2>7. Children</h2>
+    <p>The service is intended for people aged 18 and over. We do not knowingly collect information from minors.</p>
+    <h2>8. Contact us</h2>
+    <p>For any privacy question or data deletion request: <a href="mailto:support@usequerymix.com">support@usequerymix.com</a></p>
+  </div>
+</div>
 
   <footer>© 2026 QueryMix — usequerymix.com</footer>
 </div>
+<script>
+(function(){
+  var L=["ar","fr","en"],lang="ar";
+  try{var s=localStorage.getItem("qm_lang");if(L.indexOf(s)>-1)lang=s;else if(navigator.language){var n=navigator.language.slice(0,2);if(n==="fr"||n==="en")lang=n;}}catch(e){}
+  function apply(l){
+    lang=l;var r=document.documentElement;r.lang=l;r.dir=l==="ar"?"rtl":"ltr";
+    document.querySelectorAll(".lang-block").forEach(function(b){b.hidden=b.dataset.langBlock!==l;});
+    document.querySelectorAll(".langbar button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.lang===l?"true":"false");});
+    try{localStorage.setItem("qm_lang",l);}catch(e){}
+  }
+  document.querySelectorAll(".langbar button").forEach(function(b){b.onclick=function(){apply(b.dataset.lang);};});
+  apply(lang);
+})();
+</script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "458d2ed95f9a41f2aa0a43feeb40d1b5"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
