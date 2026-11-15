@@ -1,3 +1,4 @@
+
 const BACKEND_URL = "https://ai-compare-backend-x063.onrender.com";
 
 // تُستعمل فقط إذا تعذّر جلب القائمة الحية من OpenRouter بالكامل (مشكل شبكة مثلاً).
@@ -1478,5 +1479,3 @@ setLanguage("ar");
 loadFreeModels();
 loadImageModels();
 refreshImageUsage();
-
-/* END-OF-APP */
