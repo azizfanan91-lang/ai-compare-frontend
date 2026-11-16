@@ -205,6 +205,7 @@ html[dir="ltr"] .arrow::before{content:"›"}
 footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;line-height:2}footer a{color:var(--violet);text-decoration:underline}
 
 /* Modal */
+.r-hint{color:var(--muted);font-size:14px;margin:6px 0 0}.ok-msg{color:var(--ok);font-size:14px;margin-top:10px;min-height:20px}#resetModal .btn{margin-top:14px;width:100%}#forgotLink{cursor:pointer}[hidden]{display:none!important}
 .modal{position:fixed;inset:0;background:rgba(26,16,56,.62);display:none;place-items:center;z-index:100;padding:20px}
 .modal.open{display:grid}
 .box{background:#fff;border-radius:22px;padding:28px;width:100%;max-width:400px;box-shadow:0 30px 80px rgba(0,0,0,.3);border-top:4px solid transparent;border-image:var(--gold-grad) 1}
@@ -516,6 +517,26 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
     <div class="err" id="authError"></div>
     <button class="btn btn-p" id="authSubmitBtn"></button>
     <div class="switch"><span id="switchText"></span> <a id="switchLink"></a></div>
+    <div class="switch"><a id="forgotLink" data-i18n="forgotLink"></a></div>
+  </div>
+</div>
+
+<div class="modal" id="resetModal" role="dialog" aria-modal="true">
+  <div class="box">
+    <button class="close" id="rClose" aria-label="Close">✕</button>
+    <div id="forgotBox" hidden>
+      <h3 data-i18n="forgotTitle"></h3>
+      <p class="r-hint" data-i18n="forgotHint"></p>
+      <input type="email" id="rEmail" autocomplete="email" dir="ltr" data-i18n-ph="emailPlaceholder">
+      <button class="btn btn-p" id="rForgotBtn" data-i18n="forgotBtn"></button>
+    </div>
+    <div id="resetBox" hidden>
+      <h3 data-i18n="resetTitle"></h3>
+      <input type="password" id="rPassword" autocomplete="new-password" dir="ltr" data-i18n-ph="resetNewPw">
+      <button class="btn btn-p" id="rResetBtn" data-i18n="resetBtn"></button>
+    </div>
+    <div class="err" id="rMsg"></div>
+    <button class="btn btn-w" id="rGoLogin" data-i18n="resetGoLogin" hidden></button>
   </div>
 </div>
 
@@ -536,7 +557,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
   </div>
 </div>
 
-<script src="app.js?v=4" defer></script>
+<script src="app.js?v=5" defer></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "458d2ed95f9a41f2aa0a43feeb40d1b5"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
