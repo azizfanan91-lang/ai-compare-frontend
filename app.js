@@ -97,6 +97,17 @@ const I18N = {
     switchToLoginLink: "دخول",
     fillFields: "عمر الإيميل وكلمة السر",
     working: "كيخدم...",
+    forgotLink: "نسيتي كلمة السر؟",
+    forgotTitle: "نسيتي كلمة السر؟",
+    forgotHint: "كتب الإيميل ديالك وغنصيفطو ليك رابط باش تبدل كلمة السر.",
+    forgotBtn: "صيفط الرابط",
+    forgotSent: "إلا كان هاد الإيميل مسجل عندنا، غادي توصلك رسالة فيها الرابط (شوف حتى Spam). الرابط صالح ساعة وحدة.",
+    resetTitle: "كلمة سر جديدة",
+    resetNewPw: "كلمة السر الجديدة (8 على الأقل)",
+    resetBtn: "بدل كلمة السر",
+    resetDone: "تبدلات كلمة السر. دابا تقدر تدخل.",
+    resetGoLogin: "دخول",
+    resetBadLink: "الرابط ماشي صالح ولا سالا. عاود طلب رابط جديد.",
     genericError: "وقع مشكل",
     connError: "خطأ فـ الاتصال بالسيرفر. يمكن السيرفر كيبدا (جرب مرة أخرى بعد 30 ثانية).",
     logoutBtn: "خروج",
@@ -199,6 +210,17 @@ const I18N = {
     switchToLoginLink: "Connexion",
     fillFields: "Remplissez l'email et le mot de passe",
     working: "Chargement...",
+    forgotLink: "Mot de passe oublié ?",
+    forgotTitle: "Mot de passe oublié ?",
+    forgotHint: "Saisissez votre e-mail et nous vous enverrons un lien pour changer votre mot de passe.",
+    forgotBtn: "Envoyer le lien",
+    forgotSent: "Si cet e-mail est enregistré, vous recevrez un message avec le lien (vérifiez aussi les spams). Le lien est valable 1 heure.",
+    resetTitle: "Nouveau mot de passe",
+    resetNewPw: "Nouveau mot de passe (8 caractères min.)",
+    resetBtn: "Changer le mot de passe",
+    resetDone: "Mot de passe modifié. Vous pouvez vous connecter.",
+    resetGoLogin: "Connexion",
+    resetBadLink: "Lien invalide ou expiré. Demandez un nouveau lien.",
     genericError: "Une erreur est survenue",
     connError: "Erreur de connexion au serveur. Le serveur démarre peut-être (réessayez dans 30 secondes).",
     logoutBtn: "Déconnexion",
@@ -301,6 +323,17 @@ const I18N = {
     switchToLoginLink: "Log in",
     fillFields: "Fill in email and password",
     working: "Working...",
+    forgotLink: "Forgot password?",
+    forgotTitle: "Forgot your password?",
+    forgotHint: "Enter your email and we'll send you a link to reset your password.",
+    forgotBtn: "Send link",
+    forgotSent: "If this email is registered, you'll get a message with the link (check spam too). The link is valid for 1 hour.",
+    resetTitle: "New password",
+    resetNewPw: "New password (min. 8 characters)",
+    resetBtn: "Change password",
+    resetDone: "Password changed. You can now sign in.",
+    resetGoLogin: "Sign in",
+    resetBadLink: "Invalid or expired link. Request a new one.",
     genericError: "Something went wrong",
     connError: "Server connection error. The server may be waking up (try again in 30 seconds).",
     logoutBtn: "Log out",
@@ -540,6 +573,7 @@ function renderAuthMode() {
     switchLink.textContent = t("switchToSignupLink");
     $("authPassword").autocomplete = "current-password";
   }
+  $("forgotLink").hidden = isSignupMode;
   authError.textContent = "";
 }
 
@@ -582,6 +616,73 @@ authSubmitBtn.onclick = async () => {
   authSubmitBtn.disabled = false;
   authSubmitBtn.textContent = isSignupMode ? t("signupBtn") : t("loginBtn");
 };
+
+
+// ---------- نسيت كلمة السر ----------
+let resetToken = null;
+function openReset(mode) {            // mode: "forgot" | "reset"
+  $("forgotBox").hidden = mode !== "forgot";
+  $("resetBox").hidden = mode !== "reset";
+  $("rMsg").textContent = ""; $("rMsg").className = "err";
+  $("rEmail").value = ""; $("rPassword").value = "";
+  $("rGoLogin").hidden = true;
+  $("rForgotBtn").disabled = false; $("rResetBtn").disabled = false;
+  closeAuth();
+  $("resetModal").classList.add("open");
+  (mode === "forgot" ? $("rEmail") : $("rPassword")).focus();
+}
+function closeReset() { $("resetModal").classList.remove("open"); }
+$("rClose").onclick = closeReset;
+$("resetModal").onclick = (e) => { if (e.target.id === "resetModal") closeReset(); };
+$("forgotLink").onclick = () => {
+  openReset("forgot");
+  $("rEmail").value = $("authEmail").value.trim();
+};
+$("rGoLogin").onclick = () => { closeReset(); openAuth(false); };
+
+$("rForgotBtn").onclick = async () => {
+  const email = $("rEmail").value.trim();
+  const msg = $("rMsg");
+  msg.className = "err"; msg.textContent = "";
+  if (!email) { msg.textContent = t("fillFields"); return; }
+  $("rForgotBtn").disabled = true;
+  try {
+    const res = await fetch(BACKEND_URL + "/api/auth/forgot", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, lang: currentLang })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) { msg.textContent = data.error || t("genericError"); $("rForgotBtn").disabled = false; return; }
+    msg.className = "ok-msg"; msg.textContent = t("forgotSent");
+  } catch (e) { msg.textContent = t("connError"); $("rForgotBtn").disabled = false; }
+};
+
+$("rResetBtn").onclick = async () => {
+  const password = $("rPassword").value;
+  const msg = $("rMsg");
+  msg.className = "err"; msg.textContent = "";
+  if (!password) { msg.textContent = t("fillFields"); return; }
+  $("rResetBtn").disabled = true;
+  try {
+    const res = await fetch(BACKEND_URL + "/api/auth/reset", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: resetToken, password })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) { msg.textContent = data.error || t("resetBadLink"); $("rResetBtn").disabled = false; return; }
+    msg.className = "ok-msg"; msg.textContent = t("resetDone");
+    $("rGoLogin").hidden = false; resetToken = null;
+  } catch (e) { msg.textContent = t("connError"); $("rResetBtn").disabled = false; }
+};
+
+(function () {
+  const m = /^#reset=([a-f0-9]{64})$/.exec(location.hash || "");
+  if (m) {
+    resetToken = m[1];
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+    openReset("reset");
+  }
+})();
 
 // حفظ الجلسة فـ localStorage (نفس المفاتيح القديمة)
 function saveSession(tok, email) {
