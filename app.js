@@ -17,6 +17,9 @@ const DEFAULT_SELECTED = 2;     // عدد النماذج المحددة افتر
 let MODELS = [];
 
 // ---------- Translations ----------
+// حدود الاستعمال (كتتحدث من /api/payment/config)
+let LIMITS = { trialDays: 7, freeChat: 10, freeImage: 3, premiumImage: 100 };
+
 const I18N = {
   ar: {
     pageTitle: "QueryMix — قارن إجابات نماذج الذكاء الاصطناعي",
@@ -79,10 +82,10 @@ const I18N = {
     s4t: "احصل على النتائج", s4d: "استلم النتائج وصدّرها أو شاركها بسهولة.",
     pricingTitle: "الأسعار", pricingSub: "ابدأ مجاناً، وترقّى عندما تحتاج.",
     freePlan: "التجربة المجانية", freePer: "/ 7 أيام",
-    freeLi1: "7 أيام تجربة مجانية (حد يومي للمحادثات والصور)", freeLi2: "كل الأدوات الأربع", freeLi3: "بدون بطاقة بنكية",
+    freeLi1: () => `${LIMITS.trialDays} أيام تجربة مجانية: ${LIMITS.freeChat} محادثات و${LIMITS.freeImage} صور فـ النهار`, freeLi2: "كل الأدوات الأربع", freeLi3: "بدون بطاقة بنكية",
     freeBtn: "ابدأ مجاناً",
     premPer: "/ الشهر",
-    premLi1: "استخدام موسّع مع كل النماذج المتاحة (حد استخدام عادل)", premLi2: "كل الأدوات الأربع", premLi3: "الدفع الآمن عبر Gumroad",
+    premLi1: () => `استخدام موسّع مع كل النماذج: حتى ${LIMITS.premiumImage} صورة فـ النهار (حد استخدام عادل)`, premLi2: "كل الأدوات الأربع", premLi3: "الدفع الآمن عبر Gumroad",
     ctaTitle: "جاهز للانطلاق؟", ctaText: "انضم إلى المستخدمين الذين ينجزون أعمالهم بسرعة وذكاء مع QueryMix.",
     ctaBtnText: "ابدأ الآن مجاناً",
     loginTitle: "تسجيل الدخول",
@@ -192,10 +195,10 @@ const I18N = {
     s4t: "Obtenez les résultats", s4d: "Recevez les résultats, copiez-les ou partagez-les facilement.",
     pricingTitle: "Tarifs", pricingSub: "Commencez gratuitement, passez à Premium quand vous voulez.",
     freePlan: "Essai gratuit", freePer: "/ 7 jours",
-    freeLi1: "7 jours d'essai gratuit (limite quotidienne de messages et d'images)", freeLi2: "Les quatre outils", freeLi3: "Sans carte bancaire",
+    freeLi1: () => `Essai gratuit de ${LIMITS.trialDays} jours : ${LIMITS.freeChat} discussions et ${LIMITS.freeImage} images par jour`, freeLi2: "Les quatre outils", freeLi3: "Sans carte bancaire",
     freeBtn: "Commencer gratuitement",
     premPer: "/ mois",
-    premLi1: "Usage étendu avec tous les modèles disponibles (usage équitable)", premLi2: "Les quatre outils", premLi3: "Paiement sécurisé via Gumroad",
+    premLi1: () => `Usage étendu avec tous les modèles : jusqu'à ${LIMITS.premiumImage} images par jour (usage équitable)`, premLi2: "Les quatre outils", premLi3: "Paiement sécurisé via Gumroad",
     ctaTitle: "Prêt à démarrer ?", ctaText: "Rejoignez les utilisateurs qui avancent plus vite avec QueryMix.",
     ctaBtnText: "Commencer gratuitement",
     loginTitle: "Connexion",
@@ -305,10 +308,10 @@ const I18N = {
     s4t: "Get your results", s4d: "Receive results, then copy or share them easily.",
     pricingTitle: "Pricing", pricingSub: "Start free, upgrade when you need to.",
     freePlan: "Free trial", freePer: "/ 7 days",
-    freeLi1: "7-day free trial (daily limit on messages and images)", freeLi2: "All four tools", freeLi3: "No credit card needed",
+    freeLi1: () => `${LIMITS.trialDays}-day free trial: ${LIMITS.freeChat} chats and ${LIMITS.freeImage} images per day`, freeLi2: "All four tools", freeLi3: "No credit card needed",
     freeBtn: "Start free",
     premPer: "/ month",
-    premLi1: "Extended use with every available model (fair use)", premLi2: "All four tools", premLi3: "Secure payment via Gumroad",
+    premLi1: () => `Extended use with every model: up to ${LIMITS.premiumImage} images per day (fair use)`, premLi2: "All four tools", premLi3: "Secure payment via Gumroad",
     ctaTitle: "Ready to start?", ctaText: "Join the users getting more done, faster, with QueryMix.",
     ctaBtnText: "Start free now",
     loginTitle: "Log In",
@@ -1058,6 +1061,23 @@ async function refreshUsage() {
     userEmail = saved.email;
     showApp();
   }
+})();
+
+// تحديث أرقام الحدود فـ صفحة الأسعار من السيرفر (بلا تسجيل دخول)
+(async function loadPublicLimits() {
+  try {
+    const r = await fetch(BACKEND_URL + "/api/payment/config");
+    const d = await r.json();
+    const u = d && d.usageLimits;
+    if (!u) return;
+    LIMITS = {
+      trialDays: u.trialDays || LIMITS.trialDays,
+      freeChat: u.freeChatDailyLimit || LIMITS.freeChat,
+      freeImage: u.freeImageDailyLimit || LIMITS.freeImage,
+      premiumImage: u.premiumImageDailyLimit || LIMITS.premiumImage
+    };
+    setLanguage(currentLang);
+  } catch (e) {}
 })();
 
 // ---------- Gumroad Subscription (نفس المنطق القديم بلا تغيير) ----------
