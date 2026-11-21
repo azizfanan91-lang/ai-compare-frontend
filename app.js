@@ -1552,7 +1552,9 @@ $("imgRun").onclick = async () => {
   });
 
   let lastUsage = null;
-  for (const m of models) {
+  let stopAll = false;
+  const runOne = async (m) => {
+    if (stopAll) return;
     const { body, save } = cards.get(m.id);
     try {
       const res = await fetchWithTimeout(BACKEND_URL + "/api/images/generate", {
@@ -1563,7 +1565,7 @@ $("imgRun").onclick = async () => {
 
       const data = await res.json().catch(() => ({}));
 
-      if (res.status === 401) { sessionExpired(); break; }
+      if (res.status === 401) { stopAll = true; sessionExpired(); return; }
       if (!res.ok) throw new Error(data.error || t("imgError"));
       if (!data.image) throw new Error(t("imgError"));
 
@@ -1586,7 +1588,13 @@ $("imgRun").onclick = async () => {
       body.className = "body ph bad";
       body.textContent = err.message || t("imgError");
     }
-  }
+  };
+  // نولدو نموذجين فـ نفس الوقت بلا ما نتجاوزو حدود المزودين المجانيين (كان كيدير وحدة وحدة وكيبطّأ)
+  const queue = models.slice();
+  const IMG_CONCURRENCY = 2;
+  await Promise.all(Array.from({ length: Math.min(IMG_CONCURRENCY, queue.length) }, async () => {
+    while (queue.length && !stopAll) await runOne(queue.shift());
+  }));
 
   running = false;
   btn.textContent = t("imgRun");
