@@ -362,6 +362,72 @@ const I18N = {
   }
 };
 
+
+// ---------- Product Listing Lab: ترجمات ----------
+Object.assign(I18N.ar, {
+  productLabTab: "مختبر محتوى المنتجات", plBadge: "جديد: مختبر محتوى المنتجات",
+  plChk1: "أوصاف المنتجات", plChk2: "محتوى SEO", plChk3: "إعلانات تسويقية", plChk4: "كل الأنواع في طلب واحد",
+  productLabTitle: "أنشئ محتوى احترافياً لمنتجك", productLabSub: "أدخل معلومات المنتج وقارن النتائج بين نماذج الذكاء الاصطناعي.",
+  plNameLabel: "اسم المنتج", plNamePh: "مثال: Men’s Winter Jacket",
+  plFeaturesLabel: "المميزات والمواصفات", plFeaturesPh: "أدخل المعلومات الحقيقية عن المنتج…",
+  plAudienceLabel: "الجمهور المستهدف (اختياري)", plAudiencePh: "من سيشتري هذا المنتج؟",
+  plLanguageLabel: "لغة المحتوى", plTaskLabel: "نوع المحتوى",
+  plTaskDescription: "وصف المنتج", plTaskSeo: "محتوى SEO", plTaskAd: "إعلان تسويقي", plTaskAll: "جميع الأنواع",
+  plExtraLabel: "تعليمات إضافية (اختياري)", plExtraPh: "أسلوب الكتابة أو المنصة المستهدفة…",
+  plRun: "إنشاء ومقارنة المحتوى",
+  plSafetyNote: "لا تضف معلومات غير موجودة في مواصفات المنتج. نستعمل ما تدخله فقط ولا نخترع شيئاً.",
+  plCostNote: "كل نموذج تختاره قد يُحتسب كعملية استخدام مستقلة ضمن حصتك.",
+  plRequired: "يرجى إدخال اسم المنتج ومواصفاته واختيار نموذج واحد على الأقل.",
+  plWhyTitle: "لماذا QueryMix؟",
+  plWhy1T: "قارن عدة نماذج", plWhy1D: "نفس الطلب يُرسل لنماذج مختلفة وتختار الأفضل.",
+  plWhy2T: "دقة قبل كل شيء", plWhy2D: "الأداة تعتمد على معلوماتك فقط ولا تخترع مواصفات.",
+  plWhy3T: "احفظ نتائجك", plWhy3D: "احتفظ بالنتائج المفضلة وارجع لها لاحقاً.",
+  plWhy4T: "٣ لغات", plWhy4D: "العربية، Français، English.",
+  plPerfect: "مناسب لـ:", plPerf1: "أصحاب المتاجر الإلكترونية", plPerf2: "رواد التجارة الإلكترونية", plPerf3: "المسوّقون الرقميون"
+});
+Object.assign(I18N.fr, {
+  productLabTab: "Product Listing Lab", plBadge: "Nouveau : Product Listing Lab",
+  plChk1: "Descriptions produits", plChk2: "Contenu SEO", plChk3: "Annonces marketing", plChk4: "Tout en une seule demande",
+  productLabTitle: "Créez du contenu produit professionnel", productLabSub: "Saisissez les informations du produit et comparez les modèles IA.",
+  plNameLabel: "Nom du produit", plNamePh: "Exemple : veste d’hiver pour homme",
+  plFeaturesLabel: "Caractéristiques et spécifications", plFeaturesPh: "Saisissez les informations réelles du produit…",
+  plAudienceLabel: "Public cible (facultatif)", plAudiencePh: "Qui achètera ce produit ?",
+  plLanguageLabel: "Langue du contenu", plTaskLabel: "Type de contenu",
+  plTaskDescription: "Description produit", plTaskSeo: "Contenu SEO", plTaskAd: "Annonce marketing", plTaskAll: "Tous les contenus",
+  plExtraLabel: "Instructions supplémentaires (facultatif)", plExtraPh: "Ton, style ou plateforme…",
+  plRun: "Générer et comparer",
+  plSafetyNote: "N’inventez aucune caractéristique absente des informations fournies. Nous n’utilisons que ce que vous saisissez.",
+  plCostNote: "Chaque modèle choisi peut compter comme une utilisation distincte de votre quota.",
+  plRequired: "Veuillez saisir le nom, les caractéristiques et choisir au moins un modèle.",
+  plWhyTitle: "Pourquoi QueryMix ?",
+  plWhy1T: "Comparez plusieurs modèles", plWhy1D: "La même demande est envoyée à plusieurs modèles, vous choisissez le meilleur.",
+  plWhy2T: "La précision d’abord", plWhy2D: "L’outil s’appuie uniquement sur vos informations.",
+  plWhy3T: "Sauvegardez vos résultats", plWhy3D: "Gardez vos résultats préférés pour plus tard.",
+  plWhy4T: "3 langues", plWhy4D: "English, Français, العربية.",
+  plPerfect: "Idéal pour :", plPerf1: "Propriétaires de boutiques en ligne", plPerf2: "Entrepreneurs e-commerce", plPerf3: "Marketeurs digitaux"
+});
+Object.assign(I18N.en, {
+  productLabTab: "Product Listing Lab", plBadge: "New: Product Listing Lab",
+  plChk1: "Product descriptions", plChk2: "SEO content", plChk3: "Marketing ads", plChk4: "All-in-one package",
+  productLabTitle: "Create professional product content", productLabSub: "Enter product details and compare AI model outputs.",
+  plNameLabel: "Product name", plNamePh: "Example: Men’s Winter Jacket",
+  plFeaturesLabel: "Features and specifications", plFeaturesPh: "Enter the actual product information…",
+  plAudienceLabel: "Target audience (optional)", plAudiencePh: "Who is this product for?",
+  plLanguageLabel: "Content language", plTaskLabel: "Content type",
+  plTaskDescription: "Product description", plTaskSeo: "SEO content", plTaskAd: "Marketing ad", plTaskAll: "All content",
+  plExtraLabel: "Additional instructions (optional)", plExtraPh: "Tone, style or target platform…",
+  plRun: "Generate and compare",
+  plSafetyNote: "Never add product claims that are not supported by the supplied information. We only use what you enter.",
+  plCostNote: "Each model you select may count as a separate use of your quota.",
+  plRequired: "Enter the product name and specifications, then select at least one model.",
+  plWhyTitle: "Why choose QueryMix?",
+  plWhy1T: "Compare multiple AI models", plWhy1D: "The same request goes to several models, you pick the best.",
+  plWhy2T: "Accuracy first", plWhy2D: "The tool relies only on the information you provide.",
+  plWhy3T: "Save your results", plWhy3D: "Keep your favorite outputs for later.",
+  plWhy4T: "3 languages", plWhy4D: "English, Français, العربية.",
+  plPerfect: "Perfect for:", plPerf1: "Online store owners", plPerf2: "E-commerce entrepreneurs", plPerf3: "Digital marketers"
+});
+
 const LANG_NAMES = { ar: "Arabic", fr: "French", en: "English" };
 
 let currentLang = "ar";
@@ -497,6 +563,11 @@ const WORKFLOW_PROMPTS = {
 function applyWorkflow(kind) {
   if (!guard(false)) return;
   $("tools").scrollIntoView({ behavior: "smooth", block: "start" });
+  if (kind === "product") {
+    setTool("productLab");
+    setTimeout(() => $("plName").focus(), 250);
+    return;
+  }
   if (kind === "pdf") {
     setTool("summary");
     $("sumFmtSel").value = "bullets";
@@ -1603,8 +1674,57 @@ $("imgRun").onclick = async () => {
 };
 
 
+// ---------- Product Listing Lab ----------
+function buildProductPrompt() {
+  const name = $("plName").value.trim();
+  const features = $("plFeatures").value.trim();
+  const audience = $("plAudience").value.trim();
+  const language = LANG_NAMES[$("plLanguage").value] || "English";
+  const task = $("plTask").value;
+  const extra = $("plExtra").value.trim();
+
+  const tasks = {
+    description: "Write a clear product description with a headline, benefits based only on the supplied information, and a call to action.",
+    seo: "Create an SEO title, a meta description, a product description and relevant keywords.",
+    ad: "Create three marketing ad variations, each with a headline and a call to action.",
+    all: "Create a product description, SEO content (title, meta description, keywords) and three marketing ad variations."
+  };
+
+  return `You are an ecommerce content specialist.
+
+Write all the content in this language: ${language}.
+
+Product name: """${name}"""
+
+Verified product information (the only facts you may use): """${features}"""
+
+Target audience: ${audience || "Not specified"}
+
+Task: ${tasks[task] || tasks.description}
+
+Additional instructions: ${extra || "Use a professional and clear tone."}
+
+IMPORTANT RULES:
+- Use only the supplied product information.
+- Never invent specifications, materials, sizes, guarantees or product benefits.
+- Do not assume free delivery, discounts or certifications.
+- If information is missing, do not fabricate it.
+- Do not promise sales increases or guaranteed SEO ranking.
+- Make the output clear, useful and suitable for an online store.`;
+}
+
+$("plRun").onclick = () => {
+  if (!guard(true)) return;
+  const name = $("plName").value.trim();
+  const features = $("plFeatures").value.trim();
+  if (!name || !features) { alert(t("plRequired")); return; }
+  runOnModels(buildProductPrompt(), $("plResults"), $("plRun"), "");
+};
+$("navProductLab").addEventListener("click", () => setTool("productLab"));
+$("heroPlBadge").addEventListener("click", () => setTool("productLab"));
+
 // ---------- Init ----------
-setTool("edit");
+setTool("productLab");
 (function () {
   let initial = "ar";
   try {
