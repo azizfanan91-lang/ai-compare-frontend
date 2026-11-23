@@ -24,8 +24,8 @@ const I18N = {
   ar: {
     pageTitle: "QueryMix — قارن إجابات نماذج الذكاء الاصطناعي",
     navHome: "الرئيسية", navTools: "الأدوات", navHow: "كيف تبدأ", navPricing: "الأسعار",
-    heroTitle: "قارن إجابات عدة نماذج ذكاء اصطناعي في مكان واحد",
-    heroText: "اسأل سؤالاً واحداً واحصل على إجابات عدة نماذج جنباً إلى جنب، مع أدوات للتلخيص وتحليل البيانات وتوليد الصور، بالعربية والفرنسية والإنجليزية.",
+    heroTitle: "محتوى أفضل لمنتجاتك. قارن الذكاء الاصطناعي. طوّر متجرك.",
+    heroText: "أنشئ أوصاف المنتجات ومحتوى SEO والإعلانات انطلاقاً من معلوماتك الحقيقية فقط، وقارن نتائج عدة نماذج ذكاء اصطناعي جنباً إلى جنب لتختار الأفضل.",
     heroCta1: "ابدأ الآن", heroCta2: "استكشف الأدوات",
     tEditT: "مقارنة النماذج", tEditD: "اسأل سؤالاً واحداً واحصل على إجابات عدة نماذج جنباً إلى جنب.",
     tImgT: "توليد الصور", tImgD: "حوّل أفكارك إلى صور مذهلة بذكاء اصطناعي وبأساليب متنوعة.",
@@ -53,7 +53,7 @@ const I18N = {
     imgRun: "ولّد الصورة", imgOpen: "فتح الصورة", imgLoading: "كنولدو الصورة...",
     imgRemainingLabel: (r, l) => `باقي ${r} من ${l} صور اليوم`,
     imgError: "تعذّر توليد الصورة. جرّب وصفاً آخر أو أعد المحاولة.",
-    imgNote: "الصور تُولَّد على السيرفر عبر خدمة Pollinations، والوصف الذي تكتبه يُرسل إليها. بعض النماذج أبطأ من غيرها.",
+    imgNote: "الصور تُولَّد على السيرفر عبر خدمات توليد الصور المعتمدة، والوصف الذي تكتبه يُرسل إلى الخدمة المختارة. بعض النماذج أبطأ من غيرها.",
     imgModelsLabel: "نماذج توليد الصور — اختر نموذجاً أو أكثر وقارن النتائج",
     imgSave: "تحميل",
     imgNoService: "خدمة توليد الصور غير متاحة الآن. حاول لاحقاً.",
@@ -137,8 +137,8 @@ const I18N = {
   fr: {
     pageTitle: "QueryMix — Comparez les réponses des modèles d'IA",
     navHome: "Accueil", navTools: "Outils", navHow: "Comment ça marche", navPricing: "Tarifs",
-    heroTitle: "Comparez les réponses de plusieurs modèles d'IA au même endroit",
-    heroText: "Posez une question et comparez les réponses de plusieurs modèles côte à côte, avec des outils de résumé, d'analyse de données et de génération d'images, en arabe, français et anglais.",
+    heroTitle: "Un meilleur contenu produit. Comparez les IA. Développez votre boutique.",
+    heroText: "Générez descriptions produits, contenu SEO et annonces à partir de vos informations réelles, puis comparez plusieurs modèles d'IA côte à côte pour choisir le meilleur.",
     heroCta1: "Commencer", heroCta2: "Explorer les outils",
     tEditT: "Comparer les modèles", tEditD: "Posez une question et comparez les réponses de plusieurs modèles.",
     tImgT: "Génération d'images", tImgD: "Transformez vos idées en images surprenantes, dans divers styles.",
@@ -166,7 +166,7 @@ const I18N = {
     imgRun: "Générer l'image", imgOpen: "Ouvrir l'image", imgLoading: "Génération de l'image...",
     imgRemainingLabel: (r, l) => `${r} sur ${l} images restantes aujourd'hui`,
     imgError: "Impossible de générer l'image. Essayez une autre description ou réessayez.",
-    imgNote: "Les images sont générées côté serveur via le service Pollinations ; votre description lui est envoyée. Certains modèles sont plus lents que d'autres.",
+    imgNote: "Les images sont générées côté serveur via les services de génération configurés ; votre description est envoyée au service choisi. Certains modèles sont plus lents que d'autres.",
     imgModelsLabel: "Modèles d'image — choisissez-en un ou plusieurs et comparez",
     imgSave: "Télécharger",
     imgNoService: "Le service de génération d'images est indisponible pour le moment.",
@@ -250,8 +250,8 @@ const I18N = {
   en: {
     pageTitle: "QueryMix — Compare AI model answers",
     navHome: "Home", navTools: "Tools", navHow: "How it works", navPricing: "Pricing",
-    heroTitle: "Compare answers from several AI models in one place",
-    heroText: "Ask one question and compare answers from several models side by side, with tools for summaries, data analysis and image generation, in Arabic, French and English.",
+    heroTitle: "Create Better Product Content. Compare AI. Grow Your Store.",
+    heroText: "Generate product descriptions, SEO content and ads from your real product details, then compare several AI models side by side to pick the best.",
     heroCta1: "Get started", heroCta2: "Explore tools",
     tEditT: "Compare models", tEditD: "Ask one question and compare answers from several models side by side.",
     tImgT: "Image generation", tImgD: "Turn your ideas into striking images in a range of styles.",
@@ -279,7 +279,7 @@ const I18N = {
     imgRun: "Generate image", imgOpen: "Open image", imgLoading: "Generating your image...",
     imgRemainingLabel: (r, l) => `${r} of ${l} images left today`,
     imgError: "Couldn't generate the image. Try a different description or try again.",
-    imgNote: "Images are generated on the server through the Pollinations service; your description is sent to it. Some models are slower than others.",
+    imgNote: "Images are generated on the server through the configured image services; your description is sent to the selected service. Some models are slower than others.",
     imgModelsLabel: "Image models — pick one or more and compare",
     imgSave: "Download",
     imgNoService: "Image generation is unavailable right now.",
@@ -428,6 +428,45 @@ Object.assign(I18N.en, {
   plPerfect: "Perfect for:", plPerf1: "Online store owners", plPerf2: "E-commerce entrepreneurs", plPerf3: "Digital marketers"
 });
 
+
+// ---------- Image Studio: ترجمات ----------
+Object.assign(I18N.ar, {
+  isTitle: "QueryMix Image Studio", isSub: "صف الصورة، اختر قالباً ونسبة الأبعاد، وقارن بين 1 إلى 3 نماذج.",
+  isTemplates: "القوالب", isTplProduct: "صورة منتج", isTplAd: "إعلان اجتماعي", isTplReal: "واقعي", isTplCreative: "فن إبداعي",
+  isPromptLabel: "وصف الصورة",
+  isRatio: "نسبة الأبعاد", isRatioSquare: "مربع 1:1", isRatioPortrait: "طولي 9:16", isRatioLandscape: "عرضي 16:9",
+  isEstimate: (n) => `التقدير: ${n} ${n === 1 ? "نموذج" : "نماذج"} = ${n} ${n === 1 ? "وحدة صورة" : "وحدات صور"} كحد أقصى (الفشل لا يُحتسب)`,
+  isRatioNote: (names) => `قد تستعمل هذه النماذج الأبعاد الافتراضية للمزوّد ولا يُضمن احترام النسبة: ${names}`,
+  isRequested: "النموذج المطلوب", isUsed: "النموذج المستعمل", isTime: "الوقت", isFallback: "تم استعمال نموذج بديل",
+  isNoRatio: "هذا النموذج لا يضمن احترام النسبة المختارة.",
+  isNotEnoughQuota: (r, n) => `اخترت ${n} نماذج لكن الباقي لك اليوم ${r} فقط. اختر عدداً أقل من النماذج أو جرّب بعد تجديد الحصة.`,
+  isTooLong: "الوصف مع القالب والأسلوب طويل جداً (الحد 500 حرف). قصّر الوصف أو ألغِ القالب."
+});
+Object.assign(I18N.fr, {
+  isTitle: "QueryMix Image Studio", isSub: "Décrivez l'image, choisissez un modèle visuel et un format, et comparez 1 à 3 modèles.",
+  isTemplates: "Modèles visuels", isTplProduct: "Photo produit", isTplAd: "Pub réseaux sociaux", isTplReal: "Réaliste", isTplCreative: "Art créatif",
+  isPromptLabel: "Description de l'image",
+  isRatio: "Format", isRatioSquare: "Carré 1:1", isRatioPortrait: "Portrait 9:16", isRatioLandscape: "Paysage 16:9",
+  isEstimate: (n) => `Estimation : ${n} modèle${n > 1 ? "s" : ""} = ${n} unité${n > 1 ? "s" : ""} d'image au maximum (un échec n'est pas décompté)`,
+  isRatioNote: (names) => `Ces modèles peuvent utiliser les dimensions par défaut du fournisseur, le format n'est pas garanti : ${names}`,
+  isRequested: "Modèle demandé", isUsed: "Modèle utilisé", isTime: "Durée", isFallback: "Modèle de secours utilisé",
+  isNoRatio: "Ce modèle ne garantit pas le format choisi.",
+  isNotEnoughQuota: (r, n) => `Vous avez choisi ${n} modèles mais il ne vous reste que ${r} image(s) aujourd'hui. Choisissez moins de modèles ou réessayez après le renouvellement du quota.`,
+  isTooLong: "La description avec le modèle visuel et le style est trop longue (500 caractères max). Raccourcissez-la ou retirez le modèle visuel."
+});
+Object.assign(I18N.en, {
+  isTitle: "QueryMix Image Studio", isSub: "Describe your image, pick a template and aspect ratio, and compare 1 to 3 models.",
+  isTemplates: "Templates", isTplProduct: "Product photo", isTplAd: "Social ad", isTplReal: "Realistic", isTplCreative: "Creative art",
+  isPromptLabel: "Image description",
+  isRatio: "Aspect ratio", isRatioSquare: "Square 1:1", isRatioPortrait: "Portrait 9:16", isRatioLandscape: "Landscape 16:9",
+  isEstimate: (n) => `Estimate: ${n} model${n === 1 ? "" : "s"} = up to ${n} image unit${n === 1 ? "" : "s"} (failed runs are not counted)`,
+  isRatioNote: (names) => `These models may use the provider's default dimensions, so the ratio is not guaranteed: ${names}`,
+  isRequested: "Requested model", isUsed: "Model used", isTime: "Time", isFallback: "Fallback model used",
+  isNoRatio: "This model does not guarantee the selected ratio.",
+  isNotEnoughQuota: (r, n) => `You selected ${n} models but only ${r} image unit(s) remain today. Select fewer models or try again after your quota resets.`,
+  isTooLong: "The description plus template and style is too long (500 characters max). Shorten it or clear the template."
+});
+
 const LANG_NAMES = { ar: "Arabic", fr: "French", en: "English" };
 
 let currentLang = "ar";
@@ -505,6 +544,7 @@ function setLanguage(lang) {
     el.placeholder = txt;
     el.setAttribute("aria-label", txt);
   });
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
   renderAgents();
   $("authEmail").placeholder = t("emailPlaceholder");
   $("authEmail").setAttribute("aria-label", t("emailPlaceholder"));
@@ -1511,6 +1551,21 @@ const IMG_STYLES = {
   water: "watercolor painting, soft textures"
 };
 const MAX_IMG_MODELS = 3;
+// أبعاد مطلوبة (ماشي مضمونة لكل النماذج)
+const IMAGE_RATIOS = {
+  square:    { width: 1024, height: 1024, ar: "1 / 1" },
+  portrait:  { width: 576,  height: 1024, ar: "9 / 16" },
+  landscape: { width: 1024, height: 576,  ar: "16 / 9" }
+};
+// القالب تعليمات إضافية كتتجمع مع وصف المستخدم، وما كتبدلوش
+const IMAGE_TEMPLATE_PROMPTS = {
+  product:   "clean commercial product photography, clear subject, studio light",
+  ad:        "polished advertising visual with a clear focal point and usable composition",
+  realistic: "natural photographic look, realistic materials and lighting",
+  creative:  "imaginative artwork with a distinctive visual direction"
+};
+let selectedImageTemplate = null;
+const IMAGE_PROMPT_MAX = 500;
 // تُستعمل فقط إذا تعذّر الوصول لـ /api/images/models فـ السيرفر، باش الأداة تبقى خدامة
 const FALLBACK_IMAGE_MODELS = [
   { id: "flux", label: "FLUX.1 Schnell" },
@@ -1539,10 +1594,49 @@ function renderImgChips() {
       else if (selectedImgModels.size < MAX_IMG_MODELS) selectedImgModels.add(m.id);
       else return;
       chip.setAttribute("aria-pressed", selectedImgModels.has(m.id));
+      updateImgEstimate();
     };
     box.appendChild(chip);
   });
+  updateImgEstimate();
 }
+
+function currentImgDimensions() {
+  return IMAGE_RATIOS[$("imgRatioSel").value] || IMAGE_RATIOS.square;
+}
+
+function updateImgEstimate() {
+  const box = $("imgEstimate");
+  if (!box) return;
+  const n = selectedImgModels.size;
+  box.innerHTML = "";
+  const line = document.createElement("span");
+  line.textContent = t("isEstimate", n);
+  box.appendChild(line);
+  const ratioKey = $("imgRatioSel").value;
+  if (ratioKey !== "square") {
+    // نبينو غير النماذج اللي مؤكد أنها ما كتضمنش النسبة، وما كنفترضوش دعم لشي نموذج
+    const names = IMAGE_MODELS.filter(m => selectedImgModels.has(m.id) && m.supportsDims !== true).map(m => m.label);
+    if (names.length) {
+      const warn = document.createElement("span");
+      warn.className = "warn";
+      warn.textContent = t("isRatioNote", names.join(", "));
+      box.appendChild(warn);
+    }
+  }
+  $("imgResults").style.setProperty("--img-ar", currentImgDimensions().ar);
+}
+
+document.querySelectorAll("#imgTemplates .is-tpl").forEach(b => {
+  b.onclick = () => {
+    const key = b.dataset.tpl;
+    selectedImageTemplate = selectedImageTemplate === key ? null : key; // ضغطة ثانية كتلغي القالب
+    document.querySelectorAll("#imgTemplates .is-tpl").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.tpl === selectedImageTemplate)));
+    updateImgEstimate();
+  };
+});
+$("imgRatioSel").onchange = updateImgEstimate;
+$("imgStyleSel").addEventListener("change", updateImgEstimate);
 
 async function loadImageModels() {
   try {
@@ -1551,7 +1645,7 @@ async function loadImageModels() {
     const data = await res.json();
     IMAGE_MODELS = (data.models || [])
       .filter(m => m && m.key)
-      .map(m => ({ id: m.key, label: m.name || m.key }));
+      .map(m => ({ id: m.key, label: m.name || m.key, supportsDims: typeof m.supports_dimensions === "boolean" ? m.supports_dimensions : null }));
     if (!IMAGE_MODELS.length) throw new Error("empty");
   } catch (e) {
     // السيرفر ما عندوش هاد المسار بعد (أو تعطل)، نستعملو قائمة احتياطية باش الأداة تخدم
@@ -1566,9 +1660,11 @@ let lastImgUsage = null;
 function renderImgUsage(d) {
   lastImgUsage = d;
   const pill = $("imgUsagePill");
+  updateImgEstimate();
   if (!token) { pill.textContent = t("guestLabel"); return; }
   if (!d) { pill.textContent = "..."; return; }
   pill.textContent = t("imgRemainingLabel", d.remaining, d.limit);
+  updateImgEstimate();
 }
 
 async function refreshImageUsage() {
@@ -1591,7 +1687,16 @@ $("imgRun").onclick = async () => {
   if (models.length === 0) { alert(t("noModelAlert")); return; }
 
   const style = IMG_STYLES[$("imgStyleSel").value] || "";
-  const full = style ? `${p}, ${style}` : p;
+  const templateText = selectedImageTemplate ? IMAGE_TEMPLATE_PROMPTS[selectedImageTemplate] : "";
+  const full = [templateText, p, style].filter(Boolean).join(", ");
+  if (full.length > IMAGE_PROMPT_MAX) { alert(t("isTooLong")); return; }
+
+  // حجب مبكر: ما كنخترعوش حصة إلا ما تحمّلاتش بيانات الاستعمال
+  if (lastImgUsage && typeof lastImgUsage.remaining === "number" && lastImgUsage.remaining < models.length) {
+    alert(t("isNotEnoughQuota", lastImgUsage.remaining, models.length));
+    return;
+  }
+  const dimensions = currentImgDimensions();
 
   const out = $("imgResults");
   out.innerHTML = "";
@@ -1617,21 +1722,24 @@ $("imgRun").onclick = async () => {
     const body = document.createElement("div");
     body.className = "body ph muted";
     body.textContent = t("imgLoading");
-    card.append(head, body);
+    const meta = document.createElement("div");
+    meta.className = "is-meta hidden";
+    card.append(head, meta, body);
     out.appendChild(card);
-    cards.set(m.id, { body, save });
+    cards.set(m.id, { body, save, meta, m });
   });
 
   let lastUsage = null;
   let stopAll = false;
   const runOne = async (m) => {
     if (stopAll) return;
-    const { body, save } = cards.get(m.id);
+    const { body, save, meta } = cards.get(m.id);
+    const startedAt = performance.now();
     try {
       const res = await fetchWithTimeout(BACKEND_URL + "/api/images/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
-        body: JSON.stringify({ model: m.id, prompt: full })
+        body: JSON.stringify({ model: m.id, prompt: full, width: dimensions.width, height: dimensions.height })
       }, 90000);
 
       const data = await res.json().catch(() => ({}));
@@ -1646,10 +1754,36 @@ $("imgRun").onclick = async () => {
       body.className = "body";
       body.replaceChildren(img);
       save.classList.remove("hidden");
+
+      // شفافية النتيجة: النموذج المطلوب، المستعمل فعلا (بديل؟)، والوقت
+      const secs = ((performance.now() - startedAt) / 1000).toFixed(1);
+      const used = data.model || m.label;
+      const row = (label, value) => {
+        const s = document.createElement("span");
+        s.append(label + ": ");
+        const b = document.createElement("b");
+        b.textContent = value;
+        s.appendChild(b);
+        return s;
+      };
+      meta.replaceChildren(row(t("isRequested"), m.label), row(t("isUsed"), used), row(t("isTime"), secs + "s"));
+      if (used !== m.label) {
+        const n1 = document.createElement("span"); n1.className = "note"; n1.textContent = t("isFallback") + ": " + used;
+        meta.appendChild(n1);
+      }
+      const dimsOk = typeof data.dimensions_applied === "boolean" ? data.dimensions_applied : null;
+      if (dimsOk === false && (dimensions.width !== dimensions.height)) {
+        const n2 = document.createElement("span"); n2.className = "note"; n2.textContent = t("isNoRatio");
+        meta.appendChild(n2);
+      }
+      meta.classList.remove("hidden");
+
       save.onclick = () => {
         const a = document.createElement("a");
         a.href = data.image;
-        a.download = `querymix-${Date.now()}.png`;
+        const mime = (data.image.match(/^data:(image\/[a-z0-9.+-]+);/i) || [])[1] || "image/png";
+        const ext = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" }[mime.toLowerCase()] || "png";
+        a.download = `querymix-${Date.now()}.${ext}`;
         document.body.appendChild(a);
         a.click();
         a.remove();
