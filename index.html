@@ -46,6 +46,42 @@ button:disabled{opacity:.55;cursor:default}
 .hidden{display:none!important}
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
+
+/* Product Listing Lab */
+.pl-badge{display:inline-flex;align-items:center;gap:8px;background:var(--soft);color:var(--violet);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:700;font-size:14px;margin-bottom:16px;text-decoration:none}
+.pl-badge:hover{border-color:var(--violet)}
+.pl-checks{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 24px;padding:0;list-style:none;color:var(--ink);font-weight:600;font-size:15px}
+.pl-checks li::before{content:"✓";display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ok);color:#fff;font-size:12px;margin-inline-end:8px}
+.pl-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:22px;align-items:start}
+.pl-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.pl-head .pl-logo{width:44px;height:44px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:22px;flex:none}
+.pl-head h3{font-size:20px;color:var(--ink);line-height:1.3}
+.pl-head p{color:var(--muted);font-size:14px;margin:2px 0 0}
+.pl-form{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin-top:14px}
+.pl-f{display:grid;gap:6px;align-content:start;font-weight:700;font-size:14px;color:var(--ink)}
+.pl-f.c3{grid-column:span 3}.pl-f.c2{grid-column:span 2}.pl-f.c6{grid-column:1/-1}
+.pl-f .req{color:var(--err)}
+.pl-f .opt-tag{color:var(--muted);font-weight:500}
+.pl-wrap{position:relative}
+.pl-wrap .pl-ico{position:absolute;inset-inline-start:12px;top:12px;font-size:16px;pointer-events:none;opacity:.8}
+.pl-wrap .inp,.pl-wrap .ta,.pl-wrap .sel{margin-top:0;width:100%;padding-inline-start:40px}
+.pl-wrap:has(.inp,.sel) .pl-ico{top:50%;transform:translateY(-50%)}
+.pl-wrap .ta{min-height:96px}
+.pl-wrap .ta.short{min-height:64px}
+.pl-note{display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:13.5px;margin:0}
+.pl-note::before{content:"✓";flex:none;display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--ok);color:#fff;font-size:11px;margin-top:2px}
+.pl-aside{background:var(--bg);border:1.5px solid var(--line);border-radius:18px;padding:18px}
+.pl-aside h4{font-size:17px;color:var(--ink);margin-bottom:12px}
+.pl-why{display:grid;gap:12px;margin:0 0 14px;padding:0;list-style:none}
+.pl-why li{display:grid;grid-template-columns:38px 1fr;gap:10px;align-items:center}
+.pl-why .ic{width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px}
+.pl-why b{display:block;font-size:14.5px;color:var(--ink)}
+.pl-why span.d{display:block;font-size:13px;color:var(--muted);line-height:1.5}
+.pl-perfect{font-weight:700;font-size:14px;color:var(--ink);margin:6px 0}
+.pl-perfect-list{margin:0;padding:0;list-style:none;display:grid;gap:4px;color:var(--muted);font-size:14px}
+.pl-perfect-list li::before{content:"✓";color:var(--ok);font-weight:800;margin-inline-end:8px}
+@media(max-width:900px){.pl-grid{grid-template-columns:1fr}.pl-f.c3,.pl-f.c2{grid-column:1/-1}}
+
 /* Navbar */
 .nav{position:sticky;top:12px;z-index:50;margin:12px auto 0;max-width:1180px;padding:0 20px}
 .nav-in{background:var(--card);border-radius:18px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;padding:14px 26px;min-height:72px;gap:16px;position:relative;border-top:3px solid transparent;border-image:var(--gold-grad) 1}
@@ -251,6 +287,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
     <a href="#home" class="logo"><b>Mix</b>Query</a>
     <nav class="links" id="links">
       <a href="#home" data-i18n="navHome"></a>
+      <a href="#tools" id="navProductLab" data-i18n="productLabTab"></a>
       <a href="#tools" data-i18n="navTools"></a>
       <a href="#how" data-i18n="navHow"></a>
       <a href="#pricing" data-i18n="navPricing"></a>
@@ -271,8 +308,12 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
 
   <section class="hero">
     <div>
+      <a href="#tools" class="pl-badge" id="heroPlBadge">✨ <span data-i18n="plBadge"></span></a>
       <h1 data-i18n="heroTitle">قارن إجابات عدة نماذج ذكاء اصطناعي في مكان واحد</h1>
       <p data-i18n="heroText">اسأل سؤالاً واحداً واحصل على إجابات عدة نماذج جنباً إلى جنب، مع أدوات للتلخيص وتحليل البيانات وتوليد الصور، بالعربية والفرنسية والإنجليزية.</p>
+      <ul class="pl-checks">
+        <li data-i18n="plChk1"></li><li data-i18n="plChk2"></li><li data-i18n="plChk3"></li><li data-i18n="plChk4"></li>
+      </ul>
       <div class="hero-btns">
         <a href="#tools" class="btn btn-p"><span class="arrow"></span> <span data-i18n="heroCta1"></span></a>
         <a href="#toolcards" class="btn btn-w"><span class="arrow"></span> <span data-i18n="heroCta2"></span></a>
@@ -362,6 +403,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
       </div>
 
       <div class="tabs" role="tablist">
+        <button class="tab" role="tab" data-tool="productLab" data-i18n="productLabTab"></button>
         <button class="tab" role="tab" data-tool="edit" data-i18n="tEditT"></button>
         <button class="tab" role="tab" data-tool="image" data-i18n="tImgT"></button>
         <button class="tab" role="tab" data-tool="data" data-i18n="tDataT"></button>
@@ -380,6 +422,79 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
           </div>
         </div>
         <div class="chips" id="modelChips" role="group" aria-label="النماذج"></div>
+      </div>
+
+      <!-- Product Listing Lab -->
+      <div data-panel="productLab">
+        <div class="pl-grid">
+          <div>
+            <div class="pl-head">
+              <div class="pl-logo" aria-hidden="true">📦</div>
+              <div>
+                <h3 data-i18n="productLabTitle"></h3>
+                <p data-i18n="productLabSub"></p>
+              </div>
+            </div>
+            <div class="pl-form">
+              <div class="pl-f c3">
+                <label for="plName"><span data-i18n="plNameLabel"></span> <span class="req" aria-hidden="true">*</span></label>
+                <div class="pl-wrap"><span class="pl-ico" aria-hidden="true">🏷️</span>
+                  <input class="inp" id="plName" maxlength="180" data-i18n-ph="plNamePh"></div>
+              </div>
+              <div class="pl-f c3">
+                <label for="plFeatures"><span data-i18n="plFeaturesLabel"></span> <span class="req" aria-hidden="true">*</span></label>
+                <div class="pl-wrap"><span class="pl-ico" aria-hidden="true">📋</span>
+                  <textarea class="ta" id="plFeatures" maxlength="5000" data-i18n-ph="plFeaturesPh"></textarea></div>
+              </div>
+              <div class="pl-f c2">
+                <label for="plAudience" data-i18n="plAudienceLabel"></label>
+                <div class="pl-wrap"><span class="pl-ico" aria-hidden="true">👥</span>
+                  <input class="inp" id="plAudience" maxlength="300" data-i18n-ph="plAudiencePh"></div>
+              </div>
+              <div class="pl-f c2">
+                <label for="plLanguage" data-i18n="plLanguageLabel"></label>
+                <div class="pl-wrap"><span class="pl-ico" aria-hidden="true">🌐</span>
+                  <select class="sel" id="plLanguage">
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                    <option value="ar">العربية</option>
+                  </select></div>
+              </div>
+              <div class="pl-f c2">
+                <label for="plTask" data-i18n="plTaskLabel"></label>
+                <div class="pl-wrap"><span class="pl-ico" aria-hidden="true">📄</span>
+                  <select class="sel" id="plTask">
+                    <option value="description" data-i18n="plTaskDescription"></option>
+                    <option value="seo" data-i18n="plTaskSeo"></option>
+                    <option value="ad" data-i18n="plTaskAd"></option>
+                    <option value="all" data-i18n="plTaskAll"></option>
+                  </select></div>
+              </div>
+              <div class="pl-f c6">
+                <label for="plExtra" data-i18n="plExtraLabel"></label>
+                <div class="pl-wrap"><span class="pl-ico" aria-hidden="true">✏️</span>
+                  <textarea class="ta short" id="plExtra" maxlength="1000" data-i18n-ph="plExtraPh"></textarea></div>
+              </div>
+              <p class="pl-note c6" style="grid-column:1/-1" data-i18n="plSafetyNote"></p>
+              <button class="btn btn-p run" id="plRun" type="button" style="grid-column:1/-1" data-i18n="plRun"></button>
+              <p class="hint" style="grid-column:1/-1;margin:0" data-i18n="plCostNote"></p>
+            </div>
+          </div>
+          <aside class="pl-aside" aria-label="QueryMix">
+            <h4 data-i18n="plWhyTitle"></h4>
+            <ul class="pl-why">
+              <li><span class="ic" aria-hidden="true">⚡</span><span><b data-i18n="plWhy1T"></b><span class="d" data-i18n="plWhy1D"></span></span></li>
+              <li><span class="ic" aria-hidden="true">🎯</span><span><b data-i18n="plWhy2T"></b><span class="d" data-i18n="plWhy2D"></span></span></li>
+              <li><span class="ic" aria-hidden="true">🔖</span><span><b data-i18n="plWhy3T"></b><span class="d" data-i18n="plWhy3D"></span></span></li>
+              <li><span class="ic" aria-hidden="true">🌍</span><span><b data-i18n="plWhy4T"></b><span class="d" data-i18n="plWhy4D"></span></span></li>
+            </ul>
+            <div class="pl-perfect" data-i18n="plPerfect"></div>
+            <ul class="pl-perfect-list">
+              <li data-i18n="plPerf1"></li><li data-i18n="plPerf2"></li><li data-i18n="plPerf3"></li>
+            </ul>
+          </aside>
+        </div>
+        <div class="results compare-layout" id="plResults" aria-live="polite"></div>
       </div>
 
       <!-- تحرير النصوص -->
@@ -558,7 +673,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
   </div>
 </div>
 
-<script src="app.js?v=7" defer></script>
+<script src="app.js?v=8" defer></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "458d2ed95f9a41f2aa0a43feeb40d1b5"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
