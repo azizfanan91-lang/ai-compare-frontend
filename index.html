@@ -82,6 +82,26 @@ button:disabled{opacity:.55;cursor:default}
 .pl-perfect-list li::before{content:"✓";color:var(--ok);font-weight:800;margin-inline-end:8px}
 @media(max-width:900px){.pl-grid{grid-template-columns:1fr}.pl-f.c3,.pl-f.c2{grid-column:1/-1}}
 
+
+/* Image Studio */
+.is-head h3{font-size:20px;color:var(--ink);line-height:1.3}
+.is-head p{color:var(--muted);font-size:14px;margin:2px 0 14px}
+.is-label{display:block;font-weight:700;font-size:14px;color:var(--ink);margin:14px 0 6px}
+.is-templates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.is-tpl{display:flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:12px 10px;font-weight:700;font-size:14px;color:var(--ink);text-align:center}
+.is-tpl .ic{font-size:18px}
+.is-tpl:hover{border-color:var(--violet)}
+.is-tpl[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:transparent}
+.is-estimate{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0 10px;font-size:14px;color:var(--ink);font-weight:600}
+.is-estimate .warn{flex-basis:100%;color:var(--muted);font-weight:500;font-size:13px}
+.is-meta{display:flex;flex-wrap:wrap;gap:4px 12px;color:var(--muted);font-size:12.5px;margin:-3px 0 10px}
+.is-meta b{color:var(--ink);font-weight:700}
+.is-meta .note{flex-basis:100%;color:#9a5b00}
+#imgResults .res .body{max-height:none;overflow:visible}
+#imgResults .res img{aspect-ratio:auto;object-fit:contain;max-height:560px;margin-inline:auto}
+#imgResults .res .ph{aspect-ratio:var(--img-ar,1/1);min-height:0}
+@media(max-width:720px){.is-templates{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 /* Navbar */
 .nav{position:sticky;top:12px;z-index:50;margin:12px auto 0;max-width:1180px;padding:0 20px}
 .nav-in{background:var(--card);border-radius:18px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;padding:14px 26px;min-height:72px;gap:16px;position:relative;border-top:3px solid transparent;border-image:var(--gold-grad) 1}
@@ -309,8 +329,8 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
   <section class="hero">
     <div>
       <a href="#tools" class="pl-badge" id="heroPlBadge">✨ <span data-i18n="plBadge"></span></a>
-      <h1 data-i18n="heroTitle">قارن إجابات عدة نماذج ذكاء اصطناعي في مكان واحد</h1>
-      <p data-i18n="heroText">اسأل سؤالاً واحداً واحصل على إجابات عدة نماذج جنباً إلى جنب، مع أدوات للتلخيص وتحليل البيانات وتوليد الصور، بالعربية والفرنسية والإنجليزية.</p>
+      <h1 data-i18n="heroTitle">محتوى أفضل لمنتجاتك. قارن الذكاء الاصطناعي. طوّر متجرك.</h1>
+      <p data-i18n="heroText">اسأل سؤالاً واحداً واحصل على إجابات عدة نماذج جنباً إلى جنب، مع أدوات للتلخيص وتحليل البيانات وتوليد الصور.</p>
       <ul class="pl-checks">
         <li data-i18n="plChk1"></li><li data-i18n="plChk2"></li><li data-i18n="plChk3"></li><li data-i18n="plChk4"></li>
       </ul>
@@ -506,8 +526,18 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
 
       <!-- توليد الصور -->
       <div data-panel="image" class="hidden">
-        <div class="models-label" data-i18n="imgModelsLabel"></div>
-        <div class="chips" id="imgModelChips" role="group" aria-label="نماذج توليد الصور"></div>
+        <div class="is-head">
+          <h3 data-i18n="isTitle"></h3>
+          <p data-i18n="isSub"></p>
+        </div>
+        <div class="models-label" data-i18n="isTemplates"></div>
+        <div class="is-templates" id="imgTemplates" role="group" data-i18n-aria="isTemplates">
+          <button type="button" class="is-tpl" data-tpl="product" aria-pressed="false"><span class="ic" aria-hidden="true">🛍️</span><span data-i18n="isTplProduct"></span></button>
+          <button type="button" class="is-tpl" data-tpl="ad" aria-pressed="false"><span class="ic" aria-hidden="true">📣</span><span data-i18n="isTplAd"></span></button>
+          <button type="button" class="is-tpl" data-tpl="realistic" aria-pressed="false"><span class="ic" aria-hidden="true">📷</span><span data-i18n="isTplReal"></span></button>
+          <button type="button" class="is-tpl" data-tpl="creative" aria-pressed="false"><span class="ic" aria-hidden="true">🎨</span><span data-i18n="isTplCreative"></span></button>
+        </div>
+        <label class="is-label" for="imgPrompt" data-i18n="isPromptLabel"></label>
         <textarea class="ta" id="imgPrompt" data-i18n-ph="imgPh" maxlength="500" style="min-height:100px"></textarea>
         <div class="opts">
           <label class="opt"><span data-i18n="imgStyle"></span>
@@ -520,7 +550,17 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
               <option value="water" data-i18n="stWater"></option>
             </select>
           </label>
+          <label class="opt"><span data-i18n="isRatio"></span>
+            <select class="sel" id="imgRatioSel">
+              <option value="square" data-i18n="isRatioSquare"></option>
+              <option value="portrait" data-i18n="isRatioPortrait"></option>
+              <option value="landscape" data-i18n="isRatioLandscape"></option>
+            </select>
+          </label>
         </div>
+        <div class="models-label" data-i18n="imgModelsLabel"></div>
+        <div class="chips" id="imgModelChips" role="group" aria-label="نماذج توليد الصور"></div>
+        <div class="is-estimate" id="imgEstimate" aria-live="polite"></div>
         <div class="status" style="margin-bottom:0">
           <span class="pill" id="imgUsagePill"></span>
         </div>
@@ -673,7 +713,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 40px;l
   </div>
 </div>
 
-<script src="app.js?v=8" defer></script>
+<script src="app.js?v=10" defer></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "458d2ed95f9a41f2aa0a43feeb40d1b5"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
