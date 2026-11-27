@@ -467,6 +467,107 @@ Object.assign(I18N.en, {
   isTooLong: "The description plus template and style is too long (500 characters max). Shorten it or clear the template."
 });
 
+// ---------- Redesign v11: new interface strings (ar / fr / en) ----------
+Object.assign(I18N.ar, {
+  pageTitle: "QueryMix — سؤال واحد. إجابات متعددة من الذكاء الاصطناعي",
+  metaDesc: "قارن إجابات عدة نماذج ذكاء اصطناعي في مكان واحد، واستكشف وجهات نظر مختلفة لاتخاذ قرارات أفضل.",
+  skipLink: "تخطَّ إلى المحتوى", navWorkspace: "مساحة العمل", navFaq: "الأسئلة الشائعة", navDashboard: "لوحة التحكم", navTry: "جرّب QueryMix",
+  heroTitle: "سؤال واحد. إجابات متعددة من الذكاء الاصطناعي.",
+  heroText: "قارن إجابات عدة نماذج ذكاء اصطناعي في مكان واحد. استكشف وجهات نظر مختلفة واتخذ قرارات أكثر وعياً.",
+  heroCta1: "جرّب QueryMix", heroCta2: "اكتشف طريقة العمل",
+  demoExample: "مثال", demoYourQ: "سؤالك", demoQ: "ما أفضل طريقة لوصف منتجي؟", demoModelA: "النموذج A", demoModelB: "النموذج B", demoModelC: "النموذج C",
+  benTitle: "محتوى أفضل لمنتجاتك. قارن الذكاء الاصطناعي. طوّر متجرك.",
+  benSub: "أدوات عملية لأصحاب المتاجر وصنّاع المحتوى.",
+  ben1T: "قارن جنباً إلى جنب", ben1D: "اختر نموذجين أو ثلاثة واطرح سؤالاً واحداً لترى الفروق بنفسك.",
+  ben2T: "محتوى منتجات جاهز", ben2D: "أوصاف وSEO وإعلانات انطلاقاً من معلومات منتجك الحقيقية فقط.",
+  ben3T: "بثلاث لغات", ben3D: "الواجهة بالعربية والفرنسية والإنجليزية، مع دعم كامل للكتابة من اليمين لليسار.",
+  dashTitle: "لوحة التحكم", dashOpenWorkspace: "افتح مساحة العمل",
+  dashAccount: "الحساب", dashEmail: "البريد الإلكتروني", dashPlan: "الخطة",
+  dashSubscription: "الاشتراك", dashStatus: "الحالة", dashTrialLeft: "أيام التجربة المتبقية", dashSeePricing: "عرض الأسعار",
+  dashPlanPremium: "Premium", dashPlanTrial: "تجربة مجانية", dashPlanEnded: "انتهت التجربة",
+  dashStatusActive: "نشط", dashStatusNone: "غير مشترك",
+  dashUsage: "الاستخدام اليوم", dashChatToday: "المحادثات", dashImgToday: "الصور", dashUnlimited: "غير محدود",
+  dashUsageNote: "الأرقام قادمة مباشرة من حسابك على الخادم.",
+  dashSaved: "النتائج المحفوظة", dashViewSaved: "عرض النتائج المحفوظة",
+  dashSavedCount: (n) => n === 0 ? "لا توجد نتائج محفوظة بعد." : `لديك ${n} نتيجة محفوظة.`,
+  dashManage: "إدارة الحساب", dashSendReset: "أرسل رابط إعادة تعيين كلمة السر",
+  pwShow: "إظهار كلمة السر", pwHide: "إخفاء كلمة السر",
+  faqTitle: "الأسئلة الشائعة", faqSub: "إجابات سريعة عن أكثر ما يُسأل عنه.",
+  faq1Q: "ما هو QueryMix؟", faq1A: "منصة تتيح لك طرح سؤال واحد ومقارنة إجابات عدة نماذج ذكاء اصطناعي في مكان واحد، مع أدوات لمحتوى المنتجات وتحرير النصوص وتوليد الصور وتحليل البيانات وتلخيص المستندات.",
+  faq2Q: "هل أحتاج إلى حساب؟", faq2A: "يمكنك تجربة المقارنة مجاناً بدون حساب (تجربة محدودة). لاستعمال كل الأدوات تحتاج إلى إنشاء حساب.",
+  faq3Q: "هل QueryMix مجاني؟", faq3A: () => `عند إنشاء حساب تحصل على تجربة مجانية مدتها ${LIMITS.trialDays} أيام، بحد ${LIMITS.freeChat} محادثات و${LIMITS.freeImage} صور في اليوم. بعد انتهائها تحتاج إلى اشتراك Premium للمتابعة.`,
+  faq4Q: "كم يكلف Premium وكيف أدفع؟", faq4A: () => `اشتراك Premium بـ 10$ شهرياً، والدفع يتم عبر Gumroad (لا نخزّن أرقام بطاقتك). بعد الدفع اضغط على زر «${t("checkSubText")}» لتأكيد التفعيل. يتيح استعمالاً موسعاً حتى ${LIMITS.premiumImage} صورة يومياً (استخدام عادل).`,
+  faq5Q: "أي النماذج متاحة؟", faq5A: "تظهر في مساحة العمل قائمة النماذج المجانية المتاحة حالياً لتختار منها. توفّر النماذج قد يتغير من وقت لآخر.",
+  faq6Q: "ما اللغات المدعومة؟", faq6A: "الواجهة بالعربية والفرنسية والإنجليزية، ويمكن لمختبر محتوى المنتجات كتابة النتائج بهذه اللغات الثلاث.",
+  faq7Q: "ماذا عن خصوصيتي وبياناتي؟", faq7A: "لا نحفظ نتيجة إلا إذا ضغطت زر الحفظ. اطّلع على صفحة الخصوصية والشروط في أسفل الصفحة لمعرفة التفاصيل. يمكنك إعادة تعيين كلمة السر من نافذة الدخول."
+});
+Object.assign(I18N.fr, {
+  pageTitle: "QueryMix — Une question. Plusieurs réponses d'IA.",
+  metaDesc: "Comparez les réponses de plusieurs modèles d'IA au même endroit. Explorez différents points de vue et décidez en connaissance de cause.",
+  skipLink: "Aller au contenu", navWorkspace: "Espace de travail", navFaq: "FAQ", navDashboard: "Tableau de bord", navTry: "Essayer QueryMix",
+  heroTitle: "Une question. Plusieurs réponses d'IA.",
+  heroText: "Comparez les réponses de plusieurs modèles d'IA au même endroit. Explorez différents points de vue et prenez des décisions plus éclairées.",
+  heroCta1: "Essayer QueryMix", heroCta2: "Découvrir le fonctionnement",
+  demoExample: "Exemple", demoYourQ: "Votre question", demoQ: "Quelle est la meilleure façon de décrire mon produit ?", demoModelA: "Modèle A", demoModelB: "Modèle B", demoModelC: "Modèle C",
+  benTitle: "Un meilleur contenu produit. Comparez les IA. Développez votre boutique.",
+  benSub: "Des outils concrets pour les vendeurs et les créateurs de contenu.",
+  ben1T: "Comparez côte à côte", ben1D: "Choisissez deux ou trois modèles, posez une seule question et voyez les différences.",
+  ben2T: "Contenu produit prêt à l'emploi", ben2D: "Descriptions, SEO et annonces à partir de vos seules informations réelles.",
+  ben3T: "En trois langues", ben3D: "Interface en arabe, français et anglais, avec prise en charge complète de l'écriture de droite à gauche.",
+  dashTitle: "Tableau de bord", dashOpenWorkspace: "Ouvrir l'espace de travail",
+  dashAccount: "Compte", dashEmail: "E-mail", dashPlan: "Offre",
+  dashSubscription: "Abonnement", dashStatus: "Statut", dashTrialLeft: "Jours d'essai restants", dashSeePricing: "Voir les tarifs",
+  dashPlanPremium: "Premium", dashPlanTrial: "Essai gratuit", dashPlanEnded: "Essai terminé",
+  dashStatusActive: "Actif", dashStatusNone: "Non abonné",
+  dashUsage: "Utilisation aujourd'hui", dashChatToday: "Conversations", dashImgToday: "Images", dashUnlimited: "Illimité",
+  dashUsageNote: "Ces chiffres proviennent directement de votre compte sur le serveur.",
+  dashSaved: "Résultats enregistrés", dashViewSaved: "Voir les résultats enregistrés",
+  dashSavedCount: (n) => n === 0 ? "Aucun résultat enregistré pour l'instant." : (n === 1 ? "Vous avez 1 résultat enregistré." : `Vous avez ${n} résultats enregistrés.`),
+  dashManage: "Gestion du compte", dashSendReset: "Envoyer un lien de réinitialisation du mot de passe",
+  pwShow: "Afficher le mot de passe", pwHide: "Masquer le mot de passe",
+  faqTitle: "Questions fréquentes", faqSub: "Réponses rapides aux questions les plus courantes.",
+  faq1Q: "Qu'est-ce que QueryMix ?", faq1A: "Une plateforme pour poser une seule question et comparer les réponses de plusieurs modèles d'IA au même endroit, avec des outils pour le contenu produit, la rédaction, les images, l'analyse de données et le résumé de documents.",
+  faq2Q: "Ai-je besoin d'un compte ?", faq2A: "Vous pouvez tester la comparaison gratuitement sans compte (essai limité). Pour utiliser tous les outils, il faut créer un compte.",
+  faq3Q: "QueryMix est-il gratuit ?", faq3A: () => `À la création du compte, vous bénéficiez d'un essai gratuit de ${LIMITS.trialDays} jours, avec ${LIMITS.freeChat} conversations et ${LIMITS.freeImage} images par jour. Ensuite, un abonnement Premium est nécessaire pour continuer.`,
+  faq4Q: "Combien coûte Premium et comment payer ?", faq4A: () => `Premium coûte 10 $ par mois, payé via Gumroad (nous ne stockons pas vos numéros de carte). Après le paiement, cliquez sur « ${t("checkSubText")} » pour confirmer l'activation. Usage étendu : jusqu'à ${LIMITS.premiumImage} images par jour (usage raisonnable).`,
+  faq5Q: "Quels modèles sont disponibles ?", faq5A: "L'espace de travail affiche la liste des modèles gratuits actuellement disponibles. Leur disponibilité peut changer.",
+  faq6Q: "Quelles langues sont prises en charge ?", faq6A: "L'interface est disponible en arabe, français et anglais ; le Product Listing Lab peut rédiger ses résultats dans ces trois langues.",
+  faq7Q: "Et ma vie privée ?", faq7A: "Aucun résultat n'est conservé sans que vous cliquiez sur Enregistrer. Consultez les pages Confidentialité et Conditions en bas de page. Vous pouvez réinitialiser votre mot de passe depuis la fenêtre de connexion."
+});
+Object.assign(I18N.en, {
+  pageTitle: "QueryMix — One Question. Multiple AI Answers.",
+  metaDesc: "Compare responses from multiple AI models in one place. Explore different perspectives and make more informed decisions.",
+  skipLink: "Skip to content", navWorkspace: "Workspace", navFaq: "FAQ", navDashboard: "Dashboard", navTry: "Try QueryMix",
+  heroTitle: "One Question. Multiple AI Answers.",
+  heroText: "Compare responses from multiple AI models in one place. Explore different perspectives and make more informed decisions.",
+  heroCta1: "Try QueryMix", heroCta2: "Explore How It Works",
+  demoExample: "Example", demoYourQ: "Your question", demoQ: "What's the best way to describe my product?", demoModelA: "Model A", demoModelB: "Model B", demoModelC: "Model C",
+  benTitle: "Create Better Product Content. Compare AI. Grow Your Store.",
+  benSub: "Practical tools for store owners and content creators.",
+  ben1T: "Compare side by side", ben1D: "Pick two or three models, ask one question and see the differences yourself.",
+  ben2T: "Ready-to-use product content", ben2D: "Descriptions, SEO and ads built only from your real product details.",
+  ben3T: "In three languages", ben3D: "Interface in Arabic, French and English, with full right-to-left support.",
+  dashTitle: "Dashboard", dashOpenWorkspace: "Open workspace",
+  dashAccount: "Account", dashEmail: "Email", dashPlan: "Plan",
+  dashSubscription: "Subscription", dashStatus: "Status", dashTrialLeft: "Trial days left", dashSeePricing: "See pricing",
+  dashPlanPremium: "Premium", dashPlanTrial: "Free trial", dashPlanEnded: "Trial ended",
+  dashStatusActive: "Active", dashStatusNone: "Not subscribed",
+  dashUsage: "Usage today", dashChatToday: "Chats", dashImgToday: "Images", dashUnlimited: "Unlimited",
+  dashUsageNote: "These numbers come directly from your account on the server.",
+  dashSaved: "Saved results", dashViewSaved: "View saved results",
+  dashSavedCount: (n) => n === 0 ? "No saved results yet." : (n === 1 ? "You have 1 saved result." : `You have ${n} saved results.`),
+  dashManage: "Account management", dashSendReset: "Send a password reset link",
+  pwShow: "Show password", pwHide: "Hide password",
+  faqTitle: "Frequently asked questions", faqSub: "Quick answers to the most common questions.",
+  faq1Q: "What is QueryMix?", faq1A: "A platform where you ask one question and compare answers from several AI models in one place, with tools for product content, text editing, image generation, data analysis and document summarizing.",
+  faq2Q: "Do I need an account?", faq2A: "You can try the comparison for free without an account (limited preview). To use all the tools you need to create an account.",
+  faq3Q: "Is QueryMix free?", faq3A: () => `When you create an account you get a ${LIMITS.trialDays}-day free trial with ${LIMITS.freeChat} chats and ${LIMITS.freeImage} images per day. After that you need a Premium subscription to continue.`,
+  faq4Q: "How much is Premium and how do I pay?", faq4A: () => `Premium is $10 per month, paid through Gumroad (we don't store your card number). After paying, press "${t("checkSubText")}" to confirm activation. It gives extended use, up to ${LIMITS.premiumImage} images per day (fair use).`,
+  faq5Q: "Which models are available?", faq5A: "The workspace shows the list of free models currently available for you to choose from. Availability can change over time.",
+  faq6Q: "Which languages are supported?", faq6A: "The interface is available in Arabic, French and English, and the Product Listing Lab can write its results in all three.",
+  faq7Q: "What about my privacy and data?", faq7A: "A result is only stored if you press Save. See the Privacy and Terms pages at the bottom of the page for details. You can reset your password from the login window."
+});
+
 const LANG_NAMES = { ar: "Arabic", fr: "French", en: "English" };
 
 let currentLang = "ar";
@@ -535,6 +636,9 @@ function setLanguage(lang) {
   root.dir = lang === "ar" ? "rtl" : "ltr";
 
   $("pageTitle").textContent = t("pageTitle");
+  document.title = t("pageTitle");
+  updateMetaTags();
+  document.querySelectorAll(".pw-toggle").forEach(b => syncPwToggle(b));
   document.querySelectorAll("[data-i18n]").forEach(el => {
     if (el.classList.contains("run") && running) return;
     el.textContent = t(el.dataset.i18n);
@@ -570,12 +674,20 @@ document.querySelectorAll(".lang-btn").forEach(btn => {
 });
 
 // ---------- Nav ----------
-$("menuBtn").onclick = () => $("links").classList.toggle("open");
-document.querySelectorAll(".links a").forEach(a => a.onclick = () => $("links").classList.remove("open"));
+function setMenu(open) {
+  $("links").classList.toggle("open", open);
+  $("menuBtn").setAttribute("aria-expanded", open ? "true" : "false");
+}
+$("menuBtn").onclick = () => setMenu(!$("links").classList.contains("open"));
+document.querySelectorAll(".links a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
 
 function updateNav() {
   $("authBtn").textContent = token ? t("logoutBtn") : "👤 " + t("loginTitle");
   $("userEmailLabel").textContent = token ? (userEmail || "") : "";
+  $("navDashboard").classList.toggle("hidden", !token);
+  $("dashboard").classList.toggle("hidden", !token);
+  renderDashboard();
 }
 
 $("authBtn").onclick = () => { token ? logout() : openAuth(false); };
@@ -1006,7 +1118,11 @@ function sessionExpired() {
   openAuth(false);
 }
 
+var savedCount = null;   // var: updateNav() runs before later lets are initialised
+var dashImgUsage = null;
 function renderSavedResults(results) {
+  savedCount = token ? results.length : null;
+  renderDashboard();
   const box = $("savedList");
   box.replaceChildren();
   if (!token) {
@@ -1147,6 +1263,7 @@ function renderUsage() {
     premOk.classList.add("hidden");
   }
   syncButtons();
+  renderDashboard();
 }
 
 async function refreshUsage() {
@@ -1661,10 +1778,12 @@ function renderImgUsage(d) {
   lastImgUsage = d;
   const pill = $("imgUsagePill");
   updateImgEstimate();
-  if (!token) { pill.textContent = t("guestLabel"); return; }
+  if (!token) { dashImgUsage = null; pill.textContent = t("guestLabel"); return; }
   if (!d) { pill.textContent = "..."; return; }
   pill.textContent = t("imgRemainingLabel", d.remaining, d.limit);
   updateImgEstimate();
+  dashImgUsage = d;
+  renderDashboard();
 }
 
 async function refreshImageUsage() {
@@ -1856,6 +1975,137 @@ $("plRun").onclick = () => {
 };
 $("navProductLab").addEventListener("click", () => setTool("productLab"));
 $("heroPlBadge").addEventListener("click", () => setTool("productLab"));
+
+
+// ---------- Redesign v11 additions (UI only; no change to API/auth/payment/usage logic) ----------
+
+// SEO/social meta follows the selected language
+function updateMetaTags() {
+  const set = (id, v) => { const el = $(id); if (el) el.setAttribute("content", v); };
+  set("metaDesc", t("metaDesc"));
+  set("ogDesc", t("metaDesc")); set("twDesc", t("metaDesc"));
+  set("ogTitle", t("pageTitle")); set("twTitle", t("pageTitle"));
+}
+
+// Dashboard: only values returned by existing endpoints
+//   /api/usage        -> is_premium, in_trial, trial_days_left, chat_used, chat_limit, chat_remaining
+//   /api/images/usage -> used, limit, remaining
+//   /api/saved-results-> results[] (count)
+//   session           -> email (localStorage azizart_email)
+function setBar(id, used, limit) {
+  const el = $(id);
+  if (!el) return;
+  el.style.width = (limit > 0 ? Math.min(100, Math.round((used / limit) * 100)) : 0) + "%";
+}
+function renderDashboard() {
+  if (!token) return;
+  $("dashEmail").textContent = userEmail || "";
+  const d = lastUsage;
+  if (d) {
+    const plan = d.is_premium ? t("dashPlanPremium") : (d.in_trial ? t("dashPlanTrial") : t("dashPlanEnded"));
+    $("dashPlan").textContent = plan;
+    $("dashSubStatus").textContent = d.is_premium ? t("dashStatusActive") : t("dashStatusNone");
+    $("dashTrialLeft").textContent = (!d.is_premium && d.in_trial && d.trial_days_left != null) ? String(d.trial_days_left) : "—";
+    if (d.is_premium || d.chat_limit == null) {
+      $("dashChatTxt").textContent = d.is_premium ? t("dashUnlimited") : "—";
+      setBar("dashChatBar", 0, 0);
+    } else {
+      $("dashChatTxt").textContent = `${d.chat_used} / ${d.chat_limit}`;
+      setBar("dashChatBar", d.chat_used, d.chat_limit);
+    }
+  }
+  const g = dashImgUsage;
+  if (g) {
+    $("dashImgTxt").textContent = `${g.used} / ${g.limit}`;
+    setBar("dashImgBar", g.used, g.limit);
+  }
+  $("dashSavedCount").textContent = savedCount == null ? "" : t("dashSavedCount", savedCount);
+}
+$("dashOpenWorkspace").onclick = () => { $("tools").scrollIntoView(); };
+$("dashSavedBtn").onclick = () => { loadSavedResults(); $("savedList").scrollIntoView({ block: "center" }); };
+$("dashLogoutBtn").onclick = () => { logout(); window.scrollTo(0, 0); };
+$("dashResetBtn").onclick = async () => {
+  const msg = $("dashMsg");
+  if (!userEmail) return;
+  $("dashResetBtn").disabled = true;
+  msg.textContent = t("working");
+  try {
+    const res = await fetch(BACKEND_URL + "/api/auth/forgot", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: userEmail, lang: currentLang })
+    });
+    const data = await res.json().catch(() => ({}));
+    msg.textContent = res.ok ? t("forgotSent") : (data.error || t("genericError"));
+  } catch (e) { msg.textContent = t("connError"); }
+  $("dashResetBtn").disabled = false;
+};
+$("dashLogoutBtn").classList.add("btn-w");
+
+// Password visibility toggles (login / register / reset)
+function syncPwToggle(btn) {
+  const input = $(btn.dataset.pwFor);
+  const shown = input.type === "text";
+  btn.textContent = shown ? "🙈" : "👁";
+  btn.setAttribute("aria-pressed", shown ? "true" : "false");
+  btn.setAttribute("aria-label", t(shown ? "pwHide" : "pwShow"));
+}
+document.querySelectorAll(".pw-toggle").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const input = $(btn.dataset.pwFor);
+    input.type = input.type === "password" ? "text" : "password";
+    syncPwToggle(btn);
+    input.focus();
+  });
+  syncPwToggle(btn);
+});
+// reset password fields back to hidden whenever a modal closes/opens
+["modal", "resetModal"].forEach(id => new MutationObserver(() => {
+  if (!$(id).classList.contains("open")) document.querySelectorAll("#" + id + " .pw-toggle").forEach(b => {
+    $(b.dataset.pwFor).type = "password"; syncPwToggle(b);
+  });
+}).observe($(id), { attributes: true, attributeFilter: ["class"] }));
+
+// Keyboard activation for link-style controls in the auth modal
+["switchLink", "forgotLink"].forEach(id => $(id).addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $(id).click(); }
+}));
+
+// Mobile comparison: sticky model-pill bar that jumps between the stacked cards
+function buildResultNav(container) {
+  const cards = Array.from(container.querySelectorAll(":scope > .res"));
+  let nav = container.previousElementSibling;
+  if (!nav || !nav.classList.contains("res-nav")) {
+    if (cards.length < 2) return;
+    nav = document.createElement("div");
+    nav.className = "res-nav";
+    nav.setAttribute("role", "group");
+    container.before(nav);
+  }
+  nav.setAttribute("aria-label", t("compareSelectedLabel"));
+  nav.replaceChildren();
+  if (cards.length < 2) { nav.classList.add("hidden"); return; }
+  nav.classList.remove("hidden");
+  cards.forEach((card, i) => {
+    const h = card.querySelector("h4");
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = h ? h.textContent : String(i + 1);
+    b.setAttribute("aria-current", i === 0 ? "true" : "false");
+    b.onclick = () => {
+      card.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      nav.querySelectorAll("button").forEach(x => x.setAttribute("aria-current", x === b ? "true" : "false"));
+    };
+    nav.appendChild(b);
+  });
+}
+document.querySelectorAll(".results.compare-layout").forEach(c => {
+  let pending = false;
+  new MutationObserver(() => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => { pending = false; buildResultNav(c); });
+  }).observe(c, { childList: true });
+});
 
 // ---------- Init ----------
 setTool("productLab");
