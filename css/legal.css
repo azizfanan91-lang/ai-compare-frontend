@@ -1,0 +1,23 @@
+/* QueryMix — legal pages (privacy / terms); scoped to body.legal */
+body.legal{line-height:1.8;background-image:radial-gradient(800px 400px at 85% -8%,rgba(109,74,255,.22) 0,transparent 70%)}
+body.legal .lg-head{position:sticky;top:0;z-index:30;background:rgba(10,15,36,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body.legal .lg-head-in{max-width:880px;margin:0 auto;padding:8px var(--gutter);min-height:var(--header-h);display:flex;align-items:center;justify-content:space-between;gap:12px}
+body.legal .langbar{display:flex;gap:6px}
+body.legal .langbar button{border:1.5px solid var(--line-strong);background:rgba(255,255,255,.06);border-radius:999px;min-width:44px;min-height:40px;padding:4px 14px;font:inherit;font-weight:700;color:var(--text)}
+body.legal .langbar button[aria-pressed="true"]{background:var(--violet-d);border-color:transparent;color:#fff}
+body.legal .wrap{max-width:880px;padding-top:28px;padding-bottom:70px}
+body.legal .back{display:inline-flex;align-items:center;min-height:44px;margin-bottom:12px;font-weight:700;color:var(--cyan)}
+body.legal h1{font-family:var(--display);font-weight:900;font-size:clamp(28px,5vw,40px);margin-bottom:6px}
+body.legal .updated{color:var(--muted);font-size:14px;margin-bottom:24px}
+body.legal .card{background:var(--glass);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px 28px}
+body.legal h2{font-family:var(--display);font-weight:800;font-size:20px;margin:28px 0 8px;color:var(--violet-300)}
+body.legal p,body.legal li{color:var(--muted);font-size:15.5px}
+body.legal li{margin-bottom:6px}
+body.legal ul{padding-inline-start:22px;margin:8px 0}
+body.legal strong{color:var(--text)}
+body.legal .card a,body.legal footer a{color:var(--cyan);text-decoration:underline}
+body.legal table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14.5px;display:block;overflow-x:auto}
+body.legal th,body.legal td{text-align:start;padding:8px 10px;border-bottom:1px solid var(--line);color:var(--muted)}
+body.legal th{color:var(--text);font-weight:700}
+body.legal footer{border:0;padding-top:30px}
+@media(max-width:560px){body.legal .card{padding:18px}}

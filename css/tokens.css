@@ -1,1 +1,30 @@
-
+/* QueryMix — design tokens (Creative Hybrid Dark) */
+:root{
+  /* surfaces */
+  --bg:#0A0F24; --bg-2:#0E1530; --surface:#151C3D; --surface-2:#1B2450;
+  --glass:rgba(21,28,61,.72); --line:rgba(169,177,214,.22); --line-strong:rgba(169,177,214,.4);
+  /* text */
+  --text:#F2F4FF; --muted:#A9B1D6;
+  /* brand */
+  --violet:#6D4AFF; --violet-d:#5B3CE0; --violet-300:#A78BFA;
+  --cyan:#22D3EE; --blue:#3B82F6;
+  --brand:linear-gradient(135deg,#6D4AFF 0%,#5B3CE0 100%);
+  --brand-soft:linear-gradient(135deg,rgba(109,74,255,.22),rgba(34,211,238,.12));
+  /* light surface (selective, readability) */
+  --light:#F6F7FF; --ink:#12172E; --ink-muted:#464E78; --light-line:#D5D9F0;
+  /* status */
+  --ok:#34D399; --err:#FB7185; --warn:#FBBF24;
+  --ok-ink:#0B6B45; --err-ink:#B4233F;
+  /* focus */
+  --focus:#22D3EE;
+  /* shape */
+  --r-sm:10px; --r-md:14px; --r-lg:20px; --r-xl:26px;
+  --shadow:0 12px 32px rgba(3,6,20,.45);
+  --shadow-sm:0 4px 14px rgba(3,6,20,.35);
+  --header-h:64px;
+  --gutter:20px;
+  --maxw:1180px;
+  /* type */
+  --font:"IBM Plex Sans Arabic",system-ui,Tahoma,Arial,sans-serif;
+  --display:"Cairo","IBM Plex Sans Arabic",Tahoma,sans-serif;
+}
