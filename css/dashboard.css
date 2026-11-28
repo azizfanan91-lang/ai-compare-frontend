@@ -1,20 +1,37 @@
-/* QueryMix — Dashboard (data from existing endpoints only) */
-.dash{background:var(--glass);border:1px solid var(--line);border-radius:var(--r-xl);padding:28px;box-shadow:var(--shadow-sm)}
-.dash-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
-.dash-head h2{font-family:var(--display);font-size:26px;font-weight:800}
+/* QueryMix — private Dashboard view (opened from the account menu; data from existing endpoints only) */
+body.dash-open{overflow:hidden}
+.dash-view{position:fixed;top:var(--header-h);inset-inline:0;bottom:0;z-index:40;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--bg);background-image:radial-gradient(800px 380px at 90% -10%,rgba(109,74,255,.3) 0,transparent 70%),radial-gradient(640px 320px at 0% 0%,rgba(34,211,238,.14) 0,transparent 70%)}
+.dash-view-in{max-width:1000px;margin:0 auto;padding:20px var(--gutter) 60px}
+.dash-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}
+.back-ar::before{content:"→";margin-inline-end:6px}
+html[dir="ltr"] .back-ar::before{content:"←"}
+.dash-welcome{background:var(--brand-soft),var(--glass);background:linear-gradient(135deg,rgba(109,74,255,.35),rgba(34,211,238,.12)),var(--glass);border:1px solid var(--line-strong);border-radius:var(--r-xl);padding:26px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+.dash-welcome h2{font-family:var(--display);font-size:clamp(28px,5vw,38px);font-weight:900;margin:2px 0 6px}
+.dash-welcome h2:focus{outline:none}
+.dash-email{color:var(--muted);font-size:15px;overflow-wrap:anywhere}
 .dash-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.dash-card{background:rgba(10,15,36,.5);border:1px solid var(--line);border-radius:var(--r-md);padding:18px}
-.dash-card h3{font-family:var(--display);font-size:17px;margin-bottom:12px;color:#D9D0FF}
+.dash-card{background:var(--glass);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow-sm)}
+.dash-card h3{font-family:var(--display);font-size:17px;margin-bottom:14px;color:#D9D0FF;display:flex;align-items:center;gap:8px}
 .dash-card.wide{grid-column:1/-1}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:14.5px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;font-size:14.5px;align-items:baseline}
 .kv dt{color:var(--muted)}
 .kv dd{font-weight:700;text-align:end;overflow-wrap:anywhere}
 .kv dd.ltr{direction:ltr}
-.meter{height:10px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin:6px 0 12px}
+.meter{height:10px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin:6px 0 14px}
 .meter>span{display:block;height:100%;background:linear-gradient(90deg,var(--violet),var(--cyan));border-radius:6px;width:0}
-.meter-label{display:flex;justify-content:space-between;font-size:13.5px;color:var(--muted)}
+.meter-label{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
+.meter-label b{direction:ltr;unicode-bidi:isolate;color:var(--text)}
 .dash-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .dash-note{color:var(--muted);font-size:13.5px;margin-top:10px}
+.dash-saved .saved-list{display:grid;gap:8px}
 .dash-saved .saved-item{background:rgba(255,255,255,.04)}
-@media(max-width:720px){.dash{padding:18px}.dash-grid{grid-template-columns:1fr}}
-.meter-label b{direction:ltr;unicode-bidi:isolate}
+@media(max-width:720px){.dash-grid{grid-template-columns:1fr}.dash-welcome{padding:20px}.dash-view-in{padding-top:14px}}
+
+/* Account menu (header) */
+.acct-wrap{position:relative}
+.acct-menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:190px;background:var(--surface);border:1px solid var(--line-strong);border-radius:14px;box-shadow:var(--shadow);padding:6px;z-index:60;display:grid;gap:2px}
+.acct-menu.hidden{display:none}
+.acct-menu button{border:0;background:transparent;color:var(--text);text-align:start;min-height:48px;padding:10px 14px;border-radius:10px;font-size:15px;font-weight:600;width:100%}
+.acct-menu button:hover{background:rgba(255,255,255,.08)}
+.acct-menu button:focus-visible{outline:3px solid var(--focus);outline-offset:-3px}

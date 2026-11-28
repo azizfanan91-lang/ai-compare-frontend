@@ -100,3 +100,9 @@ html[dir="ltr"] .arrow::before{content:"›"}
 .faq details[open]{border-color:rgba(167,139,250,.5)}
 .faq .faq-a{padding:0 20px 18px;color:var(--muted);font-size:15px}
 .faq summary:focus-visible{outline:3px solid var(--focus);outline-offset:-3px}
+
+/* V4.3: checkout loading state */
+#subscribeLink.is-loading{opacity:.75;pointer-events:none}
+#subscribeLink.is-loading::after{content:"";width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:qmspin .8s linear infinite}
+@keyframes qmspin{to{transform:rotate(360deg)}}
+.sub-status.pending{color:var(--warn)}
