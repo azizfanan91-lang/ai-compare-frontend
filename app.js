@@ -76,10 +76,9 @@ const I18N = {
     fileReadErr: "تعذّرت قراءة الملف", pdfNoText: "هذا الـPDF ما فيهش نص قابل للاستخراج. جرّب ملفاً آخر.",
     truncated: "النص طويل، تمت معالجة الجزء الأول منه فقط.",
     howTitle: "كيف تبدأ",
-    s1t: "أنشئ حسابك", s1d: "سجّل دخولك وابدأ رحلتك مع QueryMix مجاناً لمدة 7 أيام.",
-    s2t: "اختر الأداة", s2d: "تصفح الأدوات واختر ما يناسب احتياجاتك.",
-    s3t: "أدخل بياناتك", s3d: "قدّم المعلومات المطلوبة للحصول على أفضل نتيجة.",
-    s4t: "احصل على النتائج", s4d: "استلم النتائج وصدّرها أو شاركها بسهولة.",
+    s1t: "اكتب طلبك", s1d: "اكتب سؤالك أو املأ حقول الأداة التي اخترتها.",
+    s2t: "قارن النماذج", s2d: "اختر نموذجين أو ثلاثة وشاهد إجاباتها جنباً إلى جنب.",
+    s3t: "انسخ أو احفظ أو شارك", s3d: "انسخ أفضل إجابة، أو احفظها في حسابك، أو شاركها.",
     pricingTitle: "الأسعار", pricingSub: "ابدأ مجاناً، وترقّى عندما تحتاج.",
     freePlan: "التجربة المجانية", freePer: "/ 7 أيام",
     freeLi1: () => `${LIMITS.trialDays} أيام تجربة مجانية: ${LIMITS.freeChat} محادثات و${LIMITS.freeImage} صور فـ النهار`, freeLi2: "كل الأدوات الأربع", freeLi3: "بدون بطاقة بنكية",
@@ -189,10 +188,9 @@ const I18N = {
     fileReadErr: "Impossible de lire le fichier", pdfNoText: "Ce PDF ne contient pas de texte extractible. Essayez un autre fichier.",
     truncated: "Texte long : seule la première partie a été traitée.",
     howTitle: "Comment ça marche",
-    s1t: "Créez votre compte", s1d: "Inscrivez-vous et démarrez votre parcours avec QueryMix, gratuitement pendant 7 jours.",
-    s2t: "Choisissez l'outil", s2d: "Parcourez les outils et choisissez celui qu'il vous faut.",
-    s3t: "Saisissez vos données", s3d: "Fournissez le texte, le fichier ou la description.",
-    s4t: "Obtenez les résultats", s4d: "Recevez les résultats, copiez-les ou partagez-les facilement.",
+    s1t: "Écrivez votre demande", s1d: "Saisissez votre question ou remplissez les champs de l'outil choisi.",
+    s2t: "Comparez les modèles", s2d: "Choisissez deux ou trois modèles et voyez leurs réponses côte à côte.",
+    s3t: "Copiez, enregistrez ou partagez", s3d: "Copiez la meilleure réponse, enregistrez-la dans votre compte ou partagez-la.",
     pricingTitle: "Tarifs", pricingSub: "Commencez gratuitement, passez à Premium quand vous voulez.",
     freePlan: "Essai gratuit", freePer: "/ 7 jours",
     freeLi1: () => `Essai gratuit de ${LIMITS.trialDays} jours : ${LIMITS.freeChat} discussions et ${LIMITS.freeImage} images par jour`, freeLi2: "Les quatre outils", freeLi3: "Sans carte bancaire",
@@ -302,10 +300,9 @@ const I18N = {
     fileReadErr: "Couldn't read the file", pdfNoText: "This PDF has no extractable text. Try another file.",
     truncated: "Long text: only the first part was processed.",
     howTitle: "How it works",
-    s1t: "Create your account", s1d: "Sign up and start your journey with QueryMix, free for 7 days.",
-    s2t: "Choose a tool", s2d: "Browse the tools and pick what fits your need.",
-    s3t: "Enter your input", s3d: "Provide the text, file or description.",
-    s4t: "Get your results", s4d: "Receive results, then copy or share them easily.",
+    s1t: "Write your request", s1d: "Type your question or fill in the fields of the tool you chose.",
+    s2t: "Compare the models", s2d: "Pick two or three models and see their answers side by side.",
+    s3t: "Copy, save or share", s3d: "Copy the best answer, save it to your account, or share it.",
     pricingTitle: "Pricing", pricingSub: "Start free, upgrade when you need to.",
     freePlan: "Free trial", freePer: "/ 7 days",
     freeLi1: () => `${LIMITS.trialDays}-day free trial: ${LIMITS.freeChat} chats and ${LIMITS.freeImage} images per day`, freeLi2: "All four tools", freeLi3: "No credit card needed",
@@ -485,7 +482,7 @@ Object.assign(I18N.ar, {
   dashAccount: "الحساب", dashEmail: "البريد الإلكتروني", dashPlan: "الخطة",
   dashSubscription: "الاشتراك", dashStatus: "الحالة", dashTrialLeft: "أيام التجربة المتبقية", dashSeePricing: "عرض الأسعار",
   dashPlanPremium: "Premium", dashPlanTrial: "تجربة مجانية", dashPlanEnded: "انتهت التجربة",
-  dashStatusActive: "نشط", dashStatusNone: "غير مشترك",
+  dashStatusActive: "Premium نشط", dashStatusTrial: "تجربة مجانية نشطة", dashStatusNone: "انتهت التجربة / لا يوجد اشتراك نشط",
   dashUsage: "الاستخدام اليوم", dashChatToday: "المحادثات", dashImgToday: "الصور", dashUnlimited: "غير محدود",
   dashUsageNote: "الأرقام قادمة مباشرة من حسابك على الخادم.",
   dashSaved: "النتائج المحفوظة", dashViewSaved: "عرض النتائج المحفوظة",
@@ -518,7 +515,7 @@ Object.assign(I18N.fr, {
   dashAccount: "Compte", dashEmail: "E-mail", dashPlan: "Offre",
   dashSubscription: "Abonnement", dashStatus: "Statut", dashTrialLeft: "Jours d'essai restants", dashSeePricing: "Voir les tarifs",
   dashPlanPremium: "Premium", dashPlanTrial: "Essai gratuit", dashPlanEnded: "Essai terminé",
-  dashStatusActive: "Actif", dashStatusNone: "Non abonné",
+  dashStatusActive: "Premium actif", dashStatusTrial: "Essai gratuit actif", dashStatusNone: "Essai terminé / aucun abonnement actif",
   dashUsage: "Utilisation aujourd'hui", dashChatToday: "Conversations", dashImgToday: "Images", dashUnlimited: "Illimité",
   dashUsageNote: "Ces chiffres proviennent directement de votre compte sur le serveur.",
   dashSaved: "Résultats enregistrés", dashViewSaved: "Voir les résultats enregistrés",
@@ -551,7 +548,7 @@ Object.assign(I18N.en, {
   dashAccount: "Account", dashEmail: "Email", dashPlan: "Plan",
   dashSubscription: "Subscription", dashStatus: "Status", dashTrialLeft: "Trial days left", dashSeePricing: "See pricing",
   dashPlanPremium: "Premium", dashPlanTrial: "Free trial", dashPlanEnded: "Trial ended",
-  dashStatusActive: "Active", dashStatusNone: "Not subscribed",
+  dashStatusActive: "Premium active", dashStatusTrial: "Free trial active", dashStatusNone: "Trial expired / no active subscription",
   dashUsage: "Usage today", dashChatToday: "Chats", dashImgToday: "Images", dashUnlimited: "Unlimited",
   dashUsageNote: "These numbers come directly from your account on the server.",
   dashSaved: "Saved results", dashViewSaved: "View saved results",
@@ -627,6 +624,35 @@ function renderAgents() {
   $("agentDesc").textContent = a.d[currentLang] || a.d.en;
 }
 
+// ---------- V4.2: trust strip + Product Listing Lab section ----------
+Object.assign(I18N.ar, {
+  trust1: "عدة نماذج ذكاء اصطناعي", trust2: "ثلاث لغات للواجهة: العربية · Français · English", trust3: "حفظ النتائج",
+  plSecTitle: "مختبر محتوى المنتجات", plSecDesc: "أدخل معلومات منتجك الحقيقية، ثم قارن ما تكتبه عدة نماذج: أوصاف المنتجات، محتوى SEO، وإعلانات تسويقية.",
+  plSecBtn: "افتح مختبر محتوى المنتجات"
+});
+Object.assign(I18N.fr, {
+  trust1: "Plusieurs modèles d'IA", trust2: "Interface en trois langues : العربية · Français · English", trust3: "Résultats enregistrables",
+  plSecTitle: "Product Listing Lab", plSecDesc: "Saisissez les vraies informations de votre produit, puis comparez ce que rédigent plusieurs modèles : descriptions produit, contenu SEO et annonces marketing.",
+  plSecBtn: "Ouvrir le Product Listing Lab"
+});
+Object.assign(I18N.en, {
+  trust1: "Multiple AI models", trust2: "Three interface languages: العربية · Français · English", trust3: "Saved results",
+  plSecTitle: "Product Listing Lab", plSecDesc: "Enter your real product information, then compare what several models write: product descriptions, SEO content and marketing ads.",
+  plSecBtn: "Open Product Listing Lab"
+});
+
+
+// ---------- V4.3: account menu + private Dashboard view ----------
+Object.assign(I18N.ar, { accountMenu: "حسابي", dashBack: "رجوع", dashWelcome: "مرحباً بك" });
+Object.assign(I18N.fr, { accountMenu: "Mon compte", dashBack: "Retour", dashWelcome: "Bienvenue" });
+Object.assign(I18N.en, { accountMenu: "My account", dashBack: "Back", dashWelcome: "Welcome back" });
+
+
+// ---------- V4.3: payment flow messages ----------
+Object.assign(I18N.ar, { subPreparing: "جارٍ تحضير صفحة الدفع...", subTimeout: "السيرفر تأخر في الرد، عاود المحاولة", subRetry: "إعادة المحاولة" });
+Object.assign(I18N.fr, { subPreparing: "Préparation de la page de paiement...", subTimeout: "Le serveur met trop de temps à répondre, réessayez", subRetry: "Réessayer" });
+Object.assign(I18N.en, { subPreparing: "Preparing the checkout page...", subTimeout: "The server took too long to respond, please retry", subRetry: "Retry" });
+
 function setLanguage(lang) {
   if (!I18N[lang]) return;
   currentLang = lang;
@@ -683,14 +709,30 @@ document.querySelectorAll(".links a").forEach(a => a.addEventListener("click", (
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
 
 function updateNav() {
-  $("authBtn").textContent = token ? t("logoutBtn") : "👤 " + t("loginTitle");
+  $("authBtn").textContent = token ? "👤 " + t("accountMenu") + " ▾" : "👤 " + t("loginTitle");
+  $("authBtn").setAttribute("aria-haspopup", token ? "menu" : "dialog");
   $("userEmailLabel").textContent = token ? (userEmail || "") : "";
-  $("navDashboard").classList.toggle("hidden", !token);
-  $("dashboard").classList.toggle("hidden", !token);
-  renderDashboard();
+  if (!token) { closeAcctMenu(); closeDashboard(); clearDashboard(); }
+  else renderDashboard();
 }
 
-$("authBtn").onclick = () => { token ? logout() : openAuth(false); };
+// Account menu (logged-in) — Dashboard + Logout; guests get the login modal
+function closeAcctMenu() {
+  $("acctMenu").classList.add("hidden");
+  $("authBtn").setAttribute("aria-expanded", "false");
+}
+$("authBtn").onclick = (e) => {
+  if (!token) return openAuth(false);
+  e.stopPropagation();
+  const open = $("acctMenu").classList.contains("hidden");
+  $("acctMenu").classList.toggle("hidden", !open);
+  $("authBtn").setAttribute("aria-expanded", open ? "true" : "false");
+  if (open) $("acctDashboard").focus();
+};
+document.addEventListener("click", (e) => { if (!e.target.closest(".acct-wrap")) closeAcctMenu(); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("acctMenu").classList.contains("hidden")) { closeAcctMenu(); $("authBtn").focus(); } });
+$("acctLogout").onclick = () => { closeAcctMenu(); logout(); };
+$("acctDashboard").onclick = () => { closeAcctMenu(); openDashboard(); };
 
 // ---------- Tools tabs ----------
 function setTool(name) {
@@ -938,6 +980,7 @@ function logout() {
   subscribeLinkReady = false;
   $("subscribeLink").removeAttribute("href");
   $("subscribeStatus").textContent = "";
+  $("subRetryBtn").classList.add("hidden");
   ["editResults", "dataResults", "sumResults", "imgResults"].forEach(id => $(id).innerHTML = "");
   $("limitBanner").classList.add("hidden");
   clearSession();
@@ -1122,6 +1165,7 @@ var savedCount = null;   // var: updateNav() runs before later lets are initiali
 var dashImgUsage = null;
 function renderSavedResults(results) {
   savedCount = token ? results.length : null;
+  savedItems = token ? results : [];
   renderDashboard();
   const box = $("savedList");
   box.replaceChildren();
@@ -1309,69 +1353,101 @@ async function refreshUsage() {
 })();
 
 // ---------- Gumroad Subscription (نفس المنطق القديم بلا تغيير) ----------
+// V4.3 (bug fix): robust checkout flow. Same endpoint (/api/payment/config) and same field (productUrl); no new URL is invented.
+var subBusy = false;      // var: may be touched before later lets initialise
+var subCheckBusy = false;
+function isValidCheckoutUrl(u) {
+  try {
+    const x = new URL(u);
+    return x.protocol === "https:" && (/(^|\.)gumroad\.com$/.test(x.hostname) || x.hostname === "gum.co");
+  } catch (e) { return false; }
+}
+function setSubStatus(key, cls) {
+  const el = $("subscribeStatus");
+  el.textContent = key ? t(key) : "";
+  el.className = "sub-status" + (cls ? " " + cls : "");
+}
+function setSubLoading(on) {
+  const link = $("subscribeLink");
+  link.setAttribute("aria-busy", on ? "true" : "false");
+  link.classList.toggle("is-loading", on);
+}
+// Returns the checkout URL (with the buyer's email) or throws "timeout" | "network" | "config" | "invalid".
+async function fetchCheckoutUrl() {
+  let res;
+  try {
+    res = await fetchWithTimeout(BACKEND_URL + "/api/payment/config", {}, 15000);
+  } catch (err) {
+    throw err && err.name === "AbortError" ? "timeout" : "network";
+  }
+  let config = {};
+  try { config = await res.json(); } catch (e) { /* not JSON */ }
+  if (!res.ok || !config.productUrl) throw "config";
+  if (!isValidCheckoutUrl(config.productUrl)) throw "invalid";
+  return config.productUrl + (config.productUrl.includes("?") ? "&" : "?") + "email=" + encodeURIComponent(userEmail || "");
+}
+// Silent prefetch (no error text: nothing has been attempted yet). Lets the first tap open the link natively.
 async function setupSubscribeLink() {
   if (subscribeLinkReady || !token) return;
-
-  const statusEl = $("subscribeStatus");
-  const linkEl = $("subscribeLink");
-
   try {
-    const configRes = await fetch(BACKEND_URL + "/api/payment/config");
-    const config = await configRes.json();
-
-    if (!config.productUrl) {
-      statusEl.textContent = t("paymentNotReady");
-      statusEl.className = "sub-status error";
-      return;
-    }
-
-    const urlWithEmail = config.productUrl +
-      (config.productUrl.includes("?") ? "&" : "?") +
-      "email=" + encodeURIComponent(userEmail);
-
-    linkEl.href = urlWithEmail;
+    $("subscribeLink").href = await fetchCheckoutUrl();
     subscribeLinkReady = true;
+  } catch (err) { /* handled when the user taps */ }
+}
+async function startCheckout() {
+  if (subBusy) return;                       // prevents duplicate requests
+  subBusy = true;
+  $("subRetryBtn").classList.add("hidden");
+  setSubLoading(true);
+  setSubStatus("subPreparing");
+  try {
+    const url = await fetchCheckoutUrl();
+    $("subscribeLink").href = url;
+    subscribeLinkReady = true;
+    setSubStatus("");
+    window.location.assign(url);             // same-tab navigation is never blocked as a popup (Android Chrome safe)
   } catch (err) {
-    statusEl.textContent = t("paymentNotReady");
-    statusEl.className = "sub-status error";
+    setSubStatus(err === "timeout" ? "subTimeout" : (err === "network" ? "subCheckError" : "paymentNotReady"), "error");
+    $("subRetryBtn").classList.remove("hidden");
+  } finally {
+    subBusy = false;
+    setSubLoading(false);
   }
 }
-
 $("subscribeLink").addEventListener("click", (e) => {
   if (!token) { e.preventDefault(); openAuth(true); return; }
-  if (!subscribeLinkReady) {
-    e.preventDefault();
-    const statusEl = $("subscribeStatus");
-    statusEl.textContent = t("paymentNotReady");
-    statusEl.className = "sub-status error";
-    setupSubscribeLink();
-  }
+  // Link already prepared: let the browser open it natively (new tab, direct user gesture => no popup blocking).
+  if (subscribeLinkReady && $("subscribeLink").getAttribute("href")) return;
+  e.preventDefault();
+  startCheckout();
 });
+$("subRetryBtn").onclick = startCheckout;
 
+// "Already paid?" — read-only check of the account state. Premium is only ever set by the trusted backend (Gumroad webhook).
 $("checkSubBtn").onclick = async () => {
   if (!token) { openAuth(true); return; }
-  const statusEl = $("subscribeStatus");
-  statusEl.textContent = t("checkingSub");
-  statusEl.className = "sub-status";
-
+  if (subCheckBusy) return;
+  subCheckBusy = true;
+  $("checkSubBtn").disabled = true;
+  setSubStatus("checkingSub");
   try {
-    const res = await fetch(BACKEND_URL + "/api/usage", {
+    const res = await fetchWithTimeout(BACKEND_URL + "/api/usage", {
       headers: { "Authorization": "Bearer " + token }
-    });
+    }, 15000);
     if (res.status === 401) { sessionExpired(); return; }
+    if (!res.ok) throw "server";
     const data = await res.json();
-
-    if (data.is_premium) {
-      statusEl.textContent = t("subSuccess");
-      statusEl.className = "sub-status success";
+    if (data.is_premium === true) {
+      setSubStatus("subSuccess", "success");   // confirmed by the backend
       refreshUsage();
     } else {
-      statusEl.textContent = t("subNotYet");
-      statusEl.className = "sub-status";
+      setSubStatus("subNotYet", "pending");    // pending: no confirmation yet (not an error)
     }
   } catch (err) {
-    statusEl.textContent = t("subCheckError");
-    statusEl.className = "sub-status error";
+    setSubStatus(err && err.name === "AbortError" ? "subTimeout" : "subCheckError", "error");   // genuine failure
+  } finally {
+    subCheckBusy = false;
+    $("checkSubBtn").disabled = false;
   }
 };
 
@@ -1975,6 +2051,7 @@ $("plRun").onclick = () => {
 };
 $("navProductLab").addEventListener("click", () => setTool("productLab"));
 $("heroPlBadge").addEventListener("click", () => setTool("productLab"));
+$("plSecBtn").addEventListener("click", () => { setTool("productLab"); $("tools").scrollIntoView(); });
 
 
 // ---------- Redesign v11 additions (UI only; no change to API/auth/payment/usage logic) ----------
@@ -1997,32 +2074,84 @@ function setBar(id, used, limit) {
   if (!el) return;
   el.style.width = (limit > 0 ? Math.min(100, Math.round((used / limit) * 100)) : 0) + "%";
 }
+var savedItems = [];
 function renderDashboard() {
   if (!token) return;
   $("dashEmail").textContent = userEmail || "";
+  $("dashWelcomeEmail").textContent = userEmail || "";
   const d = lastUsage;
+  const num = (v) => typeof v === "number" && isFinite(v);
   if (d) {
-    const plan = d.is_premium ? t("dashPlanPremium") : (d.in_trial ? t("dashPlanTrial") : t("dashPlanEnded"));
-    $("dashPlan").textContent = plan;
-    $("dashSubStatus").textContent = d.is_premium ? t("dashStatusActive") : t("dashStatusNone");
-    $("dashTrialLeft").textContent = (!d.is_premium && d.in_trial && d.trial_days_left != null) ? String(d.trial_days_left) : "—";
-    if (d.is_premium || d.chat_limit == null) {
-      $("dashChatTxt").textContent = d.is_premium ? t("dashUnlimited") : "—";
-      setBar("dashChatBar", 0, 0);
-    } else {
-      $("dashChatTxt").textContent = `${d.chat_used} / ${d.chat_limit}`;
-      setBar("dashChatBar", d.chat_used, d.chat_limit);
-    }
+    $("dashPlan").textContent = d.is_premium ? t("dashPlanPremium") : (d.in_trial ? t("dashPlanTrial") : t("dashPlanEnded"));
+    $("dashSubStatus").textContent = d.is_premium ? t("dashStatusActive") : (d.in_trial ? t("dashStatusTrial") : t("dashStatusNone"));
+    const showTrial = !d.is_premium && d.in_trial && num(d.trial_days_left);
+    $("dashTrialLeft").textContent = showTrial ? String(d.trial_days_left) : "";
+    $("dashTrialLeft").classList.toggle("hidden", !showTrial);
+    $("dashTrialLeftLbl").classList.toggle("hidden", !showTrial);
+    let chatShown = false;
+    if (d.unlimited === true) { $("dashChatTxt").textContent = t("dashUnlimited"); setBar("dashChatBar", 0, 0); chatShown = true; }
+    else if (num(d.chat_used) && num(d.chat_limit)) { $("dashChatTxt").textContent = `${d.chat_used} / ${d.chat_limit}`; setBar("dashChatBar", d.chat_used, d.chat_limit); chatShown = true; }
+    $("dashChatRow").classList.toggle("hidden", !chatShown);
+  } else {
+    ["dashPlan", "dashSubStatus"].forEach(id => $(id).textContent = "");
+    $("dashChatRow").classList.add("hidden");
   }
   const g = dashImgUsage;
-  if (g) {
-    $("dashImgTxt").textContent = `${g.used} / ${g.limit}`;
-    setBar("dashImgBar", g.used, g.limit);
-  }
+  const imgOk = g && num(g.used) && num(g.limit);
+  if (imgOk) { $("dashImgTxt").textContent = `${g.used} / ${g.limit}`; setBar("dashImgBar", g.used, g.limit); }
+  $("dashImgRow").classList.toggle("hidden", !imgOk);
   $("dashSavedCount").textContent = savedCount == null ? "" : t("dashSavedCount", savedCount);
+  const list = $("dashSavedList");
+  list.replaceChildren();
+  (savedItems || []).slice(0, 5).forEach(item => {
+    const row = document.createElement("div");
+    row.className = "saved-item";
+    const info = document.createElement("div");
+    const title = document.createElement("strong");
+    title.textContent = item.title || t("savedTitle");
+    const meta = document.createElement("small");
+    const dt = item.created_at ? new Date(item.created_at) : null;
+    meta.textContent = [item.model || item.kind, dt && !isNaN(dt) ? dt.toLocaleDateString() : ""].filter(Boolean).join(" · ");
+    info.append(title, meta);
+    const use = document.createElement("button");
+    use.type = "button";
+    use.className = "btn btn-w btn-sm";
+    use.textContent = t("useSavedBtn");
+    use.onclick = () => { closeDashboard(); setTool("edit"); $("editText").value = item.content || ""; $("tools").scrollIntoView({ block: "start" }); $("editText").focus(); };
+    row.append(info, use);
+    list.appendChild(row);
+  });
 }
-$("dashOpenWorkspace").onclick = () => { $("tools").scrollIntoView(); };
-$("dashSavedBtn").onclick = () => { loadSavedResults(); $("savedList").scrollIntoView({ block: "center" }); };
+function clearDashboard() {
+  ["dashEmail", "dashWelcomeEmail", "dashPlan", "dashSubStatus", "dashTrialLeft", "dashChatTxt", "dashImgTxt", "dashSavedCount", "dashMsg"].forEach(id => { $(id).textContent = ""; });
+  $("dashSavedList").replaceChildren();
+  ["dashChatRow", "dashImgRow"].forEach(id => $(id).classList.add("hidden"));
+  setBar("dashChatBar", 0, 0); setBar("dashImgBar", 0, 0);
+  savedItems = [];
+}
+var dashLastFocus = null;
+function openDashboard() {
+  if (!token) return;
+  dashLastFocus = document.activeElement;
+  $("dashboard").classList.remove("hidden");
+  document.body.classList.add("dash-open");
+  setMenu(false);
+  renderDashboard();
+  refreshUsage(); refreshImageUsage(); loadSavedResults();
+  $("dashTitle").focus();
+}
+function closeDashboard() {
+  if ($("dashboard").classList.contains("hidden")) return;
+  $("dashboard").classList.add("hidden");
+  document.body.classList.remove("dash-open");
+  if (dashLastFocus && document.contains(dashLastFocus) && token) dashLastFocus.focus();
+  dashLastFocus = null;
+}
+$("dashBack").onclick = closeDashboard;
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("dashboard").classList.contains("hidden") && !document.querySelector(".modal.open")) closeDashboard(); });
+$("dashPricingLink").addEventListener("click", () => { closeDashboard(); });
+$("dashOpenWorkspace").onclick = () => { closeDashboard(); $("tools").scrollIntoView(); };
+$("dashSavedBtn").onclick = () => { closeDashboard(); loadSavedResults(); $("savedList").scrollIntoView({ block: "center" }); };
 $("dashLogoutBtn").onclick = () => { logout(); window.scrollTo(0, 0); };
 $("dashResetBtn").onclick = async () => {
   const msg = $("dashMsg");
@@ -2124,3 +2253,48 @@ setTool("productLab");
 loadFreeModels();
 loadImageModels();
 refreshImageUsage();
+
+// ---------- V4.3: optional original image slots ----------
+// A slot shows images/<name>.webp ONLY if that file exists on the site. No file => nothing is rendered (no placeholder, no broken icon).
+Object.assign(I18N.ar, { imgAltProductLab: "منتج مميز في استوديو تصوير تجاري", imgAltCompare: "ثلاث لوحات زجاجية تمثل إجابات ثلاثة نماذج ذكاء اصطناعي مرتبطة بسؤال واحد", imgAltText: "مستند رقمي تحيط به عناصر تحرير ذكية", imgAltImage: "استوديو إبداعي لتوليد الصور بالذكاء الاصطناعي", imgAltData: "لوحات تحليل بيانات ورسوم بيانية عائمة" });
+Object.assign(I18N.fr, { imgAltProductLab: "Produit haut de gamme dans un studio photo commercial", imgAltCompare: "Trois panneaux de verre représentant les réponses de trois modèles d'IA reliés à une seule question", imgAltText: "Document numérique entouré d'éléments d'édition intelligents", imgAltImage: "Studio créatif de génération d'images par IA", imgAltData: "Panneaux d'analyse de données et graphiques flottants" });
+Object.assign(I18N.en, { imgAltProductLab: "Premium product in a commercial photography studio", imgAltCompare: "Three glass panels representing three AI model answers connected to one question", imgAltText: "A digital document surrounded by intelligent editing elements", imgAltImage: "A creative AI image-generation studio", imgAltData: "Floating data analysis panels and charts" });
+(function initAssetSlots() {
+  const slots = [...document.querySelectorAll(".asset[data-asset]")];
+  const files = {};
+  const setAlt = (img, slot) => { img.alt = slot.dataset.decorative ? "" : t(slot.dataset.alt); };
+  // Resolve to {src,w,h,source} for the first image that exists: the new original (images/<name>.webp), else the existing fallback.
+  function probe(src) {
+    if (!(src in files)) {
+      files[src] = new Promise(res => {
+        const p = new Image();
+        p.onload = () => res({ src, w: p.naturalWidth, h: p.naturalHeight });
+        p.onerror = () => res(null);
+        p.src = src;
+      });
+    }
+    return files[src];
+  }
+  function mount(slot) {
+    const candidates = [["images/" + slot.dataset.asset + ".webp", "original"]];
+    if (slot.dataset.fallback) candidates.push([slot.dataset.fallback, "fallback"]);
+    (async () => {
+      for (const [src, kind] of candidates) {
+        const r = await probe(src);
+        if (!r) continue;
+        const img = document.createElement("img");
+        img.src = r.src; img.width = r.w; img.height = r.h;
+        img.decoding = "async";
+        if (!slot.dataset.eager) img.loading = "lazy";
+        setAlt(img, slot);
+        slot.replaceChildren(img);
+        slot.dataset.source = kind;
+        slot.classList.add("asset-ready");
+        return;
+      }
+    })();
+  }
+  slots.forEach(mount);
+  new MutationObserver(() => slots.forEach(s => { const img = s.querySelector("img"); if (img) setAlt(img, s); }))
+    .observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+})();

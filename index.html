@@ -26,13 +26,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=11">
-<link rel="stylesheet" href="css/base.css?v=11">
-<link rel="stylesheet" href="css/components.css?v=11">
-<link rel="stylesheet" href="css/layout.css?v=11">
-<link rel="stylesheet" href="css/workspace.css?v=11">
-<link rel="stylesheet" href="css/dashboard.css?v=11">
-<link rel="stylesheet" href="css/legal.css?v=11">
+<link rel="stylesheet" href="css/tokens.css?v=13">
+<link rel="stylesheet" href="css/base.css?v=13">
+<link rel="stylesheet" href="css/components.css?v=13">
+<link rel="stylesheet" href="css/layout.css?v=13">
+<link rel="stylesheet" href="css/workspace.css?v=13">
+<link rel="stylesheet" href="css/dashboard.css?v=13">
+<link rel="stylesheet" href="css/legal.css?v=13">
 </head>
 <body>
 <a class="skip-link" href="#home" data-i18n="skipLink"></a>
@@ -46,7 +46,6 @@
       <a href="#how" data-i18n="navHow"></a>
       <a href="#pricing" data-i18n="navPricing"></a>
       <a href="#faq" data-i18n="navFaq"></a>
-      <a href="#dashboard" id="navDashboard" class="hidden" data-i18n="navDashboard"></a>
     </nav>
     <div class="nav-end">
       <div class="lang" role="group" aria-label="Language">
@@ -55,7 +54,13 @@
         <button class="lang-btn" data-lang="en" aria-label="English" aria-pressed="false">EN</button>
       </div>
       <a href="#preview" class="btn btn-p btn-sm nav-cta" data-i18n="navTry"></a>
-      <button class="btn btn-w btn-sm" id="authBtn"></button>
+      <div class="acct-wrap">
+        <button class="btn btn-w btn-sm" id="authBtn" aria-haspopup="menu" aria-expanded="false"></button>
+        <div class="acct-menu hidden" id="acctMenu" role="menu">
+          <button type="button" role="menuitem" id="acctDashboard" data-i18n="navDashboard"></button>
+          <button type="button" role="menuitem" id="acctLogout" data-i18n="logoutBtn"></button>
+        </div>
+      </div>
       <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-controls="links" aria-expanded="false">☰</button>
     </div>
   </div>
@@ -74,6 +79,7 @@
       </div>
     </div>
     <div class="demo" role="img" aria-label="Illustrative example of a side-by-side comparison">
+      <div class="asset asset-bg" data-asset="hero-ai" data-fallback="images/qm-hero.webp.png" data-w="1200" data-h="900" data-eager="1" data-decorative="1"></div>
       <span class="demo-tag" data-i18n="demoExample"></span>
       <div class="demo-q"><small data-i18n="demoYourQ"></small><span data-i18n="demoQ"></span></div>
       <div class="demo-cards" aria-hidden="true">
@@ -84,15 +90,11 @@
     </div>
   </section>
 
-  <section aria-labelledby="benTitle">
-    <h2 class="section-title" id="benTitle" data-i18n="benTitle"></h2>
-    <p class="section-sub" data-i18n="benSub"></p>
-    <div class="benefits">
-      <div class="benefit"><div class="ic" aria-hidden="true">⚖️</div><h3 data-i18n="ben1T"></h3><p data-i18n="ben1D"></p></div>
-      <div class="benefit"><div class="ic" aria-hidden="true">🛍️</div><h3 data-i18n="ben2T"></h3><p data-i18n="ben2D"></p></div>
-      <div class="benefit"><div class="ic" aria-hidden="true">🌍</div><h3 data-i18n="ben3T"></h3><p data-i18n="ben3D"></p></div>
-    </div>
-  </section>
+  <ul class="trust" aria-label="QueryMix">
+    <li><span aria-hidden="true">🧠</span><span data-i18n="trust1"></span></li>
+    <li><span aria-hidden="true">🌍</span><span data-i18n="trust2"></span></li>
+    <li><span aria-hidden="true">🔖</span><span data-i18n="trust3"></span></li>
+  </ul>
 
   <section class="feats" id="toolcards">
     <button class="feat" data-tool="edit"><div class="ico"><img src="images/qm-edit.webp.png" alt="" loading="lazy"></div>
@@ -128,54 +130,6 @@
     </div>
   </section>
 
-  <section id="dashboard" class="hidden" aria-labelledby="dashTitle">
-    <div class="dash">
-      <div class="dash-head">
-        <h2 id="dashTitle" data-i18n="dashTitle"></h2>
-        <button class="btn btn-p btn-sm" type="button" id="dashOpenWorkspace" data-i18n="dashOpenWorkspace"></button>
-      </div>
-      <div class="dash-grid">
-        <div class="dash-card">
-          <h3 data-i18n="dashAccount"></h3>
-          <dl class="kv">
-            <dt data-i18n="dashEmail"></dt><dd class="ltr" id="dashEmail"></dd>
-            <dt data-i18n="dashPlan"></dt><dd id="dashPlan">...</dd>
-          </dl>
-        </div>
-        <div class="dash-card">
-          <h3 data-i18n="dashSubscription"></h3>
-          <dl class="kv">
-            <dt data-i18n="dashStatus"></dt><dd id="dashSubStatus">...</dd>
-            <dt data-i18n="dashTrialLeft"></dt><dd id="dashTrialLeft">—</dd>
-          </dl>
-          <div class="dash-actions">
-            <a class="btn btn-w btn-sm" href="#pricing" data-i18n="dashSeePricing" id="dashPricingLink"></a>
-          </div>
-        </div>
-        <div class="dash-card">
-          <h3 data-i18n="dashUsage"></h3>
-          <div class="meter-label"><span data-i18n="dashChatToday"></span><b id="dashChatTxt">—</b></div>
-          <div class="meter" aria-hidden="true"><span id="dashChatBar"></span></div>
-          <div class="meter-label"><span data-i18n="dashImgToday"></span><b id="dashImgTxt">—</b></div>
-          <div class="meter" aria-hidden="true"><span id="dashImgBar"></span></div>
-          <p class="dash-note" data-i18n="dashUsageNote"></p>
-        </div>
-        <div class="dash-card dash-saved">
-          <h3 data-i18n="dashSaved"></h3>
-          <p class="dash-note" style="margin:0 0 10px" id="dashSavedCount"></p>
-          <button class="btn btn-w btn-sm" type="button" id="dashSavedBtn" data-i18n="dashViewSaved"></button>
-        </div>
-        <div class="dash-card wide">
-          <h3 data-i18n="dashManage"></h3>
-          <div class="dash-actions" style="margin-top:0">
-            <button class="btn btn-w btn-sm" type="button" id="dashResetBtn" data-i18n="dashSendReset"></button>
-            <button class="btn btn-w btn-sm" type="button" id="dashLogoutBtn" data-i18n="logoutBtn"></button>
-          </div>
-          <p class="dash-note" id="dashMsg" role="status" aria-live="polite"></p>
-        </div>
-      </div>
-    </div>
-  </section>
   <section id="tools">
     <h2 class="section-title" data-i18n="toolsTitle"></h2>
     <p class="section-sub" data-i18n="toolsSub"></p>
@@ -312,6 +266,7 @@
 
       <!-- تحرير النصوص -->
       <div data-panel="edit">
+        <div class="asset asset-banner" data-asset="text-assistant" data-fallback="images/qm-edit.webp.png" data-alt="imgAltText" data-w="1600" data-h="400"></div>
         <textarea class="ta" id="editText" data-i18n-ph="editPh"></textarea>
         <button class="btn btn-p run" id="editRun" data-i18n="editRun" style="margin-top:12px"></button>
         <div class="results compare-layout" id="editResults" aria-live="polite"></div>
@@ -319,6 +274,7 @@
 
       <!-- توليد الصور -->
       <div data-panel="image" class="hidden">
+        <div class="asset asset-banner" data-asset="image-studio" data-fallback="images/qm-image.webp.png" data-alt="imgAltImage" data-w="1600" data-h="400"></div>
         <div class="is-head">
           <h3 data-i18n="isTitle"></h3>
           <p data-i18n="isSub"></p>
@@ -364,6 +320,7 @@
 
       <!-- تحليل البيانات -->
       <div data-panel="data" class="hidden">
+        <div class="asset asset-banner" data-asset="data-analysis" data-fallback="images/qm-data.webp.png" data-alt="imgAltData" data-w="1600" data-h="400"></div>
         <label class="btn btn-w btn-sm file"><input type="file" id="dataFile" accept=".csv,.tsv,.txt,.json"><span data-i18n="uploadCsv"></span></label>
         <textarea class="ta" id="dataText" data-i18n-ph="dataPh" style="margin-top:12px"></textarea>
         <input class="inp" id="dataQ" data-i18n-ph="dataQPh" maxlength="300">
@@ -374,6 +331,7 @@
 
       <!-- تلخيص النصوص -->
       <div data-panel="summary" class="hidden">
+        <div class="asset asset-banner" data-asset="text-assistant" data-fallback="images/qm-summary.webp.png" data-alt="imgAltText" data-w="1600" data-h="400"></div>
         <label class="btn btn-w btn-sm file"><input type="file" id="sumFile" accept=".txt,.md,.csv,.json,.pdf,application/pdf"><span data-i18n="uploadTxt"></span></label>
         <textarea class="ta" id="sumText" data-i18n-ph="sumPh" style="margin-top:12px"></textarea>
         <div class="opts">
@@ -410,13 +368,43 @@
     </div>
   </section>
 
+  <section class="pl-feature" id="product-lab" aria-labelledby="plSecTitleH">
+    <div class="pl-feature-in">
+      <div>
+        <span class="eyebrow">✨ <span data-i18n="plBadge"></span></span>
+        <h2 id="plSecTitleH" data-i18n="plSecTitle"></h2>
+        <p class="lead" data-i18n="plSecDesc"></p>
+        <ul class="pl-checks"><li data-i18n="plChk1"></li><li data-i18n="plChk2"></li><li data-i18n="plChk3"></li></ul>
+        <button type="button" class="btn btn-p" id="plSecBtn" data-i18n="plSecBtn"></button>
+      </div>
+      <div class="pl-feature-side">
+      <div class="asset asset-card" data-asset="product-lab" data-alt="imgAltProductLab" data-w="1200" data-h="900"></div>
+      <ul class="pl-why pl-feature-why">
+        <li><span class="ic" aria-hidden="true">⚡</span><span><b data-i18n="plWhy1T"></b><span class="d" data-i18n="plWhy1D"></span></span></li>
+        <li><span class="ic" aria-hidden="true">🎯</span><span><b data-i18n="plWhy2T"></b><span class="d" data-i18n="plWhy2D"></span></span></li>
+        <li><span class="ic" aria-hidden="true">🔖</span><span><b data-i18n="plWhy3T"></b><span class="d" data-i18n="plWhy3D"></span></span></li>
+      </ul>
+      </div>
+    </div>
+  </section>
+
   <section class="steps-box" id="how">
     <h2 class="section-title" data-i18n="howTitle"></h2>
+    <div class="asset asset-wide" data-asset="model-comparison" data-fallback="images/qm-compare.webp.png" data-alt="imgAltCompare" data-w="1600" data-h="900"></div>
     <div class="steps">
       <div class="step"><div class="num">1</div><h4 data-i18n="s1t"></h4><p data-i18n="s1d"></p></div>
       <div class="step"><div class="num">2</div><h4 data-i18n="s2t"></h4><p data-i18n="s2d"></p></div>
       <div class="step"><div class="num">3</div><h4 data-i18n="s3t"></h4><p data-i18n="s3d"></p></div>
-      <div class="step"><div class="num">4</div><h4 data-i18n="s4t"></h4><p data-i18n="s4d"></p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="benTitle">
+    <h2 class="section-title" id="benTitle" data-i18n="benTitle"></h2>
+    <p class="section-sub" data-i18n="benSub"></p>
+    <div class="benefits">
+      <div class="benefit"><div class="ic" aria-hidden="true">⚖️</div><h3 data-i18n="ben1T"></h3><p data-i18n="ben1D"></p></div>
+      <div class="benefit"><div class="ic" aria-hidden="true">🛍️</div><h3 data-i18n="ben2T"></h3><p data-i18n="ben2D"></p></div>
+      <div class="benefit"><div class="ic" aria-hidden="true">🌍</div><h3 data-i18n="ben3T"></h3><p data-i18n="ben3D"></p></div>
     </div>
   </section>
 
@@ -439,6 +427,7 @@
         <div class="sub-actions" id="subActions">
           <a class="btn btn-p" id="subscribeLink" target="_blank" rel="noopener" data-i18n="subscribeLinkText"></a>
           <button type="button" class="btn btn-w" id="checkSubBtn" data-i18n="checkSubText"></button>
+          <button type="button" class="btn btn-w hidden" id="subRetryBtn" data-i18n="subRetry"></button>
         </div>
         <div class="prem-ok hidden" id="premiumOk" data-i18n="premiumLabel"></div>
         <div class="sub-status" id="subscribeStatus"></div>
@@ -468,6 +457,67 @@
     <button class="btn btn-p" id="ctaBtn"><span class="arrow"></span> <span data-i18n="ctaBtnText"></span></button>
   </section>
 </main>
+
+  <div id="dashboard" class="dash-view hidden" role="dialog" aria-modal="true" aria-labelledby="dashTitle">
+    <div class="dash-view-in">
+      <div class="dash-top">
+        <button class="btn btn-w btn-sm" type="button" id="dashBack"><span class="back-ar" aria-hidden="true"></span><span data-i18n="dashBack"></span></button>
+        <button class="btn btn-p btn-sm" type="button" id="dashOpenWorkspace" data-i18n="dashOpenWorkspace"></button>
+      </div>
+      <section class="dash-welcome">
+        <span class="eyebrow" data-i18n="dashWelcome"></span>
+        <h2 id="dashTitle" tabindex="-1" data-i18n="dashTitle"></h2>
+        <p class="dash-email ltr" id="dashWelcomeEmail"></p>
+      </section>
+      <div class="dash-grid">
+        <section class="dash-card" aria-labelledby="dAccH">
+          <h3 id="dAccH" data-i18n="dashAccount"></h3>
+          <dl class="kv">
+            <dt data-i18n="dashEmail"></dt><dd class="ltr" id="dashEmail"></dd>
+            <dt data-i18n="dashPlan"></dt><dd id="dashPlan"></dd>
+          </dl>
+        </section>
+        <section class="dash-card" aria-labelledby="dSubH">
+          <h3 id="dSubH" data-i18n="dashSubscription"></h3>
+          <dl class="kv">
+            <dt data-i18n="dashStatus"></dt><dd id="dashSubStatus"></dd>
+            <dt class="hidden" id="dashTrialLeftLbl" data-i18n="dashTrialLeft"></dt><dd class="hidden" id="dashTrialLeft"></dd>
+          </dl>
+          <div class="dash-actions">
+            <a class="btn btn-w btn-sm" href="#pricing" data-i18n="dashSeePricing" id="dashPricingLink"></a>
+          </div>
+        </section>
+        <section class="dash-card" aria-labelledby="dUseH">
+          <h3 id="dUseH" data-i18n="dashUsage"></h3>
+          <div id="dashChatRow" class="hidden">
+            <div class="meter-label"><span data-i18n="dashChatToday"></span><b id="dashChatTxt"></b></div>
+            <div class="meter" aria-hidden="true"><span id="dashChatBar"></span></div>
+          </div>
+          <div id="dashImgRow" class="hidden">
+            <div class="meter-label"><span data-i18n="dashImgToday"></span><b id="dashImgTxt"></b></div>
+            <div class="meter" aria-hidden="true"><span id="dashImgBar"></span></div>
+          </div>
+          <p class="dash-note" data-i18n="dashUsageNote"></p>
+        </section>
+        <section class="dash-card dash-saved" aria-labelledby="dSavH">
+          <h3 id="dSavH" data-i18n="dashSaved"></h3>
+          <p class="dash-note" style="margin:0 0 10px" id="dashSavedCount"></p>
+          <div class="saved-list" id="dashSavedList"></div>
+          <div class="dash-actions">
+            <button class="btn btn-w btn-sm" type="button" id="dashSavedBtn" data-i18n="dashViewSaved"></button>
+          </div>
+        </section>
+        <section class="dash-card wide" aria-labelledby="dManH">
+          <h3 id="dManH" data-i18n="dashManage"></h3>
+          <div class="dash-actions" style="margin-top:0">
+            <button class="btn btn-w btn-sm" type="button" id="dashResetBtn" data-i18n="dashSendReset"></button>
+            <button class="btn btn-w btn-sm" type="button" id="dashLogoutBtn" data-i18n="logoutBtn"></button>
+          </div>
+          <p class="dash-note" id="dashMsg" role="status" aria-live="polite"></p>
+        </section>
+      </div>
+    </div>
+  </div>
 
 <footer>© 2026 QueryMix — usequerymix.com<br><a href="privacy.html">الخصوصية · Privacy</a> &nbsp;|&nbsp; <a href="terms.html">الشروط · Terms</a> &nbsp;|&nbsp; <a href="mailto:support@usequerymix.com">support@usequerymix.com</a></footer>
 
@@ -526,7 +576,7 @@
   </div>
 </div>
 
-<script src="app.js?v=11" defer></script>
+<script src="app.js?v=13" defer></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "458d2ed95f9a41f2aa0a43feeb40d1b5"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
